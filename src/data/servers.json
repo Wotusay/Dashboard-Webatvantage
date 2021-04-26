@@ -1,0 +1,52 @@
+{
+  "servers": [
+    {
+      "name": "de",
+      "status": "green", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
+      "Load": [{
+        "current": 0.3,
+        "avg5": 0.5,
+        "avg15": 0.4
+      }],
+      "diskSpace": [
+        {
+          "used": 145,
+          "available": 250,
+          "freePercentage": 42.00
+        }
+      ],
+    },
+    {
+      "name": "uk",
+      "status": "orange", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
+      "Load": [{
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      }],
+      "diskSpace": [
+        {
+          "used": 85,
+          "available": 100,
+          "freePercentage": 15.00
+        }
+      ],
+    },
+    {
+      "name": "es",
+      "status": "red", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
+      "Load": [{
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      }],
+      "diskSpace": [
+        {
+          "used": 280,
+          "available": 300,
+          "freePercentage": 6.66
+        }
+      ],
+    },
+  ],
+}

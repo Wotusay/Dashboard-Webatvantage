@@ -1,0 +1,65 @@
+{
+  "clients": [
+    {
+      "name": "Carmi",
+      "category": "Schoenwinkel",
+      "server": "dedicated",
+      "eCommerceData": [
+        {
+          "conversions": 196,
+          "averageSell": 159.67,
+          "totalRevenue": 31294.34,
+          "conversionRate": "0.9%"
+        }
+      ],
+      "analyticsData": [
+        {
+          "totalSessions": 21746,
+          "totalUsers": 15755,
+          "pageviews": 206901,
+          "averagePagesPerSessions": 9.51,
+          "bouncerate": "26.8%",
+          "aquisition": [
+            {
+              "organic": 17010,
+              "direct": 3885,
+              "social": 454,
+              "referral": 399,
+              "paid": 32
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bobo",
+      "category": "Fashion",
+      "server": "dedicated",
+      "eCommerceData": [
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": "1.3%"
+        }
+      ],
+      "analyticsData": [
+        {
+          "totalSessions": 13960,
+          "totalUsers": 7848,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": "33.62%",
+          "aquisition": [
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

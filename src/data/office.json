@@ -1,0 +1,14 @@
+{
+  "temperature": [
+    {
+      "current": 19,
+      "average": 17
+    }
+  ],
+  "decibel": [
+    {
+      "current": 43,
+      "average": 21
+    }
+  ],
+}
