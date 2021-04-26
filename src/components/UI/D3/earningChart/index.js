@@ -1,14 +1,13 @@
 import { autorun } from 'mobx';
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
-import { svg } from 'd3';
 
 const EarningChart = ({items}) => {
     const ref = useRef();
 
     const graph = autorun(() => {
         const svgCanvas = d3.select(ref.current);
-        const tickDuration = 500;
+        //const tickDuration = 500;
         const top_n = 12;
 
         svgCanvas.selectAll('text').remove();
@@ -21,7 +20,7 @@ const EarningChart = ({items}) => {
 
         let barPadding = (height - (margin.bottom+margin.top)) / (top_n*5); 
 
-        let title = svgCanvas.append('text')
+        svgCanvas.append('text')
         .attr('class', 'title')
         .attr('y', '24')
         .html('All earnings for the webshops');
@@ -85,6 +84,19 @@ const EarningChart = ({items}) => {
         .attr('x', d => x(d.eCommerceData.totalRevenue)+5)
         .attr('y', d => y(d.rank)+5+((y(1)-y(0))/2)+1)
         .text(d => d3.format(',.0f')(d.eCommerceData.totalRevenue));
+
+        svgCanvas.selectAll('text')
+        .style('font-size', '16px');
+
+        svgCanvas.select('.title')
+        .style('font-size', '24px')
+        .style('font-weight', '500');
+
+        svgCanvas.selectAll('.tick').select('text').style('fill', '#777777');
+        svgCanvas.selectAll('.tick').select('line').style('stroke', '#dddddd').style('shape-rendering', 'CrispEdges');
+        svgCanvas.select('.domain').style('display', 'none');
+
+
     });
 
     useEffect(() => graph);
