@@ -7,8 +7,7 @@ const ConversionChart   = ({items}) => {
     const ref = useRef();
 
     const graph = autorun(() => {
-       // items.map(i => console.log(i.eCommerceData.map(i=> i.conversions)))
-        const svgCanvas = d3.select(ref.current)   
+    const svgCanvas = d3.select(ref.current)   
 
     svgCanvas.selectAll("g").remove();
 
