@@ -1,9 +1,13 @@
 import React from 'react';
+import { useObserver } from 'mobx-react-lite';
 import ConversionChart from '../../UI/D3/conversionChart';
+import { useStores } from '../../../hooks';
+import Card from '../../UI/card';
 
 const ECommerce = () => {
-       
-    return (
+    const {eCommerceStore} =useStores();
+    const item = eCommerceStore.eCommerceItems;
+    return useObserver (() => (
         <>
             <div>
                 <p>Time Range</p>
@@ -13,9 +17,16 @@ const ECommerce = () => {
                     <button>1M</button>
                 </div>
             </div>
-            <ConversionChart/>
+
+            <div>
+            <ConversionChart items={item} />
+            <div> 
+                <Card title={`Total earning`} number={eCommerceStore.totalEarining} rate={10} tagline={`Compared to €300.00 last month`} />
+                <Card title={`Total sold`} number={eCommerceStore.avgSold} rate={10} tagline={`Compared to €300.00 last month`} />
+            </div>
+            </div>
         </>
-    )
+    ))
 }
 
 export default ECommerce;
