@@ -1,0 +1,65 @@
+.chartsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.cardsWrapper {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: 21rem 21rem;
+    grid-gap: 10rem;
+    margin-bottom: 1rem;
+}
+
+
+.timeWrapper {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;    
+}
+
+.timeIndiccator {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 6.28125px;
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.2rem;
+    cursor: pointer;
+    width: 7rem;
+    font-weight: bold;
+    border-radius: 20.1px;
+    background-color: white;
+    font-size: 1.6rem;
+    height:4rem;
+}
+
+.input {
+    display: none;
+}
+
+.input:checked + .label {
+    background-color: #072FBE;
+    color: white;
+    box-shadow: 0px 0px 18.8437px rgba(50, 71, 230, 0.3);
+}
+
+.buttonsWrapper {
+    display: grid;
+    justify-content: center;
+    margin-top: 2rem;
+    grid-gap: 1rem;
+    grid-template-columns: 7rem 7rem 7rem;
+}
+
+.ConversionChart {
+    margin-top: 1rem;
+    margin-right: 2rem;
+}

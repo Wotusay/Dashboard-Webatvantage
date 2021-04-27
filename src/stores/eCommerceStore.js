@@ -23,13 +23,13 @@ class eCommerceStore {
         let numbers = [];
         this.eCommerceItems.map(
             item => {
-               return numbers.push(item.eCommerceData.totalRevenue)
+               return numbers.push(item.eCommerceData.totalRevenue);
             }
-        )
+        );
 
         let sum = numbers.reduce((a,b) => {
             return a+b;
-        },0 ) ;
+        },0);
         return sum.toFixed(2);
     }
 
@@ -37,15 +37,45 @@ class eCommerceStore {
         let numbers = []; 
         this.eCommerceItems.map(
             item => {
-               return numbers.push(item.eCommerceData.conversions)
+               return numbers.push(item.eCommerceData.conversions);
             }
-        )
+        );
 
         let sum = numbers.reduce((a,b) => {
             return (a+b) / numbers.length
-        },0)
+        },0);
+
+        return sum.toFixed(0);
+    }
+
+    get totalEariningMonth() {
+        let numbers = [];
+        this.eCommerceItems.map(
+            item => {
+                return numbers.push(item.eCommerceData.lastMonthData.totalRevenue);
+            }
+        );
+
+        let sum = numbers.reduce((a,b) => {
+            return a + b;
+        }, 0);
 
         return sum.toFixed(2);
+    }
+
+    get avgSoldMonth() {
+        let numbers = [];
+        this.eCommerceItems.map(
+            item => {
+                return numbers.push(item.eCommerceData.lastMonthData.conversions);
+            }
+        );
+
+        let sum = numbers.reduce((a,b) => {
+            return (a + b) / numbers.length
+        },0);
+
+        return sum.toFixed(0);
     }
     
     
@@ -54,6 +84,8 @@ class eCommerceStore {
 decorate(eCommerceStore, {
     eCommerceItems: observable,
     totalEarining: computed,
-    avgSold: computed
+    avgSold: computed,
+    totalEariningMonth: computed,
+    avgSoldMonth: computed
   });
 export default eCommerceStore;

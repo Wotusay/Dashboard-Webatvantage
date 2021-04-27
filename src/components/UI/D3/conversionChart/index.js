@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { autorun } from 'mobx';
+import styles from './conversionChart.module.css'
 
 const ConversionChart   = ({items}) => {
     
@@ -15,7 +16,7 @@ const ConversionChart   = ({items}) => {
     svgCanvas.selectAll("path").remove();
     svgCanvas.selectAll("defs").remove();
 
-        const margin = {top: 20, right: 30, bottom: 100, left: 40},
+        const margin = {top: 20, right: 0, bottom: 120, left: 50},
         width = 1190,
         height = 735
 
@@ -104,10 +105,16 @@ const ConversionChart   = ({items}) => {
             .attr("fill", "none");
 
         d3.select('.axis--x').selectAll('text').attr("transform", "translate(-10,10)rotate(-45)")
-        .style("text-anchor", "end");
+        .style("text-anchor", "end").style("font-size", "1.4rem");
 
-        d3.select('.axis--yRate').selectAll('text').attr("transform", "translate(2,-14)")
-        d3.select('.axis--y').selectAll('text').style("color",'rgb(187,187,187)');
+        d3.select('.axis--yRate').selectAll('text').attr("transform", "translate(2,-14)").style('font-size', '1.5rem');
+        d3.select('.axis--y').selectAll('text').style("color",'rgb(187,187,187)').style('font-size', '1.5rem');
+        d3.select('.axis--y').select('.domain').style("display",'none');
+        d3.select('.axis--yRate').select('.domain').style("display",'none');
+        d3.select('.axis--yRate').selectAll('line').style("display",'none');
+        d3.select('.axis--y').selectAll('line').style("display",'none');
+        d3.select('.axis--x').selectAll('line').style("display",'none').style('stroke-width', '4');
+        d3.select('.axis--x').selectAll('.domain').style('stroke-width', '2');
 
     })
 
@@ -115,6 +122,10 @@ const ConversionChart   = ({items}) => {
 
     return(
         <>
+        <div className={styles.legendeWrapper}>
+        <p className={styles.ratio} >Converion Ratio</p>
+        <p className={styles.conversions} >Conversions</p>
+        </div>
         <svg ref={ref} width="1190" height="735"></svg>
         </>
     )

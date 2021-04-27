@@ -1,0 +1,29 @@
+.colourMedic {
+    background-color:#F1DEA0;
+    width: 6.5rem;
+    height: 1.9rem;
+}
+
+
+.subject {
+    padding-left: 1.7rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;    
+    margin-top: 2rem;
+}
+
+
+.colourShoes {
+    background-color:#ACC39F;
+    width: 6.5rem;
+    height: 1.9rem;
+}
+
+.colourFashion {
+    background-color:#CAB1C5;
+    width: 6.5rem;
+    height: 1.9rem;
+}
