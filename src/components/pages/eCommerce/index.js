@@ -32,7 +32,7 @@ const ECommerce = () => {
                 </div>
             </div>
             <div className={styles.cardsWrapper} >
-                    <Card title={`Total earning`} number={eCommerceStore.totalEarining} rate={((decreaseValueEarnings / eCommerceStore.totalEariningMonth) * 100).toFixed(0)} tagline={`Compared to €${eCommerceStore.totalEariningMonth} last month`} />
+                    <Card title={`Total earning`} number={`€${eCommerceStore.totalEarining}`} rate={((decreaseValueEarnings / eCommerceStore.totalEariningMonth) * 100).toFixed(0)} tagline={`Compared to €${eCommerceStore.totalEariningMonth} last month`} />
                     <Card title={`Total sold`} number={eCommerceStore.avgSold} rate={((decreaseAvgSold / eCommerceStore.avgSold) * 100).toFixed(0)} tagline={`Compared to ${eCommerceStore.avgSoldMonth} last month`} />
             </div>
             <div className={styles.chartsWrapper} >

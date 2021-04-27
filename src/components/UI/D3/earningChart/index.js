@@ -9,7 +9,7 @@ const EarningChart = ({items}) => {
     const graph = autorun(() => {
         const svgCanvas = d3.select(ref.current);
         //const tickDuration = 500;
-        const top_n = 13;
+        const top_n = 50;
 
         svgCanvas.selectAll('text').remove();
         svgCanvas.selectAll('g').remove();
@@ -17,7 +17,7 @@ const EarningChart = ({items}) => {
 
         const margin = {top: 20, right: 0, bottom: 5, left: 0},
         width = 640,
-        height = 618
+        height = 2000
 
         let barPadding = (height - (margin.bottom+margin.top)) / (top_n*5); 
         let itemsSorted = items.slice().sort((a,b) => (b.eCommerceData.totalRevenue - a.eCommerceData.totalRevenue)).slice(0, top_n);
@@ -77,7 +77,7 @@ const EarningChart = ({items}) => {
         .enter()
         .append('text')
         .attr('class', 'label')
-        .attr('x', d => x(d.eCommerceData.totalRevenue)-4)
+        .attr('x', d => d.rank < 8 ?  x(d.eCommerceData.totalRevenue)-4 : 140)
         .attr('y', d => y(d.rank)+5+((y(1)-y(0))/2)+1)
         .style('text-anchor', 'end')
         .html(d => d.name);
@@ -87,7 +87,7 @@ const EarningChart = ({items}) => {
         .enter()
         .append('text')
         .attr('class', 'valueLabel')
-        .attr('x', d => x(d.eCommerceData.totalRevenue)+5)
+        .attr('x', d => d.rank < 8 ? x(d.eCommerceData.totalRevenue)+5 : 160)
         .attr('y', d => y(d.rank)+5+((y(1)-y(0))/2)-5)
         .text(d => `€${d3.format(',.0f')(d.eCommerceData.totalRevenue)}`);
 
@@ -96,7 +96,7 @@ const EarningChart = ({items}) => {
         .enter()
         .append('text')
         .attr('class', 'avgLabel')
-        .attr('x', d => x(d.eCommerceData.totalRevenue)+5)
+        .attr('x', d => d.rank < 8 ? x(d.eCommerceData.totalRevenue)+ 5 : 160 )
         .attr('y', d => y(d.rank)+5+((y(1)-y(0))/2)+9)
         .text(d => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
@@ -118,7 +118,9 @@ const EarningChart = ({items}) => {
     return (
         <>
         <div>
-        <svg ref={ref} width="640" height="618"></svg>
+            <div className={styles.outer}>
+                <svg ref={ref} width="640" height="2000"></svg>
+            </div>
             <div className={styles.item} >
                 <div className={styles.colourMedic} ></div>
                 <span className={styles.subject} >Medisch</span>

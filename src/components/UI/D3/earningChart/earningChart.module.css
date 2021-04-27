@@ -27,3 +27,10 @@
     width: 6.5rem;
     height: 1.9rem;
 }
+
+
+.outer {
+    width: 64rem;
+    height: 61.8rem;
+    overflow: auto;
+}
