@@ -1,4 +1,3 @@
-import { autorun } from 'mobx';
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
 import styles from './earningChart.module.css';
@@ -6,7 +5,7 @@ import styles from './earningChart.module.css';
 const EarningChart = ({items}) => {
     const ref = useRef();
 
-    const graph = autorun(() => {
+    const graph = () => {
         const svgCanvas = d3.select(ref.current);
         //const tickDuration = 500;
         const top_n = 50;
@@ -112,9 +111,9 @@ const EarningChart = ({items}) => {
         svgCanvas.select('.domain').style('display', 'none');
         svgCanvas.selectAll('.label').style('font-weight', '600')
 
-    });
+    };
 
-    useEffect(() => graph);
+    useEffect(() => graph());
     return (
         <>
         <div>

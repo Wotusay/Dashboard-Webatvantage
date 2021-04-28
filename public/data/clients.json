@@ -18,14 +18,14 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 21746,
-          "totalUsers": 15755,
+          "totalUsers": 21780,
           "pageviews": 206901,
           "averagePagesPerSessions": 9.51,
           "bouncerate": "26.8%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 17010,
               "direct": 3885,
@@ -33,9 +33,8 @@
               "referral": 399,
               "paid": 32
             }
-          ]
         }
-      ]
+      
     },
     {
       "name": "Bobo",
@@ -55,23 +54,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },
     {
       "name": "Schaeps",
@@ -91,23 +88,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Lieve vriendjes",
       "category": "Fashion",
@@ -126,23 +121,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Delsport",
       "category": "Fashion",
@@ -161,23 +154,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Fashion team",
       "category": "Fashion",
@@ -196,23 +187,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Fonce",
       "category": "Medisch",
@@ -231,23 +220,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "De dappere stappers",
       "category": "Fashion",
@@ -266,23 +253,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },
     {
       "name": "Viniecom",
@@ -302,23 +287,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },
     {
       "name": "Carmi Zemst BVBA",
@@ -338,23 +321,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Castard",
       "category": "Schoenen",
@@ -373,23 +354,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Print a gift",
       "category": "Schoenen",
@@ -408,23 +387,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Modemakers",
       "category": "Fashion",
@@ -443,23 +420,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Miz Mooz",
       "category": "Schoenen",
@@ -478,23 +453,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    {
       "name": "Schoenen Kusto",
       "category": "Fashion",
@@ -513,23 +486,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     },    
     {
       "name": "Pericles outlet",
@@ -549,23 +520,21 @@
           }
         }
       ,
-      "analyticsData": [
+      "analyticsData": 
         {
           "totalSessions": 13960,
-          "totalUsers": 7848,
+          "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
           "bouncerate": "33.62%",
-          "aquisition": [
+          "aquisition":
             {
               "organic": 3179,
               "direct": 1456,
               "social": 5350,
               "referral": 155
             }
-          ]
         }
-      ]
     }
   ]
 }

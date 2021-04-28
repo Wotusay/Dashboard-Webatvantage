@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { autorun } from 'mobx';
 import styles from './conversionChart.module.css'
 
 const ConversionChart   = ({items}) => {
     
     const ref = useRef();
 
-    const graph = autorun(() => {
+    const graph = () => {
     const svgCanvas = d3.select(ref.current)   
 
     svgCanvas.selectAll("g").remove();
@@ -74,7 +73,7 @@ const ConversionChart   = ({items}) => {
         .y((d) => {
             return yRate(d.eCommerceData.conversionRate / 100);
         })
-        .curve(d3.curveMonotoneX)
+        .curve(d3.curveBasis)
 
 
         const colorRange = ['#05FF00','#FF9F10', '#FF0202' ]
@@ -116,9 +115,9 @@ const ConversionChart   = ({items}) => {
         d3.select('.axis--x').selectAll('line').style("display",'none').style('stroke-width', '4');
         d3.select('.axis--x').selectAll('.domain').style('stroke-width', '2');
 
-    })
+    };
 
-    useEffect(() => graph);
+    useEffect(() => graph());
 
     return(
         <>
