@@ -24,7 +24,7 @@
           "totalUsers": 21780,
           "pageviews": 206901,
           "averagePagesPerSessions": 9.51,
-          "bouncerate": "26.8%",
+          "bouncerate": 26.8,
           "aquisition":
             {
               "organic": 17010,
@@ -60,7 +60,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -94,7 +94,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -123,11 +123,11 @@
       ,
       "analyticsData": 
         {
-          "totalSessions": 13960,
+          "totalSessions": 33960,
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -160,7 +160,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -193,7 +193,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -226,7 +226,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -259,7 +259,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -270,7 +270,7 @@
         }
     },
     {
-      "name": "Viniecom",
+      "name": "Carmi Zemst",
       "category": "Medisch",
       "server": "dedicated",
       "eCommerceData": 
@@ -293,7 +293,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -304,7 +304,7 @@
         }
     },
     {
-      "name": "Carmi Zemst BVBA",
+      "name": "Carmi Zemst Mephisto",
       "category": "Fashion",
       "server": "dedicated",
       "eCommerceData": 
@@ -327,7 +327,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -360,7 +360,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -393,7 +393,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -426,7 +426,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -459,7 +459,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -469,7 +469,7 @@
             }
         }
     },    {
-      "name": "Schoenen Kusto",
+      "name": "Pericles outlet",
       "category": "Fashion",
       "server": "dedicated",
       "eCommerceData": 
@@ -492,7 +492,7 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,
@@ -503,7 +503,7 @@
         }
     },    
     {
-      "name": "Pericles outlet",
+      "name": "Tweedehands laptops",
       "category": "Medisch",
       "server": "dedicated",
       "eCommerceData": 
@@ -526,7 +526,1063 @@
           "totalUsers": 10140,
           "pageviews": 138992,
           "averagePagesPerSessions": 9.96,
-          "bouncerate": "33.62%",
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "MJJK",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Outr",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Bohero",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Mamado",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Alpha",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Mode information",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Schoenen De Proost",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Buffalini",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Eglantier Hifi",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Leirovins",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "For Stars",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Thermae",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Arcade fashion",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Artex Fashion",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Carmelitana",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Huurland",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },{
+      "name": "La Garde-robe",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Schoenen Verduyn",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Ralet",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Clem Vercammen",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Intro Fashion Store",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "De Speelvogel",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Chaussures Jean Delaere",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Carmi Zemst Gabor Shop",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Carmi Zemst outlet",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Paris Londres",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Natuurkijkers",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Webshop 1",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Webshop 2",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Webshop 3",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Webshop 4",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
+          "aquisition":
+            {
+              "organic": 3179,
+              "direct": 1456,
+              "social": 5350,
+              "referral": 155
+            }
+        }
+    },    {
+      "name": "Webshop 5",
+      "category": "Medisch",
+      "server": "dedicated",
+      "eCommerceData": 
+        {
+          "conversions": 182,
+          "averageSell": 91.29,
+          "totalRevenue": 16614.18,
+          "conversionRate": 4
+          , "lastMonthData": {
+            "conversions": 800,
+            "averageSell": 200,
+            "totalRevenue": 30000,
+            "conversionRate": 4
+          }
+        }
+      ,
+      "analyticsData": 
+        {
+          "totalSessions": 13960,
+          "totalUsers": 10140,
+          "pageviews": 138992,
+          "averagePagesPerSessions": 9.96,
+          "bouncerate": 33.62,
           "aquisition":
             {
               "organic": 3179,

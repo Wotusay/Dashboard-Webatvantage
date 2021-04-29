@@ -10,11 +10,15 @@ const App = () => {
     <>
     <Nav />
     <Switch>
-      <Route exact strict path={ROUTES.analytics} render={() =>  <Analytics />}>
+
+      <Route exact strict path={ROUTES.analytics}> 
+        <Analytics />
       </Route>
+
       <Route path={ROUTES.home}>
         <ECommerce/>
       </Route>
+      
     </Switch>
     </>
   );

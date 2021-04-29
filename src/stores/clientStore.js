@@ -1,39 +1,47 @@
 import ClientsService from "../services/ClientsService";
 import { computed, decorate, observable } from "mobx";
 
-class eCommerceStore {
+// Store for the clients
+class ClientStore {
     constructor(rootStore) {
-        this.rootStore = rootStore; 
-        this.eCommerceItems = [];
-        this.clientsService = new ClientsService();
+        this.rootStore = rootStore; // To connect to other stores
+        this.eCommerceItems = []; // Array where all items will be in
+        this.clientsService = new ClientsService(); // Service for loading all the data
     }
 
     loadAllItems = async () => {
-        const items = await this.clientsService.getAll();
+        const items = await this.clientsService.getAll(); // Calls the getAll function from the class ClientService
         items.forEach(item => {
             this.setItems(item);
     });
     }
 
     setItems = async (item) => {
-        await this.eCommerceItems.push(item);
+        let itemExists = this.eCommerceItems.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+        if (itemExists === -1) {
+            await this.eCommerceItems.push(item); // Push the item if it isn't in it
+        } else {
+            return;
+        }
     }
 
     get totalEarining() {
-        let numbers = [];
+        let numbers = []; // Arrray for all the nunmbers
         this.eCommerceItems.map(
             item => {
-               return numbers.push(item.eCommerceData.totalRevenue);
+               return numbers.push(item.eCommerceData.totalRevenue); // To get all te numbers out of it
             }
         );
 
-        let sum = numbers.reduce((a,b) => {
+        let sum = numbers.reduce((a,b) => { // Calculates the sum of all the numbers
             return a+b;
         },0);
-        return sum.toFixed(2);
-    }
 
-    get avgSold() {
+        return sum.toFixed(2); // Gives the sum with 0.00
+    }
+ 
+
+    get avgSold() { // Calculates the avg sold 
         let numbers = []; 
         this.eCommerceItems.map(
             item => {
@@ -42,13 +50,13 @@ class eCommerceStore {
         );
 
         let sum = numbers.reduce((a,b) => {
-            return (a+b) / numbers.length
+            return (a+b) / numbers.length;
         },0);
 
         return sum.toFixed(0);
     }
 
-    get totalEariningMonth() {
+    get totalEariningMonth() { // Calculates earnings for the whole month
         let numbers = [];
         this.eCommerceItems.map(
             item => {
@@ -63,7 +71,7 @@ class eCommerceStore {
         return sum.toFixed(2);
     }
 
-    get avgSoldMonth() {
+    get avgSoldMonth() { // Calculates avg sold for the whole month
         let numbers = [];
         this.eCommerceItems.map(
             item => {
@@ -77,15 +85,20 @@ class eCommerceStore {
 
         return sum.toFixed(0);
     }
-    
-    
+
+    get lengthOfArray() { // Gives the lenght of the array
+        return this.eCommerceItems.length;
+    } 
+
 }
 
-decorate(eCommerceStore, {
+decorate(ClientStore, {
     eCommerceItems: observable,
     totalEarining: computed,
     avgSold: computed,
     totalEariningMonth: computed,
-    avgSoldMonth: computed
+    avgSoldMonth: computed,
+    lengthOfArray: computed
   });
-export default eCommerceStore;
+
+export default ClientStore;

@@ -1,9 +1,8 @@
-import eCommerceStore from './eCommerceStore';
+import ClientStore from './clientStore';
 
 class RootStore {
     constructor() {
-        this.eCommerceStore = new eCommerceStore(this);
-
+        this.clientStore = new ClientStore(this); // Calls the Clients Store
     }
 }
 
