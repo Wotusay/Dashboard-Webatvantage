@@ -8,20 +8,18 @@ import { ROUTES } from "./consts ";
 const App = () => {
   return (
     <>
-    <Nav />
-    <Switch>
+      <Nav />
+      <Switch>
+        <Route exact strict path={ROUTES.analytics}>
+          <Analytics />
+        </Route>
 
-      <Route exact strict path={ROUTES.analytics}> 
-        <Analytics />
-      </Route>
-
-      <Route path={ROUTES.home}>
-        <ECommerce/>
-      </Route>
-      
-    </Switch>
+        <Route path={ROUTES.home}>
+          <ECommerce />
+        </Route>
+      </Switch>
     </>
   );
-}
+};
 
 export default App;
