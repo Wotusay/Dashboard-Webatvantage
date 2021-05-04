@@ -9,7 +9,7 @@
 
 .chartsWrapper {
     display: grid;
-    grid-template-columns: 94rem 60rem;
+    grid-template-columns: 108rem 70rem;
     justify-content: space-evenly;
     margin-top: 3rem;
 }

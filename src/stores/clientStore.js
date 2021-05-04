@@ -86,6 +86,91 @@ class ClientStore {
     return this.eCommerceItems.length;
   }
 
+  get totalViews() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.pageviews); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
+  get totalUsers() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.totalUsers); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
+  get totalSessions() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.totalSessions); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
+
+  get totalLastMonthViews() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.lastMonthData.pageviews); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
+  get totalLastMonthUsers() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.lastMonthData.totalUsers); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
+  get totalLastMonthSessions() {
+    let numbers = []; // Arrray for all the nunmbers
+    this.eCommerceItems.map((item) => {
+      return numbers.push(item.analyticsData.lastMonthData.totalSessions); // To get all te numbers out of it
+    });
+
+    let sum = numbers.reduce((a, b) => {
+      // Calculates the sum of all the numbers
+      return a + b;
+    }, 0);
+
+    return sum.toFixed(0); // Gives the sum with 0.00
+  }
+
   truncateString(str) {
     let num = 13;
     // If the length of str is less than or equal to num
@@ -105,6 +190,12 @@ decorate(ClientStore, {
   totalEariningMonth: computed,
   avgSoldMonth: computed,
   lengthOfArray: computed,
+  totalSessions: computed,
+  totalUsers: computed,
+  totalViews: computed,
+  totalLastMonthSessions: computed,
+  totalLastMonthUsers: computed,
+  totalLastMonthViews: computed,
 });
 
 export default ClientStore;

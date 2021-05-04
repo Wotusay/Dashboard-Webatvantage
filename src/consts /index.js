@@ -8,20 +8,21 @@ const ROUTES = {
 const CHARTS = {
   analyticsChart: {
     margin: { top: 20, right: 50, bottom: 120, left: 50 },
-    color: { rect: '#BBBBBB', lineChart: ['#05FF00', '#FF9F10', '#FF0202'] },
-    strokeWidth: { path: 3, line: 4, domain: 2 },
+    color: { rectSessions: '#ED605B', rectViews: '#000000' },
     font: {
       axisX: {
         fontSize: '1.4rem',
       },
-      axisY: {
-        fontSize: '1.5rem',
+      fontWeight: {
+        bold: 700,
       },
     },
     transforms: {
       axisX: 'translate(-10,10)rotate(-45)',
       ratio: 'translate(2,-14)',
     },
+    opacity: 0.3,
+    groups: ['sessions', 'views']
   },
 
   conversionChart: {
@@ -102,5 +103,7 @@ const CATEGORIES = {
   fashion: 'Fashion',
   shoes: 'Schoenen',
 };
+
+
 
 export { ROUTES, CHARTS, CATEGORIES };

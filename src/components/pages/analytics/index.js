@@ -11,7 +11,11 @@ import AnalyticsChart from '../../UI/D3/analyticsChart';
 const Analytics = () => {
   const { clientStore } = useStores();
   const item = clientStore.eCommerceItems;
-  let decreaseValueEarnings =
+  let decreaseValueViews =
+    clientStore.totalEarining - clientStore.totalEariningMonth;
+  let decreaseValueSessions =
+    clientStore.totalEarining - clientStore.totalEariningMonth;
+  let decreaseValueUsers =
     clientStore.totalEarining - clientStore.totalEariningMonth;
 
   return useObserver(() => (
@@ -19,37 +23,37 @@ const Analytics = () => {
       <TimeRange />
       <div className={styles.cardsWrapper}>
         <Card
-          title={`Total earning`}
-          number={`€${clientStore.totalEarining}`}
+          title={`Total pageviews`}
+          number={clientStore.totalViews}
           rate={(
-            (decreaseValueEarnings / clientStore.totalEariningMonth) *
+            (decreaseValueViews / clientStore.totalLastMonthViews) *
             100
           ).toFixed(0)}
-          tagline={`Compared to €${clientStore.totalEariningMonth} last month`}
+          tagline={`Compared to ${clientStore.totalLastMonthViews} last month`}
         />
         <Card
-          title={`Total earning`}
-          number={`€${clientStore.totalEarining}`}
+          title={`Total sessions`}
+          number={clientStore.totalSessions}
           rate={(
-            (decreaseValueEarnings / clientStore.totalEariningMonth) *
+            (decreaseValueSessions / clientStore.totalLastMonthSessions) *
             100
           ).toFixed(0)}
-          tagline={`Compared to €${clientStore.totalEariningMonth} last month`}
+          tagline={`Compared to ${clientStore.totalLastMonthSessions} last month`}
         />
         <Card
-          title={`Total earning`}
-          number={`€${clientStore.totalEarining}`}
+          title={`Total users`}
+          number={clientStore.totalUsers}
           rate={(
-            (decreaseValueEarnings / clientStore.totalEariningMonth) *
+            (decreaseValueUsers / clientStore.totalLastMonthUsers) *
             100
           ).toFixed(0)}
-          tagline={`Compared to €${clientStore.totalEariningMonth} last month`}
+          tagline={`Compared to ${clientStore.totalLastMonthUsers} last month`}
         />
       </div>
 
       <div className={styles.chartsWrapper}>
         <div className={styles.doubleStackedChart}>
-          <AnalyticsChart  items={item} />
+          <AnalyticsChart items={item} />
         </div>
         <div className={styles.radialChart}>
           <AquistionChart items={item} />

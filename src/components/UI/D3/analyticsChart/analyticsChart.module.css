@@ -1,0 +1,25 @@
+.legendWrapper {
+    display: grid;
+    grid-template-columns: 12rem 8rem;
+    grid-gap: 170rem;
+    margin-bottom: 2rem;
+}
+
+.legendItemStrong {
+    font-weight: 700;    
+    font-size: 1.2rem;
+}
+
+.legendItem{
+    font-size: 1.2rem;
+}
+
+.legendItemsViews {
+
+}
+
+.outer{ 
+    width: 108rem;
+    height: 77rem;
+    overflow:auto
+}
