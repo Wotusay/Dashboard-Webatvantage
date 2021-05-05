@@ -1,0 +1,23 @@
+.textWrapper { 
+    display: flex;
+    gap: 0.8rem;
+    flex-flow: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 44px;
+    text-transform: uppercase;
+}
+
+.storage {
+    color: #2361FF;
+}
+
+.load {
+    padding-top: 2rem;
+}

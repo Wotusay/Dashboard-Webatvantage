@@ -280,34 +280,33 @@ const AnalyticsChart = ({ items }) => {
   useEffect(() => graph());
   return (
     <>
-      <div className={styles.outer}>
-        <div className={styles.legendWrapper}>
-          <div className={styles.legendItems}>
-            <p
-              className={styles.legendItemStrong}
-              style={{ color: chartSetttings.color.rectSessions }}>
-              Pages per sessions
-            </p>
-            <p
-              className={styles.legendItem}
-              style={{ color: chartSetttings.color.rectSessions }}>
-              Total pageviews
-            </p>
-          </div>
-          <div className={styles.legendItemsViews}>
-            <p
-              className={styles.legendItemStrong}
-              style={{ color: chartSetttings.color.rectViews }}>
-              Bounce
-            </p>
-            <p
-              className={styles.legendItem}
-              style={{ color: chartSetttings.color.rectViews }}>
-              Total sessions
-            </p>
-          </div>
+      <div className={styles.legendWrapper}>
+        <div className={styles.legendItems}>
+          <p
+            className={styles.legendItemStrong}
+            style={{ color: chartSetttings.color.rectSessions }}>
+            Pages per sessions
+          </p>
+          <p
+            className={styles.legendItem}
+            style={{ color: chartSetttings.color.rectSessions }}>
+            Total pageviews
+          </p>
         </div>
-
+        <div className={styles.legendItemsViews}>
+          <p
+            className={styles.legendItemStrong}
+            style={{ color: chartSetttings.color.rectViews }}>
+            Bounce
+          </p>
+          <p
+            className={styles.legendItem}
+            style={{ color: chartSetttings.color.rectViews }}>
+            Total sessions
+          </p>
+        </div>
+      </div>
+      <div className={styles.outer}>
         <svg width={widthCalculator} height="700" ref={ref}></svg>
       </div>
     </>

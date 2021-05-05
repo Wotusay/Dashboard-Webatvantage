@@ -22,7 +22,7 @@ const CHARTS = {
       ratio: 'translate(2,-14)',
     },
     opacity: 0.3,
-    groups: ['sessions', 'views']
+    groups: ['sessions', 'views'],
   },
 
   conversionChart: {
@@ -98,12 +98,18 @@ const CHARTS = {
   },
 };
 
+const RADIALCOLORS = {
+  red: '#FF2929',
+  orange: '#ED7A10',
+  green: '#00D42F',
+  blue: '#2361FF',
+  black: '#333333'
+};
+
 const CATEGORIES = {
   medic: 'Medisch',
   fashion: 'Fashion',
   shoes: 'Schoenen',
 };
 
-
-
-export { ROUTES, CHARTS, CATEGORIES };
+export { ROUTES, CHARTS, CATEGORIES, RADIALCOLORS };

@@ -1,0 +1,85 @@
+
+.layout {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: 35rem 100rem;
+  grid-gap: 10rem;
+}
+
+.chartsWrapper {
+  display: grid;
+  position: relative;
+  margin-left: 12rem;
+  margin-top: 10rem;
+}
+
+.chartTotalWrapper {
+  position: absolute;
+  top: 21rem;
+  left: 23.5rem;
+}
+
+.container {
+    position: relative;
+    height: 77rem;
+    width: 77rem;
+    border: 1rem solid;
+    border-radius: 50%;
+  }
+  
+.item {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 50%;
+    width: 50%;
+    transform-origin: bottom right;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 35px;
+  }
+
+
+  .cardsWrapper {
+    display: grid;
+  }
+
+.item:nth-child(1) {
+    transform: rotate(0deg);
+  }
+.item:nth-child(2) {
+    transform: rotate(30deg);
+  }
+.item:nth-child(3) {
+    transform: rotate(60deg);
+  }
+.item:nth-child(4) {
+    transform: rotate(90deg);
+  }
+.item:nth-child(5) {
+    transform: rotate(120deg);
+  }
+.item:nth-child(6) {
+    transform: rotate(150deg);
+  }
+.item:nth-child(7) {
+    transform: rotate(180deg);
+  }
+.item:nth-child(8) {
+    transform: rotate(210deg);
+  }
+.item:nth-child(9) {
+    transform: rotate(240deg);
+  }
+  .item:nth-child(10) {
+    transform: rotate(270deg);
+  }
+  .item:nth-child(11) {
+    transform: rotate(300deg);
+  }
+  .item:nth-child(12) {
+    transform: rotate(330deg);
+  }

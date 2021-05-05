@@ -1,7 +1,8 @@
-import { createContext } from "react";
-import RootStore from "../stores/index";
+import { createContext } from 'react';
+import RootStore from '../stores/index';
 
 const store = new RootStore();
+store.serverStore.loadAllServers();
 store.clientStore.loadAllItems(); // Calls all the items before its loaded
 
 export const storeContext = createContext(store);

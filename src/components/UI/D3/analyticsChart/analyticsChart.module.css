@@ -1,7 +1,7 @@
 .legendWrapper {
     display: grid;
     grid-template-columns: 12rem 8rem;
-    grid-gap: 170rem;
+    grid-gap: 85rem;
     margin-bottom: 2rem;
 }
 

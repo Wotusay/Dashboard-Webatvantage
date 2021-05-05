@@ -2,51 +2,171 @@
   "servers": [
     {
       "name": "de",
-      "status": "green", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
-      "Load": [{
+      "status": "green",
+      "load": {
         "current": 0.3,
         "avg5": 0.5,
         "avg15": 0.4
-      }],
-      "diskSpace": [
-        {
-          "used": 145,
-          "available": 250,
-          "freePercentage": 42.00
-        }
-      ],
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
     },
     {
       "name": "uk",
-      "status": "orange", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
-      "Load": [{
+      "status": "orange",
+      "load": {
         "current": 3.3,
         "avg5": 4.5,
         "avg15": 5.4
-      }],
-      "diskSpace": [
-        {
-          "used": 85,
-          "available": 100,
-          "freePercentage": 15.00
-        }
-      ],
+      },
+      "diskSpace": {
+        "used": 85,
+        "available": 100,
+        "freePercentage": 15.0
+      }
+    },
+    {
+      "name": "com",
+      "status": "orange",
+      "load": {
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      },
+      "diskSpace": {
+        "used": 85,
+        "available": 100,
+        "freePercentage": 15.0
+      }
+    },
+    {
+      "name": "it",
+      "status": "orange",
+      "load": {
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      },
+      "diskSpace": {
+        "used": 85,
+        "available": 100,
+        "freePercentage": 15.0
+      }
+    },
+    {
+      "name": "org",
+      "status": "orange",
+      "load": {
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      },
+      "diskSpace": {
+        "used": 85,
+        "available": 100,
+        "freePercentage": 15.0
+      }
     },
     {
       "name": "es",
-      "status": "red", // green, orange, red ( zoals intranet ? of zaten er daar nog in )
-      "Load": [{
+      "status": "red",
+      "load": {
         "current": 3.3,
         "avg5": 4.5,
         "avg15": 5.4
-      }],
-      "diskSpace": [
-        {
-          "used": 280,
-          "available": 300,
-          "freePercentage": 6.66
-        }
-      ],
+      },
+      "diskSpace": {
+        "used": 280,
+        "available": 300,
+        "freePercentage": 6.66
+      }
     },
-  ],
+    {
+      "name": "me",
+      "status": "red",
+      "load": {
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      },
+      "diskSpace": {
+        "used": 280,
+        "available": 300,
+        "freePercentage": 6.66
+      }
+    },
+    {
+      "name": "ca",
+      "status": "red",
+      "load": {
+        "current": 3.3,
+        "avg5": 4.5,
+        "avg15": 5.4
+      },
+      "diskSpace": {
+        "used": 280,
+        "available": 300,
+        "freePercentage": 6.66
+      }
+    },
+    {
+      "name": "pl",
+      "status": "green",
+      "load": {
+        "current": 0.3,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+    {
+      "name": "ll",
+      "status": "green",
+      "load": {
+        "current": 0.3,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+    {
+      "name": "Bobo",
+      "status": "green",
+      "load": {
+        "current": 0.3,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+    {
+      "name": "Thermae",
+      "status": "green",
+      "load": {
+        "current": 0.3,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    }
+  ]
 }
