@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { ROUTES } from "../../../consts ";
+import { ROUTES } from "../../../consts";
 import styles from "./nav.module.css";
 
 const Nav = () => {

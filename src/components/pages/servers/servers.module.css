@@ -10,8 +10,8 @@
 .chartsWrapper {
   display: grid;
   position: relative;
-  margin-left: 12rem;
-  margin-top: 10rem;
+  margin-left: 15rem;
+  margin-top: 8rem;
 }
 
 .chartTotalWrapper {
@@ -22,8 +22,8 @@
 
 .container {
     position: relative;
-    height: 77rem;
-    width: 77rem;
+    height: 75rem;
+    width: 75rem;
     border: 1rem solid;
     border-radius: 50%;
   }

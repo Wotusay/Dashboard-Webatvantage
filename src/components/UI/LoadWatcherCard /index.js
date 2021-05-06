@@ -1,7 +1,11 @@
 import { useObserver } from 'mobx-react-lite';
 import React from 'react';
 import { useStores } from '../../../hooks';
+import GreenStatic from '../../svgs/staticCharts/GreenStatic';
+import RedStatic from '../../svgs/staticCharts/OrangeStatic';
+import OrangeStatic from '../../svgs/staticCharts/RedStatic';
 import styles from './loadwatchercard.module.css';
+import { RADIALCOLORS } from '../../../consts/index';
 
 const LoadWatcherCard = () => {
   const { serverStore } = useStores();
@@ -13,43 +17,32 @@ const LoadWatcherCard = () => {
           <div className={styles.sectorLayout}>
             {serverStore.servers.map((s) => (
               <>
-                <p className={styles.name}>{s.name}</p>
-                <p className={styles.used}>{s.load.current}</p>
-                <p className={styles.total}>
-                  <svg
-                    width="69"
-                    height="21"
-                    viewBox="0 0 69 21"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <rect
-                      opacity="0.7"
-                      x="0.685547"
-                      width="68"
-                      height="21"
-                      rx="1"
-                      fill="#EAEAEA"
-                    />
-                    <path
-                      d="M0.685547 7C9.31241 7 8.29749 16 18.4467 16C28.596 16 26.0587 9 34.6855 9C43.3124 9 45.2013 5 51.9393 5C58.4791 5 60.0587 14.5 68.6855 14.5"
-                      stroke="url(#paint0_linear)"
-                      stroke-width="2"
-                      stroke-linejoin="round"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear"
-                        x1="68.6855"
-                        y1="7.74997"
-                        x2="2.38256"
-                        y2="8.10029"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#E323FF" />
-                        <stop offset="1" stop-color="#7517F8" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
+                <p
+                  style={{
+                    color:
+                      s.status === 'green'
+                        ? RADIALCOLORS.green
+                        : s.status === 'orange'
+                        ? RADIALCOLORS.orange
+                        : s.status === 'red'
+                        ? RADIALCOLORS.red
+                        : '',
+                  }}
+                  className={styles.name}>
+                  {s.name}
                 </p>
+                <p className={styles.used}>{s.load.current}</p>
+                <div className={styles.total}>
+                  {s.status === 'green' ? (
+                    <GreenStatic />
+                  ) : s.status === 'orange' ? (
+                    <OrangeStatic />
+                  ) : s.status === 'red' ? (
+                    <RedStatic />
+                  ) : (
+                    ''
+                  )}
+                </div>
               </>
             ))}
           </div>

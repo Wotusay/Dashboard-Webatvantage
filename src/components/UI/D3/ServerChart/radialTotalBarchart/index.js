@@ -5,7 +5,7 @@ import {
   buildStyles,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { RADIALCOLORS } from '../../../../../consts ';
+import { RADIALCOLORS } from '../../../../../consts';
 import { useStores } from '../../../../../hooks';
 import styles from './radialTotalBarchart.module.css';
 

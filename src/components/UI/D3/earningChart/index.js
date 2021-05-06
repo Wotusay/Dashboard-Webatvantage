@@ -1,9 +1,9 @@
-import * as d3 from "d3";
-import { useObserver } from "mobx-react-lite";
-import React, { useEffect, useRef } from "react";
-import { CATEGORIES, CHARTS } from "../../../../consts ";
-import { useStores } from "../../../../hooks";
-import styles from "./earningChart.module.css";
+import * as d3 from 'd3';
+import { useObserver } from 'mobx-react-lite';
+import React, { useEffect, useRef } from 'react';
+import { CATEGORIES, CHARTS } from '../../../../consts';
+import { useStores } from '../../../../hooks';
+import styles from './earningChart.module.css';
 
 const EarningChart = ({ items }) => {
   // Ref is needed to draw in the graph
@@ -18,9 +18,9 @@ const EarningChart = ({ items }) => {
     const top_n = clientStore.lengthOfArray; // How many items there needs to be in it
 
     // Removes all prev items
-    svgCanvas.selectAll("text").remove();
-    svgCanvas.selectAll("g").remove();
-    svgCanvas.selectAll("rect").remove();
+    svgCanvas.selectAll('text').remove();
+    svgCanvas.selectAll('g').remove();
+    svgCanvas.selectAll('rect').remove();
 
     const margin = chartElements.margin,
       width = ref.current.width.baseVal.value,
@@ -45,7 +45,7 @@ const EarningChart = ({ items }) => {
           ? chartElements.color.categoriesColors.fashion
           : d.category === CATEGORIES.shoes
           ? chartElements.color.categoriesColors.shoes
-          : "#ACC39F";
+          : '#ACC39F';
     });
 
     // X - Axis
@@ -66,108 +66,108 @@ const EarningChart = ({ items }) => {
       .scale(x)
       .ticks(width > 500 ? 5 : 2)
       .tickSize(-(height - margin.top - margin.bottom))
-      .tickFormat((d) => d3.format(",")(d));
+      .tickFormat((d) => d3.format(',')(d));
 
     // Set the view for the xAxis
     svgCanvas
-      .append("g")
-      .attr("class", "axis xAxis")
-      .attr("transform", `translate(20, ${margin.top})`)
+      .append('g')
+      .attr('class', 'axis xAxis')
+      .attr('transform', `translate(20, ${margin.top})`)
       .call(xAxis)
-      .selectAll(".tick line")
-      .classed("origin", (d) => d === 0);
+      .selectAll('.tick line')
+      .classed('origin', (d) => d === 0);
 
     // Set the view for prev bar
     svgCanvas
-      .selectAll("rect.barPrev")
+      .selectAll('rect.barPrev')
       .data(itemsSorted, (d) => d.name)
       .enter()
-      .append("rect")
-      .attr("class", "barPrev")
-      .attr("x", x(0) + 1)
+      .append('rect')
+      .attr('class', 'barPrev')
+      .attr('x', x(0) + 1)
       .attr(
-        "width",
+        'width',
         (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
       )
-      .attr("y", (d) => y(d.rank) + 5)
-      .attr("height", y(1) - y(0) - barPadding)
-      .style("fill", "#bbbbbb")
-      .style("opacity", "0.5");
+      .attr('y', (d) => y(d.rank) + 5)
+      .attr('height', y(1) - y(0) - barPadding)
+      .style('fill', '#bbbbbb')
+      .style('opacity', '0.5');
 
     // Set the view for the bar
     svgCanvas
-      .selectAll("rect.bar")
+      .selectAll('rect.bar')
       .data(itemsSorted, (d) => d.name)
       .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", x(0) + 1)
-      .attr("width", (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
-      .attr("y", (d) => y(d.rank) + 5)
-      .attr("height", y(1) - y(0) - barPadding)
-      .style("fill", (d) => d.colour);
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', x(0) + 1)
+      .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+      .attr('y', (d) => y(d.rank) + 5)
+      .attr('height', y(1) - y(0) - barPadding)
+      .style('fill', (d) => d.colour);
 
     // Labels for the bar
     svgCanvas
-      .selectAll("text.label")
+      .selectAll('text.label')
       .data(itemsSorted, (d) => d.name)
       .enter()
-      .append("text")
-      .attr("class", "label")
-      .attr("x", (d) =>
+      .append('text')
+      .attr('class', 'label')
+      .attr('x', (d) =>
         d.rank < clientStore.lengthOfArray - 8
           ? x(d.eCommerceData.totalRevenue) - 4
           : 190
       )
-      .attr("y", (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
-      .style("text-anchor", "end")
+      .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
+      .style('text-anchor', 'end')
       .html((d) => d.name);
 
     // Value for the bar
     svgCanvas
-      .selectAll("text.valueLabel")
+      .selectAll('text.valueLabel')
       .data(itemsSorted, (d) => d.name)
       .enter()
-      .append("text")
-      .attr("class", "valueLabel")
-      .attr("x", (d) =>
+      .append('text')
+      .attr('class', 'valueLabel')
+      .attr('x', (d) =>
         d.rank < clientStore.lengthOfArray - 8
           ? x(d.eCommerceData.totalRevenue) + 5
           : 200
       )
-      .attr("y", (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
-      .text((d) => `€${d3.format(",.0f")(d.eCommerceData.totalRevenue)}`);
+      .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
+      .text((d) => `€${d3.format(',.0f')(d.eCommerceData.totalRevenue)}`);
 
     // avg for the bar
     svgCanvas
-      .selectAll("text.avgLabel")
+      .selectAll('text.avgLabel')
       .data(itemsSorted, (d) => d.name)
       .enter()
-      .append("text")
-      .attr("class", "avgLabel")
-      .attr("x", (d) =>
+      .append('text')
+      .attr('class', 'avgLabel')
+      .attr('x', (d) =>
         d.rank < clientStore.lengthOfArray - 8
           ? x(d.eCommerceData.totalRevenue) + 5
           : 200
       )
-      .attr("y", (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
-      .text((d) => `${d3.format(",.0f")(d.eCommerceData.averageSell)} AVG`);
+      .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
+      .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
     // Stylings
-    svgCanvas.selectAll("text").style("font-size", chartElements.font.fontSize);
+    svgCanvas.selectAll('text').style('font-size', chartElements.font.fontSize);
     svgCanvas
-      .selectAll(".tick")
-      .select("text")
-      .style("fill", chartElements.color.text);
+      .selectAll('.tick')
+      .select('text')
+      .style('fill', chartElements.color.text);
     svgCanvas
-      .selectAll(".tick")
-      .select("line")
-      .style("stroke", chartElements.color.line)
-      .style("shape-rendering", "CrispEdges");
-    svgCanvas.select(".domain").style("display", "none");
+      .selectAll('.tick')
+      .select('line')
+      .style('stroke', chartElements.color.line)
+      .style('shape-rendering', 'CrispEdges');
+    svgCanvas.select('.domain').style('display', 'none');
     svgCanvas
-      .selectAll(".label")
-      .style("font-weight", chartElements.font.fontWeight);
+      .selectAll('.label')
+      .style('font-weight', chartElements.font.fontWeight);
   };
 
   useEffect(() => graph());
@@ -183,8 +183,7 @@ const EarningChart = ({ items }) => {
             className={styles.colour}
             style={{
               backgroundColor: chartElements.color.categoriesColors.medic,
-            }}
-          ></div>
+            }}></div>
           <span className={styles.subject}> {CATEGORIES.medic} </span>
         </div>
 
@@ -193,8 +192,7 @@ const EarningChart = ({ items }) => {
             className={styles.colour}
             style={{
               backgroundColor: chartElements.color.categoriesColors.fashion,
-            }}
-          ></div>
+            }}></div>
           <span className={styles.subject}>{CATEGORIES.fashion}</span>
         </div>
 
@@ -203,8 +201,7 @@ const EarningChart = ({ items }) => {
             className={styles.colour}
             style={{
               backgroundColor: chartElements.color.categoriesColors.shoes,
-            }}
-          ></div>
+            }}></div>
           <span className={styles.subject}>{CATEGORIES.shoes}</span>
         </div>
       </div>

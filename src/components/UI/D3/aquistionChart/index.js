@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CHARTS } from '../../../../consts ';
+import { CHARTS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 
 const AquistionChart = ({ items }) => {

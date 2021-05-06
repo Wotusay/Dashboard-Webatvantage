@@ -1,5 +1,5 @@
 import React from 'react';
-import { CATEGORIES } from '../../../consts ';
+import { CATEGORIES } from '../../../consts';
 import styles from './sectorcard.module.css';
 
 const SectorCard = () => {

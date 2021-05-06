@@ -4,7 +4,7 @@ import Analytics from './components/pages/analytics';
 import ECommerce from './components/pages/eCommerce';
 import Servers from './components/pages/servers';
 import Nav from './components/UI/nav';
-import { ROUTES } from './consts ';
+import { ROUTES } from './consts';
 
 const App = () => {
 
