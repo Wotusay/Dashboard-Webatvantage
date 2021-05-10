@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+import './fonts/Poppins/Poppins-Regular.ttf';
+import './fonts/Poppins/Poppins-Bold.ttf';
+import './fonts/Poppins/Poppins-Medium.ttf';
+import './fonts/Poppins/Poppins-SemiBold.ttf';
+import './fonts/Poppins/Poppins-ExtraBold.ttf';
 
 ReactDOM.render(
   <BrowserRouter>

@@ -6,3 +6,9 @@
 .conversions {
     color:rgb(187,187,187) ;
 }
+
+.outer {
+    width: 88rem;
+    height: 50.8rem;
+    overflow: auto;
+}

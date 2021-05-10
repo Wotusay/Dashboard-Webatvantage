@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import styles from './conversionChart.module.css';
-import { CHARTS } from '../../../../consts';
+import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 
 const ConversionChart = ({ items }) => {
   const { clientStore } = useStores();
   // Ref is needed to draw in the graph
   const ref = useRef();
+  const widthCalc = 61.5 * clientStore.lengthOfArray; // Calculates the width for the graphh
   const chartSetttings = CHARTS.conversionChart;
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
@@ -60,14 +61,14 @@ const ConversionChart = ({ items }) => {
       .append('g')
       .attr('class', 'axis axis--y')
       .attr('transform', `translate( ${margin.left} )`)
-      .call(d3.axisLeft().scale(y));
+      .call(d3.axisLeft().scale(y).ticks(3));
 
     // view for ratio-axis
     svgCanvas
       .append('g')
       .attr('class', 'axis axis--yRate')
       .attr('transform', `translate( ${margin.left} )`)
-      .call(d3.axisLeft().scale(yRate).ticks(null, '%'));
+      .call(d3.axisLeft().scale(yRate).ticks(3, '%'));
 
     // sets the rect views & places it
     svgCanvas
@@ -87,7 +88,9 @@ const ConversionChart = ({ items }) => {
       })
       .attr('height', function (d, i) {
         return height - y(d.eCommerceData.conversions) - margin.bottom;
-      });
+      })
+      .attr('rx', 3)
+      .attr('ry', 3);
 
     // Makes the line
     const line = d3
@@ -134,36 +137,52 @@ const ConversionChart = ({ items }) => {
       .attr('stroke', 'url(#line-gradient)')
       .attr('fill', 'none');
 
-    d3.select('.axis--x')
+    svgCanvas
+      .select('.axis--x')
       .selectAll('text')
       .attr('transform', chartSetttings.transforms.axisX)
       .style('text-anchor', 'end')
-      .style('font-size', chartSetttings.font.axisX.fontSize);
+      .style('font-size', chartSetttings.font.axisX.fontSize)
+      .style('font-family', 'Poppins')
+      .style('color', RADIALCOLORS.textColor)
+      .style('font-weight', '600');
 
-    d3.select('.axis--yRate')
+    svgCanvas
+      .select('.axis--yRate')
       .selectAll('text')
       .attr('transform', chartSetttings.transforms.ratio)
-      .style('font-size', chartSetttings.font.axisY);
+      .style('font-size', chartSetttings.font.axisY)
+      .style('font-family', 'Poppins')
+      .style('color', RADIALCOLORS.textColor)
+      .style('font-weight', '600')
+      .style('font-size', '1.3rem');
 
-    d3.select('.axis--y')
+    svgCanvas
+      .select('.axis--y')
       .selectAll('text')
       .style('color', chartSetttings.color.rect)
-      .style('font-size', chartSetttings.font.axisY);
+      .style('font-size', '1.3rem')
+      .style('font-family', 'Poppins')
+      .style('font-weight', '600');
 
-    d3.select('.axis--y').select('.domain').style('display', 'none');
+    svgCanvas.select('.axis--y').select('.domain').style('display', 'none');
 
-    d3.select('.axis--yRate').select('.domain').style('display', 'none');
+    svgCanvas.select('.axis--yRate').select('.domain').style('display', 'none');
 
-    d3.select('.axis--yRate').selectAll('line').style('display', 'none');
+    svgCanvas.select('.axis--yRate').selectAll('line').style('display', 'none');
 
-    d3.select('.axis--y').selectAll('line').style('display', 'none');
+    svgCanvas.select('.axis--y').selectAll('line').style('display', 'none');
 
-    d3.select('.axis--x')
+    svgCanvas
+      .select('.axis--x')
       .selectAll('line')
       .style('display', 'none')
       .style('stroke-width', chartSetttings.strokeWidth.line);
 
-    d3.select('.axis--x')
+    svgCanvas.select('.axis--x').select('.domain').style('display', 'none');
+
+    svgCanvas
+      .select('.axis--x')
       .selectAll('.domain')
       .style('stroke-width', chartSetttings.strokeWidth.domain);
   };
@@ -173,10 +192,14 @@ const ConversionChart = ({ items }) => {
   return (
     <>
       <div className={styles.legendeWrapper}>
-        <p className={styles.ratio}>Converion Ratio</p>
-        <p className={styles.conversions}>Conversions</p>
+        <p className="font-sans text-nightBlue font-semibold">
+          Conversion Ratio
+        </p>
+        <p className="font-sans text-lightBlue-rect">Conversions</p>
       </div>
-      <svg ref={ref} width="1190" height="735"></svg>
+      <div className={styles.outer}>
+        <svg ref={ref} width={widthCalc} height="500"></svg>
+      </div>
     </>
   );
 };

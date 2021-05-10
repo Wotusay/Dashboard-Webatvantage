@@ -1,8 +1,10 @@
 .legendWrapper {
     display: grid;
-    grid-template-columns: 12rem 8rem;
-    grid-gap: 85rem;
+    grid-template-columns: 18rem 18rem;
+    grid-gap: 52rem;
     margin-bottom: 2rem;
+    padding-left: 4rem;
+    padding-top: 2rem;
 }
 
 .legendItemStrong {
@@ -14,12 +16,10 @@
     font-size: 1.2rem;
 }
 
-.legendItemsViews {
-
-}
-
 .outer{ 
-    width: 108rem;
-    height: 77rem;
-    overflow:auto
+    width: 90rem;
+    height: 52rem;
+    overflow-y: auto;
+    padding-left: 3rem;
+    padding-top: 2rem;
 }

@@ -7,7 +7,7 @@ const ROUTES = {
 
 const CHARTS = {
   analyticsChart: {
-    margin: { top: 20, right: 50, bottom: 120, left: 50 },
+    margin: { top: 20, right: 20, bottom: 120, left: 90 },
     color: { rectSessions: '#ED605B', rectViews: '#000000' },
     font: {
       axisX: {
@@ -18,7 +18,7 @@ const CHARTS = {
       },
     },
     transforms: {
-      axisX: 'translate(-10,10)rotate(-45)',
+      axisX: 'translate(-10,10)rotate(-55)',
       ratio: 'translate(2,-14)',
     },
     opacity: 0.3,
@@ -27,33 +27,25 @@ const CHARTS = {
 
   conversionChart: {
     margin: { top: 20, right: 0, bottom: 120, left: 50 },
-    color: { rect: '#BBBBBB', lineChart: ['#05FF00', '#FF9F10', '#FF0202'] },
-    strokeWidth: { path: 3, line: 4, domain: 2 },
+    color: { rect: '#D5D7EE', lineChart: ['#8675FF', '#FFA640', '#FF718B'] },
+    strokeWidth: { path: 3.2, line: 4, domain: 2 },
     font: {
       axisX: {
         fontSize: '1.4rem',
       },
       axisY: {
-        fontSize: '1.5rem',
+        fontSize: '1.6rem',
       },
     },
     transforms: {
-      axisX: 'translate(-10,10)rotate(-45)',
+      axisX: 'translate(-10,10)rotate(-50)',
       ratio: 'translate(2,-14)',
     },
   },
   aquistionChart: {
-    innerRadius: 180,
+    innerRadius: 182,
     color: {
-      zAxis: [
-        '#98abc5',
-        '#8a89a6',
-        '#7b6888',
-        '#6b486b',
-        '#a05d56',
-        '#d0743c',
-        '#ff8c00',
-      ],
+      zAxis: ['#F87390', '#F87390', '#FCBB67', '#8675FF', '#8018F7', '#A547D3'],
       line: '#000',
       circleColor: '#000',
       strokeLegend: '#fff',
@@ -68,10 +60,10 @@ const CHARTS = {
       legend: '1.2rem',
     },
     legend: {
-      width: 14,
-      height: 14,
+      width: 7,
+      height: 7,
       x: 18,
-      y: 8,
+      y: 2,
       dy: '0.25em',
     },
     yTickStyles: {
@@ -99,17 +91,27 @@ const CHARTS = {
 };
 
 const RADIALCOLORS = {
-  red: '#FF2929',
-  orange: '#ED7A10',
-  green: '#00D42F',
-  blue: '#2361FF',
-  black: '#333333'
+  red: '#FD2D2D',
+  orange: '#FF7E06',
+  green: '#00B928',
+  blue: '#023AFF',
+  black: '#DBDFF1',
+  textColor: '#383874',
+  purple: '#8675FF',
+  white:'#F5F6FB',
+  background: '#EDEEFA',
+  pink: '#FF708B'
 };
 
 const CATEGORIES = {
   medic: 'Medisch',
   fashion: 'Fashion',
   shoes: 'Schoenen',
+  colors: {
+    medic: '#FF37BB',
+    fashion: '#AE2AFF',
+    shoes: '#967BE1',
+  },
 };
 
 export { ROUTES, CHARTS, CATEGORIES, RADIALCOLORS };

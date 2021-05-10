@@ -9,12 +9,13 @@
 }
 
 .colour {
-    width: 6.5rem;
+    width: 2.5rem;
+    border-radius: 4px;
     height: 1.9rem;
 }
 
 .outer {
     width: 64rem;
-    height: 61.8rem;
+    height: 53.8rem;
     overflow: auto;
 }

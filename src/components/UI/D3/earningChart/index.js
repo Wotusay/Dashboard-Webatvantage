@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { useObserver } from 'mobx-react-lite';
 import React, { useEffect, useRef } from 'react';
-import { CATEGORIES, CHARTS } from '../../../../consts';
+import { CATEGORIES, CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 import styles from './earningChart.module.css';
 
@@ -21,6 +21,62 @@ const EarningChart = ({ items }) => {
     svgCanvas.selectAll('text').remove();
     svgCanvas.selectAll('g').remove();
     svgCanvas.selectAll('rect').remove();
+    svgCanvas.selectAll('defs').remove();
+
+    const colorRangePink = [CATEGORIES.colors.medic, RADIALCOLORS.pink];
+    const colorRangePurple = [CATEGORIES.colors.fashion, '#967BE1'];
+    const colorPink = d3.scaleLinear().range(colorRangePink).domain([1, 2]);
+    const colorPurple = d3.scaleLinear().range(colorRangePurple).domain([1, 2]);
+
+    const colorRangeMedic = [CATEGORIES.colors.shoes, '#B500D2'];
+    const colorMedic = d3.scaleLinear().range(colorRangeMedic).domain([1, 2]);
+    const linearGradientRed = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'medic')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientRed
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorPink(1));
+
+    linearGradientRed
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorPink(2));
+
+    const linearGradientPurple = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'shoes')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientPurple
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorPurple(2));
+
+    linearGradientPurple
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorPurple(1));
+
+    const linearGradientMedic = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'fashion')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientMedic
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorMedic(2));
+
+    linearGradientMedic
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorMedic(1));
 
     const margin = chartElements.margin,
       width = ref.current.width.baseVal.value,
@@ -40,11 +96,11 @@ const EarningChart = ({ items }) => {
       // Makes sets th colour for the right category
       d.colour =
         d.category === CATEGORIES.medic
-          ? chartElements.color.categoriesColors.medic
+          ? 'url(#medic)'
           : d.category === CATEGORIES.fashion
-          ? chartElements.color.categoriesColors.fashion
+          ? 'url(#fashion)'
           : d.category === CATEGORIES.shoes
-          ? chartElements.color.categoriesColors.shoes
+          ? 'url(#shoes)'
           : '#ACC39F';
     });
 
@@ -91,8 +147,10 @@ const EarningChart = ({ items }) => {
       )
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
-      .style('fill', '#bbbbbb')
-      .style('opacity', '0.5');
+      .style('fill', '#DCDFF2')
+      .style('opacity', '0.5')
+      .attr('rx', '0.8rem')
+      .attr('ry', '0.8rem');
 
     // Set the view for the bar
     svgCanvas
@@ -105,7 +163,9 @@ const EarningChart = ({ items }) => {
       .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
-      .style('fill', (d) => d.colour);
+      .style('fill', (d) => d.colour)
+      .attr('rx', '0.8rem')
+      .attr('ry', '0.8rem');
 
     // Labels for the bar
     svgCanvas
@@ -114,14 +174,17 @@ const EarningChart = ({ items }) => {
       .enter()
       .append('text')
       .attr('class', 'label')
-      .attr('x', (d) =>
-        d.rank < clientStore.lengthOfArray - 8
-          ? x(d.eCommerceData.totalRevenue) - 4
-          : 190
+      .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 9 ? 12 : 120))
+      .style('font-family', 'Poppins')
+      .style('fill', (d) =>
+        d.rank < clientStore.lengthOfArray - 9
+          ? RADIALCOLORS.white
+          : RADIALCOLORS.textColor
       )
+      .style('font-weight', '600')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
-      .style('text-anchor', 'end')
-      .html((d) => d.name);
+      .style('text-anchor', 'start')
+      .html((d) => clientStore.truncateString(d.name));
 
     // Value for the bar
     svgCanvas
@@ -131,12 +194,15 @@ const EarningChart = ({ items }) => {
       .append('text')
       .attr('class', 'valueLabel')
       .attr('x', (d) =>
-        d.rank < clientStore.lengthOfArray - 8
+        d.rank < clientStore.lengthOfArray - 9
           ? x(d.eCommerceData.totalRevenue) + 5
-          : 200
+          : 250
       )
+      .style('font-family', 'Poppins')
+      .style('fill', RADIALCOLORS.textColor)
+      .style('font-weight', '400')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
-      .text((d) => `€${d3.format(',.0f')(d.eCommerceData.totalRevenue)}`);
+      .text((d) => `${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(d.eCommerceData.totalRevenue)}`);
 
     // avg for the bar
     svgCanvas
@@ -146,24 +212,34 @@ const EarningChart = ({ items }) => {
       .append('text')
       .attr('class', 'avgLabel')
       .attr('x', (d) =>
-        d.rank < clientStore.lengthOfArray - 8
-          ? x(d.eCommerceData.totalRevenue) + 5
-          : 200
+        d.rank < clientStore.lengthOfArray - 9
+          ? x(d.eCommerceData.totalRevenue) + 20
+          : 260
       )
+      .style('font-family', 'Poppins')
+      .style('fill', RADIALCOLORS.textColor)
+      .style('font-weight', '400')
+      .style('font-size', '1.1rem')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
       .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
     // Stylings
-    svgCanvas.selectAll('text').style('font-size', chartElements.font.fontSize);
+    svgCanvas
+      .selectAll('.valueLabel')
+      .style('font-size', chartElements.font.fontSize);
     svgCanvas
       .selectAll('.tick')
       .select('text')
-      .style('fill', chartElements.color.text);
+      .style('font-family', 'Poppins')
+      .style('font-weight', '500')
+      .style('font-size', '1.4rem')
+      .style('fill', RADIALCOLORS.textColor);
     svgCanvas
       .selectAll('.tick')
       .select('line')
       .style('stroke', chartElements.color.line)
-      .style('shape-rendering', 'CrispEdges');
+      .style('shape-rendering', 'CrispEdges')
+      .style('display', 'none');
     svgCanvas.select('.domain').style('display', 'none');
     svgCanvas
       .selectAll('.label')
@@ -178,31 +254,39 @@ const EarningChart = ({ items }) => {
           <svg ref={ref} width="640" height={heightCalc}></svg>
         </div>
 
-        <div className={styles.item}>
-          <div
-            className={styles.colour}
-            style={{
-              backgroundColor: chartElements.color.categoriesColors.medic,
-            }}></div>
-          <span className={styles.subject}> {CATEGORIES.medic} </span>
-        </div>
+        <div className="flex justify-evenly">
+          <div className={styles.item}>
+            <div
+              className={styles.colour}
+              style={{
+                backgroundColor: CATEGORIES.colors.medic,
+              }}></div>
+            <span className="font-sans  ml-2 text-nightBlue">
+              {CATEGORIES.medic}
+            </span>
+          </div>
 
-        <div className={styles.item}>
-          <div
-            className={styles.colour}
-            style={{
-              backgroundColor: chartElements.color.categoriesColors.fashion,
-            }}></div>
-          <span className={styles.subject}>{CATEGORIES.fashion}</span>
-        </div>
+          <div className={styles.item}>
+            <div
+              className={styles.colour}
+              style={{
+                backgroundColor: CATEGORIES.colors.fashion,
+              }}></div>
+            <span className="font-sans ml-2 text-nightBlue">
+              {CATEGORIES.fashion}
+            </span>
+          </div>
 
-        <div className={styles.item}>
-          <div
-            className={styles.colour}
-            style={{
-              backgroundColor: chartElements.color.categoriesColors.shoes,
-            }}></div>
-          <span className={styles.subject}>{CATEGORIES.shoes}</span>
+          <div className={styles.item}>
+            <div
+              className={styles.colour}
+              style={{
+                backgroundColor: CATEGORIES.colors.shoes,
+              }}></div>
+            <span className="font-sans ml-2 text-nightBlue">
+              {CATEGORIES.shoes}
+            </span>
+          </div>
         </div>
       </div>
     </>

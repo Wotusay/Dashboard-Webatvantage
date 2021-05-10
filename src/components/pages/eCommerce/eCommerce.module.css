@@ -1,17 +1,32 @@
 .chartsWrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-gap: 5rem;
+    grid-template-columns: 90rem 70rem;
+    justify-content: center;
 }
 
 .cardsWrapper {
     display: grid;
+    grid-template-columns:32rem 32rem;
     justify-content: space-evenly;
-    grid-template-columns: 21rem 21rem;
-    grid-gap: 10rem;
-    margin-bottom: 1rem;
+
+    grid-gap: 88rem;
+    z-index: 1;
+    margin-top: ;
+    margin-bottom: 5rem;
 }
 
 .ConversionChart {
     margin-top: 1rem;
     margin-right: 2rem;
+}
+
+.earningChart  {
+    padding: 2rem;
+    --tw-bg-opacity: 1;
+    background-color: rgba(238, 241, 250, var(--tw-bg-opacity));
+    border-radius: 1rem;
+    height: max-content;
+    display: grid;
+    justify-content: center;
 }

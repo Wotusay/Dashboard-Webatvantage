@@ -12,7 +12,7 @@ const LoadWatcherCard = () => {
   return useObserver(() => (
     <>
       <div className={styles.sectorWrapper}>
-        <span className={styles.title}>Load watcher</span>
+        <span className=' font-sans font-semibold text-nightBlue text-4xl'>Load watcher</span>
         <div className={styles.sectorCard}>
           <div className={styles.sectorLayout}>
             {serverStore.servers.map((s) => (
@@ -28,10 +28,10 @@ const LoadWatcherCard = () => {
                         ? RADIALCOLORS.red
                         : '',
                   }}
-                  className={styles.name}>
+                  className=' font-sans uppercase font-medium '>
                   {s.name}
                 </p>
-                <p className={styles.used}>{s.load.current}</p>
+                <p className='font-sans text-gray-400 '>{s.load.current}</p>
                 <div className={styles.total}>
                   {s.status === 'green' ? (
                     <GreenStatic />

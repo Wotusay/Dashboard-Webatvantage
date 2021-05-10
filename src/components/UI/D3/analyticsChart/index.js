@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CHARTS } from '../../../../consts';
+import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 import styles from './analyticsChart.module.css';
 
@@ -15,7 +15,7 @@ const AnalyticsChart = ({ items }) => {
 
   const { clientStore } = useStores();
 
-  const widthCalculator = 41.5 * clientStore.lengthOfArray;
+  const widthCalculator = 71.5 * clientStore.lengthOfArray;
 
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
@@ -81,6 +81,42 @@ const AnalyticsChart = ({ items }) => {
     // Hier worden alle groepen ingeladen
     x1.domain(keys).rangeRound([0, x0.bandwidth()]);
 
+    const colorRangeRed = [RADIALCOLORS.red, '#DB2121'];
+    const colorRangePurple = [RADIALCOLORS.purple, '#C1A3F9'];
+    const colorRed = d3.scaleLinear().range(colorRangeRed).domain([1, 2]);
+    const colorPurple = d3.scaleLinear().range(colorRangePurple).domain([1, 2]);
+    const linearGradientRed = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'red')
+      .attr('gradientTransform', 'rotate(90)');
+
+    linearGradientRed
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorRed(1));
+
+    linearGradientRed
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorRed(2));
+
+    const linearGradientPurple = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'purple')
+      .attr('gradientTransform', 'rotate(90)');
+
+    linearGradientPurple
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorPurple(2));
+
+    linearGradientPurple
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorPurple(1));
+
     // Deze bars is voor de totale sessies
     svgCanvas
       .append('g')
@@ -109,8 +145,10 @@ const AnalyticsChart = ({ items }) => {
       .attr('height', (d) => {
         return height - sessions(d.value);
       })
-      .attr('fill', chartSetttings.color.rectSessions)
-      .style('opacity', chartSetttings.opacity);
+      .attr('fill', RADIALCOLORS.red)
+      .style('opacity', chartSetttings.opacity)
+      .attr('rx', 3)
+      .attr('ry', 3);
 
     // Deze bars is voor de percentage van de avg pages per sessies
     svgCanvas
@@ -146,8 +184,10 @@ const AnalyticsChart = ({ items }) => {
       .attr('height', (d) => {
         return height - sessions(d.value);
       })
-      .attr('fill', chartSetttings.color.rectSessions)
-      .style('opacity', 1);
+      .style('opacity', 1)
+      .attr('fill', 'url(#red)')
+      .attr('rx', 3)
+      .attr('ry', 3);
 
     // Dit is voor het totale pageviews te tonen
     svgCanvas
@@ -177,8 +217,10 @@ const AnalyticsChart = ({ items }) => {
       .attr('height', (d) => {
         return height - pageviews(d.value);
       })
-      .attr('fill', chartSetttings.color.rectViews)
-      .style('opacity', chartSetttings.opacity);
+      .attr('fill', RADIALCOLORS.purple)
+      .style('opacity', chartSetttings.opacity)
+      .attr('rx', 3)
+      .attr('ry', 3);
 
     // Dit is voor het bounce te tonen die een op de pageviews staat
     svgCanvas
@@ -214,8 +256,10 @@ const AnalyticsChart = ({ items }) => {
       .attr('height', (d) => {
         return height - pageviews(d.value);
       })
-      .attr('fill', chartSetttings.color.rectViews)
-      .style('opacity', 1);
+      .attr('fill', 'url(#purple)')
+      .style('opacity', 1)
+      .attr('rx', 3)
+      .attr('ry', 3);
 
     // oproepen van de y-as links
     svgCanvas
@@ -244,9 +288,12 @@ const AnalyticsChart = ({ items }) => {
       .selectAll('text')
       .attr('transform', chartSetttings.transforms.axisX)
       .style('text-anchor', 'end')
-      .style('font-size', chartSetttings.font.axisX.fontSize);
+      .style('font-size', chartSetttings.font.axisX.fontSize)
+      .style('font-family', 'Poppins')
+      .style('color', RADIALCOLORS.textColor)
+      .style('font-weight', '600');
 
-    svgCanvas.select('.axis--x').selectAll('line');
+    svgCanvas.select('.axis--x').selectAll('line').style('display', 'none');
 
     svgCanvas.select('.axis--x').selectAll('.domain').style('display', 'none');
 
@@ -266,15 +313,19 @@ const AnalyticsChart = ({ items }) => {
       .select('.axis--y')
       .selectAll('.tick')
       .select('text')
-      .style('fill', chartSetttings.color.rectViews)
-      .style('font-weight', '700');
+      .style('fill', RADIALCOLORS.purple)
+      .style('font-weight', '600')
+      .style('font-family', 'Poppins')
+      .style('font-size', '1.5rem');
 
     svgCanvas
       .select('.y')
       .selectAll('.tick')
       .select('text')
-      .style('fill', chartSetttings.color.rectSessions)
-      .style('font-weight', '700');
+      .style('fill', RADIALCOLORS.red)
+      .style('font-weight', '600')
+      .style('font-size', '1.5rem')
+      .style('font-family', 'Poppins');
   };
 
   useEffect(() => graph());
@@ -283,31 +334,29 @@ const AnalyticsChart = ({ items }) => {
       <div className={styles.legendWrapper}>
         <div className={styles.legendItems}>
           <p
-            className={styles.legendItemStrong}
-            style={{ color: chartSetttings.color.rectSessions }}>
+            className="font-sans font-semibold text-2xl"
+            style={{ color: RADIALCOLORS.red }}>
             Pages per sessions
           </p>
-          <p
-            className={styles.legendItem}
-            style={{ color: chartSetttings.color.rectSessions }}>
+          <p className="font-sans text-2xl opacity-50" style={{ color: RADIALCOLORS.red }}>
             Total pageviews
           </p>
         </div>
         <div className={styles.legendItemsViews}>
           <p
-            className={styles.legendItemStrong}
-            style={{ color: chartSetttings.color.rectViews }}>
+            className="font-sans font-semibold text-2xl"
+            style={{ color: RADIALCOLORS.purple }}>
             Bounce
           </p>
           <p
-            className={styles.legendItem}
-            style={{ color: chartSetttings.color.rectViews }}>
+            className="font-sans text-2xl opacity-50"
+            style={{ color: RADIALCOLORS.purple }}>
             Total sessions
           </p>
         </div>
       </div>
       <div className={styles.outer}>
-        <svg width={widthCalculator} height="700" ref={ref}></svg>
+        <svg width={widthCalculator} height="500" ref={ref}></svg>
       </div>
     </>
   );

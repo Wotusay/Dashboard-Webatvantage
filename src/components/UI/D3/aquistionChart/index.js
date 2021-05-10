@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { CHARTS } from '../../../../consts';
+import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 
 const AquistionChart = ({ items }) => {
@@ -18,14 +18,14 @@ const AquistionChart = ({ items }) => {
     svgCanvas.selectAll('defs').remove();
 
     const width = ref.current.width.baseVal.value;
-    const height = ref.current.height.baseVal.value / 1.5;
+    const height = ref.current.height.baseVal.value /1.6;
 
     // Radius for all circle
     const innerRadius = chartSetttings.innerRadius;
-    const outerRadius = Math.min(width, height) * 0.67;
+    const outerRadius = Math.min(width, (height)) * 0.75;
     const g = svgCanvas
       .append('g')
-      .attr('transform', `translate( ${width / 2},${height * 0.67} )`);
+      .attr('transform', `translate( ${width / 2},${height / 1.25} )`);
 
     const x = d3
       .scaleBand()
@@ -132,11 +132,6 @@ const AquistionChart = ({ items }) => {
       });
 
     label
-      .append('line')
-      .attr('x2', -5)
-      .attr('stroke', chartSetttings.color.line);
-
-    label
       .append('text')
       .attr('transform', (d) => {
         return (x(d.name) + x.bandwidth() / 2 + Math.PI / 2) % (2 * Math.PI) <
@@ -145,6 +140,11 @@ const AquistionChart = ({ items }) => {
           : chartSetttings.transforms.textUp;
       })
       .style('font-size', chartSetttings.font.label)
+      .style('font-weight', '400')
+      .style('font-family', 'Poppins')
+      .style('font-size', '1rem')
+      .style('fill', RADIALCOLORS.textColor)
+
       .text((d) => {
         return clientStore.truncateString(d.name);
       });
@@ -158,23 +158,19 @@ const AquistionChart = ({ items }) => {
       .append('g');
 
     yTick
-      .append('circle')
-      .attr('fill', 'none')
-      .attr('stroke', chartSetttings.color.circleColor)
-      .attr('stroke-opacity', chartSetttings.yTickStyles.circleOpacity)
-      .attr('r', y);
-
-    yTick
       .append('text')
       .attr('x', -6)
       .style('font-size', chartSetttings.font.yAxis)
+
       .attr('y', (d) => {
         return -y(d);
       })
       .attr('dy', chartSetttings.yTickStyles.text.dy)
-      .attr('fill', 'none')
-      .attr('stroke', chartSetttings.color.strokeLegend)
+      .attr('stroke', '#fff')
       .attr('stroke-width', chartSetttings.yTickStyles.text.strokeWidth)
+      .style('font-weight', '600')
+      .style('font-size', '1.5rem')
+      .style('font-family', 'Poppins')
       .text(y.tickFormat(3, 's'));
 
     yTick
@@ -185,6 +181,10 @@ const AquistionChart = ({ items }) => {
         return -y(d);
       })
       .attr('dy', chartSetttings.yTickStyles.text.dy)
+      .style('font-weight', '600')
+      .style('font-size', '1.5rem')
+      .style('font-family', 'Poppins')
+      .style('fill', RADIALCOLORS.textColor)
       .text(y.tickFormat(3, 's'));
 
     const legend = g
@@ -199,6 +199,9 @@ const AquistionChart = ({ items }) => {
 
     legend
       .append('rect')
+      .attr('y', '-1')
+      .attr('rx', 11)
+      .attr('ry', 11)
       .attr('width', chartSetttings.legend.width)
       .attr('height', chartSetttings.legend.height)
       .attr('fill', z);
@@ -208,7 +211,10 @@ const AquistionChart = ({ items }) => {
       .attr('x', chartSetttings.legend.x)
       .attr('y', chartSetttings.legend.y)
       .attr('dy', chartSetttings.legend.dy)
-      .style('font-size', chartSetttings.font.legend)
+      .style('font-weight', '500')
+      .style('font-size', '1.3rem')
+      .style('font-family', 'Poppins')
+      .style('fill', RADIALCOLORS.textColor)
       .text((d) => {
         return d;
       });
@@ -217,7 +223,12 @@ const AquistionChart = ({ items }) => {
   useEffect(() => graph());
   return (
     <>
-      <svg ref={ref} width="606" height="616"></svg>
+      <svg
+        style={{ borderRadius:'50%', }}
+        className='shadow-xl bg-white'
+        ref={ref}
+        width="600"
+        height="600"></svg>
     </>
   );
 };

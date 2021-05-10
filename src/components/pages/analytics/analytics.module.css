@@ -1,19 +1,62 @@
 .cardsWrapper {
     display: grid;
-    grid-template-columns: 21rem 21rem 21rem ;
-    justify-content: space-evenly;
+    grid-template-columns: 30rem 30rem 30rem ;
+    justify-content: space-between;
+    margin-left: 13rem;
+    margin-right: 13rem;
+
     grid-gap: 10rem;
-    margin-bottom: 1rem;
-    margin-top: 2rem;
+
 }
 
 .chartsWrapper {
     display: grid;
-    grid-template-columns: 108rem 70rem;
-    justify-content: space-evenly;
-    margin-top: 3rem;
+    grid-template-columns: 90rem 70rem;
+    grid-gap: 6rem;
+    align-content: center;
+    border-radius: 1rem;
+    padding: 2.2rem;
+    padding-bottom: unset;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    margin-left: 8rem;
+    position: relative;
+    overflow: hidden;
+    height: 68rem;
+    margin-bottom: 0rem;
+    margin-right: 8rem;
 }
 
-.doubleStackedChart {
 
+.chartAnalyics {
+    background-color: white;
+    border-radius: 1rem;
+    padding-top: 2rem;
+    --tw-shadow: 0 20px 25px -5px rgba(134, 118, 255, 0.1), 0 10px 10px -5px rgba(134, 118, 255, 0.08);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    height: 63rem;
 }
+
+.box {
+    padding: 1rem;
+    border-radius: 6rem;
+    display: grid;
+    grid-gap: 3rem;
+}
+
+.bg { 
+     background-color: #EDEFF9; 
+     border-radius: 50%;
+     width: 65rem;
+     height: 65rem;
+     margin-left: 5rem;
+     display: grid;
+     align-content: center;
+     justify-content: center;
+}
+
+.aquistionChart {
+    position: relative;
+    overflow: hidden;
+    height: 65rem;
+} 
