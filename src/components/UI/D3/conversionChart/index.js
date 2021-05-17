@@ -10,9 +10,8 @@ const ConversionChart = ({ items }) => {
   const ref = useRef();
   const widthCalc = 61.5 * clientStore.lengthOfArray; // Calculates the width for the graphh
   const chartSetttings = CHARTS.conversionChart;
-  const graph = () => {
+  const graph = async () => {
     const svgCanvas = d3.select(ref.current);
-
     // Removes all prev items
     svgCanvas.selectAll('g').remove();
     svgCanvas.selectAll('rect').remove();
@@ -84,10 +83,10 @@ const ConversionChart = ({ items }) => {
       .attr('width', x.bandwidth())
       .attr('y', height - margin.bottom)
       .attr('y', function (d, i) {
-        return y(d.eCommerceData.conversions);
+        return y(0);
       })
       .attr('height', function (d, i) {
-        return height - y(d.eCommerceData.conversions) - margin.bottom;
+        return height - y(0) - margin.bottom;
       })
       .attr('rx', 3)
       .attr('ry', 3);
@@ -102,6 +101,20 @@ const ConversionChart = ({ items }) => {
         return yRate(d.eCommerceData.conversionRate / 100);
       })
       .curve(d3.curveBasis);
+
+    svgCanvas
+      .selectAll('rect')
+      .transition()
+      .duration(800)
+      .attr('y', function (d) {
+        return y(d.eCommerceData.conversions);
+      })
+      .attr('height', function (d) {
+        return height - y(d.eCommerceData.conversions) - margin.bottom;
+      })
+      .delay(function (d, i) {
+        return i * 100;
+      });
 
     // Gradient
     const colorRange = chartSetttings.color.lineChart;
@@ -129,13 +142,23 @@ const ConversionChart = ({ items }) => {
       .attr('stop-color', color(3));
 
     // Styling
-    svgCanvas
+    const lineDraw = svgCanvas
       .append('path')
       .attr('class', 'line')
-      .attr('d', line(items))
       .attr('stroke-width', chartSetttings.strokeWidth.path)
       .attr('stroke', 'url(#line-gradient)')
+      .attr('d', line(items))
       .attr('fill', 'none');
+
+    let totalLength = lineDraw.node().getTotalLength();
+
+    lineDraw
+      .attr('stroke-dasharray', totalLength)
+      .attr('stroke-dashoffset', totalLength)
+      .transition()
+      .duration(2500)
+      .ease(d3.easeCubicIn)
+      .attr('stroke-dashoffset', 0);
 
     svgCanvas
       .select('.axis--x')
@@ -187,7 +210,8 @@ const ConversionChart = ({ items }) => {
       .style('stroke-width', chartSetttings.strokeWidth.domain);
   };
 
-  useEffect(() => graph());
+  // eslint-disable-next-line
+  useEffect(() => graph(), [clientStore.lengthOfArray]);
 
   return (
     <>

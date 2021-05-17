@@ -35,6 +35,7 @@ const TimeRange = ({ mouseMove }) => {
             variants={navAnimation}
             className="overflow-hidden h-44"
             initial={'disapear'}
+            exit={'disapear'}
             animate={mouseMove ? 'start' : 'disapear'}>
             <p className=" font-sans font-semibold text-3xl uppercase tracking-widest justify-center flex text-nightBlue mb-5">
               Time Range

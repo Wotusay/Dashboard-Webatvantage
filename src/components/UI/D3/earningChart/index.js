@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
+import { motion } from 'framer-motion';
 import { useObserver } from 'mobx-react-lite';
 import React, { useEffect, useRef } from 'react';
+import { earningAnimaton } from '../../../../animation';
 import { CATEGORIES, CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 import styles from './earningChart.module.css';
@@ -141,16 +143,28 @@ const EarningChart = ({ items }) => {
       .append('rect')
       .attr('class', 'barPrev')
       .attr('x', x(0) + 1)
-      .attr(
-        'width',
-        (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
-      )
+      .attr('width', (d) => x(0) - x(0) - 1)
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
       .style('fill', '#DCDFF2')
       .style('opacity', '0.5')
       .attr('rx', '0.8rem')
       .attr('ry', '0.8rem');
+
+    svgCanvas
+      .selectAll('rect.barPrev')
+      .transition()
+      .duration(800)
+      .attr('x', x(0) + 1)
+      .attr(
+        'width',
+        (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
+      )
+      .attr('y', (d) => y(d.rank) + 5)
+      .attr('height', y(1) - y(0) - barPadding)
+      .delay(function (d, i) {
+        return i * 100;
+      });
 
     // Set the view for the bar
     svgCanvas
@@ -160,12 +174,24 @@ const EarningChart = ({ items }) => {
       .append('rect')
       .attr('class', 'bar')
       .attr('x', x(0) + 1)
-      .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+      .attr('width', (d) => x(0) - x(0) - 1)
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
       .style('fill', (d) => d.colour)
       .attr('rx', '0.8rem')
       .attr('ry', '0.8rem');
+
+    svgCanvas
+      .selectAll('rect.bar')
+      .transition()
+      .duration(800)
+      .attr('x', x(0) + 1)
+      .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+      .attr('y', (d) => y(d.rank) + 5)
+      .attr('height', y(1) - y(0) - barPadding)
+      .delay(function (d, i) {
+        return i * 100;
+      });
 
     // Labels for the bar
     svgCanvas
@@ -184,7 +210,17 @@ const EarningChart = ({ items }) => {
       .style('font-weight', '600')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
       .style('text-anchor', 'start')
+      .style('opacity', '0')
       .html((d) => clientStore.truncateString(d.name));
+
+    svgCanvas
+      .selectAll('text.label')
+      .transition()
+      .duration(800)
+      .style('opacity', '1')
+      .delay(function (d, i) {
+        return i * 100;
+      });
 
     // Value for the bar
     svgCanvas
@@ -201,9 +237,24 @@ const EarningChart = ({ items }) => {
       .style('font-family', 'Poppins')
       .style('fill', RADIALCOLORS.textColor)
       .style('font-weight', '400')
+      .style('opacity', '0')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
-      .text((d) => `${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(d.eCommerceData.totalRevenue)}`);
+      .text(
+        (d) =>
+          `${new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+          }).format(d.eCommerceData.totalRevenue)}`
+      );
 
+    svgCanvas
+      .selectAll('text.valueLabel')
+      .transition()
+      .duration(800)
+      .style('opacity', '1')
+      .delay(function (d, i) {
+        return i * 100;
+      });
     // avg for the bar
     svgCanvas
       .selectAll('text.avgLabel')
@@ -217,12 +268,21 @@ const EarningChart = ({ items }) => {
           : 260
       )
       .style('font-family', 'Poppins')
+      .style('opacity', '0')
       .style('fill', RADIALCOLORS.textColor)
       .style('font-weight', '400')
       .style('font-size', '1.1rem')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
       .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
+    svgCanvas
+      .selectAll('text.avgLabel')
+      .transition()
+      .duration(800)
+      .style('opacity', '1')
+      .delay(function (d, i) {
+        return i * 100;
+      });
     // Stylings
     svgCanvas
       .selectAll('.valueLabel')
@@ -245,11 +305,16 @@ const EarningChart = ({ items }) => {
       .selectAll('.label')
       .style('font-weight', chartElements.font.fontWeight);
   };
-
-  useEffect(() => graph());
+  
+  // eslint-disable-next-line
+  useEffect(() => graph(), [clientStore.lengthOfArray]);
   return useObserver(() => (
     <>
-      <div>
+      <motion.div
+        initial={'exit'}
+        variants={earningAnimaton}
+        exit="exit"
+        animate="start">
         <div className={styles.outer}>
           <svg ref={ref} width="640" height={heightCalc}></svg>
         </div>
@@ -288,7 +353,7 @@ const EarningChart = ({ items }) => {
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   ));
 };

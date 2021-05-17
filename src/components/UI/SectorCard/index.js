@@ -1,11 +1,18 @@
 import React from 'react';
 import { CATEGORIES } from '../../../consts';
 import styles from './sectorcard.module.css';
+import { motion } from 'framer-motion';
+import { cardAnimaton } from '../../../animation';
 
 const SectorCard = () => {
   return (
     <>
-      <div className={styles.sectorWrapper}>
+      <motion.div
+        initial={'exit'}
+        variants={cardAnimaton}
+        exit={'exit'}
+        animate={'start'}
+        className={styles.sectorWrapper}>
         <span className="font-sans font-semibold text-nightBlue text-4xl">
           Total Sector Storage
         </span>
@@ -24,7 +31,7 @@ const SectorCard = () => {
 
             <div className={styles.label}>
               <div
-                style={{ background: CATEGORIES.colors.fashion}}
+                style={{ background: CATEGORIES.colors.fashion }}
                 className={styles.circle}></div>
               <p className="font-sans text-nightBlue">{CATEGORIES.fashion}</p>
             </div>
@@ -41,7 +48,7 @@ const SectorCard = () => {
             <p className="font-sans text-nightBlue">1000GB</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

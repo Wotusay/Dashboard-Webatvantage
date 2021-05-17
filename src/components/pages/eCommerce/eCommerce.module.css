@@ -7,10 +7,10 @@
 
 .cardsWrapper {
     display: grid;
-    grid-template-columns:32rem 32rem;
+    grid-template-columns:32rem 32rem 32rem;
     justify-content: space-evenly;
 
-    grid-gap: 88rem;
+    grid-gap: 20rem;
     z-index: 1;
     margin-top: ;
     margin-bottom: 5rem;

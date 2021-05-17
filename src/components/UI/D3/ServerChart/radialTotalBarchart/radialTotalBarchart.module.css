@@ -8,7 +8,7 @@
 
 .storageWrapper {
     display: flex;
-    gap: 5rem;
+    gap: 1.5rem;
     font-size: 1.3rem;
     margin-bottom: 1.3rem;
 
@@ -16,7 +16,7 @@
 
 .loadWrapper {
     display: flex;
-    gap: 5.1rem;
+    gap: 1.5rem;
     font-size: 1.3rem;
 }
 

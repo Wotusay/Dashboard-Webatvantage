@@ -135,20 +135,35 @@ const AnalyticsChart = ({ items }) => {
       })
       .enter()
       .append('rect')
+      .attr('class', 'totalsessions')
       .attr('x', (d) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return sessions(d.value);
+        return sessions(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - sessions(d.value);
+        return height - sessions(0);
       })
       .attr('fill', RADIALCOLORS.red)
       .style('opacity', chartSetttings.opacity)
       .attr('rx', 3)
       .attr('ry', 3);
+
+    svgCanvas
+      .selectAll('.totalsessions')
+      .transition()
+      .duration(800)
+      .attr('y', function (d) {
+        return sessions(d.value);
+      })
+      .attr('height', function (d) {
+        return height - sessions(d.value);
+      })
+      .delay(function (d, i) {
+        return i * 50;
+      });
 
     // Deze bars is voor de percentage van de avg pages per sessies
     svgCanvas
@@ -174,20 +189,35 @@ const AnalyticsChart = ({ items }) => {
       })
       .enter()
       .append('rect')
+      .attr('class', 'avgpages')
       .attr('x', (d) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return sessions(d.value);
+        return sessions(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - sessions(d.value);
+        return height - sessions(0);
       })
       .style('opacity', 1)
       .attr('fill', 'url(#red)')
       .attr('rx', 3)
       .attr('ry', 3);
+
+    svgCanvas
+      .selectAll('.avgpages')
+      .transition()
+      .duration(800)
+      .attr('y', function (d) {
+        return sessions(d.value);
+      })
+      .attr('height', function (d) {
+        return height - sessions(d.value);
+      })
+      .delay(function (d, i) {
+        return i * 50;
+      });
 
     // Dit is voor het totale pageviews te tonen
     svgCanvas
@@ -207,20 +237,35 @@ const AnalyticsChart = ({ items }) => {
       })
       .enter()
       .append('rect')
+      .attr('class', 'pageviews')
       .attr('x', (d) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return pageviews(d.value);
+        return pageviews(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - pageviews(d.value);
+        return height - pageviews(0);
       })
       .attr('fill', RADIALCOLORS.purple)
       .style('opacity', chartSetttings.opacity)
       .attr('rx', 3)
       .attr('ry', 3);
+
+    svgCanvas
+      .selectAll('.pageviews')
+      .transition()
+      .duration(800)
+      .attr('y', function (d) {
+        return pageviews(d.value);
+      })
+      .attr('height', function (d) {
+        return height - pageviews(d.value);
+      })
+      .delay(function (d, i) {
+        return i * 50;
+      });
 
     // Dit is voor het bounce te tonen die een op de pageviews staat
     svgCanvas
@@ -246,20 +291,37 @@ const AnalyticsChart = ({ items }) => {
       })
       .enter()
       .append('rect')
+      .attr('class', 'bounce')
       .attr('x', (d) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return pageviews(d.value);
+        return pageviews(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - pageviews(d.value);
+        return height - pageviews(0);
       })
       .attr('fill', 'url(#purple)')
       .style('opacity', 1)
       .attr('rx', 3)
       .attr('ry', 3);
+
+    svgCanvas
+      .selectAll('.bounce')
+      .transition()
+      .duration(800)
+      .attr('y', function (d) {
+        return pageviews(d.value);
+      })
+      .attr('height', function (d) {
+        return height - pageviews(d.value);
+      })
+      .delay(function (d, i) {
+        return i * 50;
+      });
+
+    svgCanvas.selectAll('g').select('rect').remove();
 
     // oproepen van de y-as links
     svgCanvas
@@ -328,7 +390,9 @@ const AnalyticsChart = ({ items }) => {
       .style('font-family', 'Poppins');
   };
 
-  useEffect(() => graph());
+  // eslint-disable-next-line
+  useEffect(() => graph(), [clientStore.lengthOfArray]);
+  
   return (
     <>
       <div className={styles.legendWrapper}>
@@ -338,7 +402,9 @@ const AnalyticsChart = ({ items }) => {
             style={{ color: RADIALCOLORS.red }}>
             Pages per sessions
           </p>
-          <p className="font-sans text-2xl opacity-50" style={{ color: RADIALCOLORS.red }}>
+          <p
+            className="font-sans text-2xl opacity-50"
+            style={{ color: RADIALCOLORS.red }}>
             Total pageviews
           </p>
         </div>

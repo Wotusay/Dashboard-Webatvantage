@@ -18,11 +18,11 @@ const AquistionChart = ({ items }) => {
     svgCanvas.selectAll('defs').remove();
 
     const width = ref.current.width.baseVal.value;
-    const height = ref.current.height.baseVal.value /1.6;
+    const height = ref.current.height.baseVal.value / 1.6;
 
     // Radius for all circle
     const innerRadius = chartSetttings.innerRadius;
-    const outerRadius = Math.min(width, (height)) * 0.75;
+    const outerRadius = Math.min(width, height) * 0.75;
     const g = svgCanvas
       .append('g')
       .attr('transform', `translate( ${width / 2},${height / 1.25} )`);
@@ -56,7 +56,9 @@ const AquistionChart = ({ items }) => {
       tempObj.direct = d.analyticsData.aquisition.direct;
       tempObj.social = d.analyticsData.aquisition.social;
       tempObj.referral = d.analyticsData.aquisition.referral;
-      tempObj.paid = d.analyticsData.aquisition.paid;
+      tempObj.paid = !d.analyticsData.aquisition.paid
+        ? 10
+        : d.analyticsData.aquisition.paid;
       d.analyticsData.aquisition = tempObj;
     });
 
@@ -75,7 +77,6 @@ const AquistionChart = ({ items }) => {
 
     // Here we use the new array item
     const stack = d3.stack().keys(arrayItems);
-
     // Here we stack the items
     const series = stack(
       itemsSorted.map((i) => {
@@ -83,12 +84,13 @@ const AquistionChart = ({ items }) => {
       })
     );
 
+
     g.append('g')
       .selectAll('g')
       .data(series)
       .enter()
       .append('g')
-      .attr('fill', (d) => {
+      .attr('fill', (d, i) => {
         return z(d.key);
       })
       .selectAll('rect')
@@ -97,6 +99,31 @@ const AquistionChart = ({ items }) => {
       })
       .enter()
       .append('path')
+      .attr(
+        'd',
+        d3
+          .arc()
+          // Here we make a radial stackedbar
+          .innerRadius((d) => {
+            return y(-1);
+          })
+          .outerRadius((d) => {
+            return y(0);
+          })
+          .startAngle((d) => {
+            return x(d.data.name);
+          })
+          .endAngle((d) => {
+            return x(d.data.name) + x.bandwidth();
+          })
+          .padAngle(0.01)
+          .padRadius(innerRadius)
+      );
+
+    svgCanvas
+      .selectAll('path')
+      .transition()
+      .duration(400)
       .attr(
         'd',
         d3
@@ -116,7 +143,11 @@ const AquistionChart = ({ items }) => {
           })
           .padAngle(0.01)
           .padRadius(innerRadius)
-      );
+      )
+      .ease(d3.easeCubicIn)
+      .delay(function (d, i) {
+        return i * 12;
+      });
 
     const label = g
       .append('g')
@@ -143,11 +174,19 @@ const AquistionChart = ({ items }) => {
       .style('font-weight', '400')
       .style('font-family', 'Poppins')
       .style('font-size', '1rem')
+      .style('opacity', 0)
       .style('fill', RADIALCOLORS.textColor)
-
       .text((d) => {
         return clientStore.truncateString(d.name);
+      })
+      .transition()
+      .duration(800)
+      .style('opacity', 1)
+      .ease(d3.easeCubicIn)
+      .delay(function (d, i) {
+        return i * 5;
       });
+
 
     const yAxis = g.append('g').attr('text-anchor', 'end');
 
@@ -219,13 +258,14 @@ const AquistionChart = ({ items }) => {
         return d;
       });
   };
+  // eslint-disable-next-line
+  useEffect(() => graph(), [clientStore.lengthOfArray]);
 
-  useEffect(() => graph());
   return (
     <>
       <svg
-        style={{ borderRadius:'50%', }}
-        className='shadow-xl bg-white'
+        style={{ borderRadius: '50%' }}
+        className="shadow-xl bg-white"
         ref={ref}
         width="600"
         height="600"></svg>

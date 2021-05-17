@@ -21,7 +21,7 @@ const CHARTS = {
       axisX: 'translate(-10,10)rotate(-55)',
       ratio: 'translate(2,-14)',
     },
-    opacity: 0.3,
+    opacity: 0.4,
     groups: ['sessions', 'views'],
   },
 

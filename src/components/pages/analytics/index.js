@@ -8,6 +8,13 @@ import AquistionChart from '../../UI/D3/aquistionChart';
 import styles from './analytics.module.css';
 import AnalyticsChart from '../../UI/D3/analyticsChart';
 
+import { motion } from 'framer-motion';
+import {
+  titleAnimaton,
+  graphAnimaton,
+  earningAnimaton,
+} from '../../../animation';
+
 const Analytics = () => {
   const { clientStore } = useStores();
   const [mouseMove, setMouseMove] = useState(false);
@@ -42,47 +49,74 @@ const Analytics = () => {
     <>
       <TimeRange mouseMove={mouseMove} />
       <div className={styles.box}>
-        <h2 className=" ml-52 mt-10 mb-3 font-sans font-medium text-nightBlue text-6xl ">
+        <motion.h2
+          initial={'exit'}
+          variants={titleAnimaton}
+          exit={'exit'}
+          animate={'start'}
+          className=" ml-52 mt-10 mb-3 font-sans font-medium text-nightBlue text-6xl ">
           Analytics Data
-        </h2>
+        </motion.h2>
         <div className={styles.cardsWrapper}>
           <Card
             title={`Total pageviews`}
-            number={new Intl.NumberFormat('de-DE').format(clientStore.totalViews)}
+            number={new Intl.NumberFormat('de-DE').format(
+              clientStore.totalViews
+            )}
             rate={(
               (decreaseValueViews / clientStore.totalLastMonthViews) *
               100
             ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(clientStore.totalLastMonthViews)} last month`}
+            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+              clientStore.totalLastMonthViews
+            )} last month`}
           />
           <Card
             title={`Total sessions`}
-            number={new Intl.NumberFormat('de-DE').format(clientStore.totalSessions)}
+            number={new Intl.NumberFormat('de-DE').format(
+              clientStore.totalSessions
+            )}
             rate={(
               (decreaseValueSessions / clientStore.totalLastMonthSessions) *
               100
             ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(clientStore.totalLastMonthSessions)} last month`}
+            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+              clientStore.totalLastMonthSessions
+            )} last month`}
           />
           <Card
             title={`Total users`}
-            number={new Intl.NumberFormat('de-DE').format(clientStore.totalUsers)}
+            number={new Intl.NumberFormat('de-DE').format(
+              clientStore.totalUsers
+            )}
             rate={(
               (decreaseValueUsers / clientStore.totalLastMonthUsers) *
               100
             ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(clientStore.totalLastMonthUsers)} last month`}
+            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+              clientStore.totalLastMonthUsers
+            )} last month`}
           />
         </div>
 
         <div className={styles.chartsWrapper}>
-          <div className={styles.chartAnalyics}>
+          <motion.div
+            initial={'exit'}
+            variants={graphAnimaton}
+            exit={'exit'}
+            animate={'start'}
+            className={styles.chartAnalyics}>
             <AnalyticsChart items={item} />
-          </div>
+          </motion.div>
           <div className={styles.aquistionChart}>
-            <div className={styles.bg}>
+            <motion.div
+              initial={'exit'}
+              variants={earningAnimaton}
+              exit="exit"
+              animate="start"
+              className={styles.bg}>
               <AquistionChart items={item} />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

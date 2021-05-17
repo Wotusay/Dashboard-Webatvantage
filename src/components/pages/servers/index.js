@@ -7,17 +7,28 @@ import RadialTotalBarchart from '../../UI/D3/ServerChart/radialTotalBarchart';
 import LoadWatcherCard from '../../UI/LoadWatcherCard ';
 import SectorCard from '../../UI/SectorCard';
 import styles from './servers.module.css';
+import { motion } from 'framer-motion';
+import { titleAnimaton, cardAnimaton } from '../../../animation';
+import { RADIALCOLORS } from '../../../consts';
 
 const Servers = () => {
   const { serverStore } = useStores();
   let rotate = 0;
+  let number = 0;
 
   return useObserver(() => (
     <>
-      <div className={styles.wrapper}>
+
+      <motion.div
+        initial={'exit'}
+        variants={cardAnimaton}
+        exit={'exit'}
+        animate={'start'}
+        className={styles.wrapper}>
         <div className={styles.sphere}>
           <div className={styles.cirkleStripes}>
-            <svg className={styles.animation}
+            <svg
+              className={styles.animation}
               id="demo"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1000 1000"
@@ -40,17 +51,27 @@ const Servers = () => {
           <div className={styles.cirkleTwo}></div>
           <div className={styles.cirkleThree}></div>
         </div>
-      </div>
+      </motion.div>
       <div className={styles.layout}>
         <div className={styles.cardsWrapper}>
-          <h2 className=" font-sans font-medium text-nightBlue text-6xl ">
+          <motion.h2
+            initial={'exit'}
+            variants={titleAnimaton}
+            exit={'exit'}
+            animate={'start'}
+            className=" font-sans font-medium text-nightBlue text-6xl ">
             Servers view
-          </h2>
+          </motion.h2>
           <Card title={'Total Storage'} number={'2TB'} rate={''} tagline={''} />
           <SectorCard />
           <LoadWatcherCard />
         </div>
-        <div className={styles.chartsWrapper}>
+        <motion.div
+          initial={'exit'}
+          variants={cardAnimaton}
+          exit={'exit'}
+          animate={'start'}
+          className={styles.chartsWrapper}>
           <div className={styles.chartTotalWrapper}>
             <RadialTotalBarchart />
           </div>
@@ -63,14 +84,33 @@ const Servers = () => {
                   status={server.status}
                   load={server.load}
                   rotate={rotate}
+                  number={number}
                 />
-
                 <p className="hidden"> {(rotate = rotate + 30)}</p>
+                <p className="hidden"> {(number = number + 1)}</p>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
+      <svg width="0" height="0">
+        <linearGradient id="storage">
+          <stop offset="0%" stopColor={RADIALCOLORS.blue} />
+          <stop offset="100%" stopColor="#02A4FF" />
+        </linearGradient>
+        <linearGradient id="status-green">
+          <stop offset="0%" stopColor={RADIALCOLORS.green} />
+          <stop offset="100%" stopColor="#8AFF6C" />
+        </linearGradient>
+        <linearGradient id="status-orange">
+          <stop offset="0%" stopColor={RADIALCOLORS.orange} />
+          <stop offset="100%" stopColor="#FFA715" />
+        </linearGradient>
+        <linearGradient id="status-red">
+          <stop offset="0%" stopColor={RADIALCOLORS.red} />
+          <stop offset="100%" stopColor="#FF7B7B" />
+        </linearGradient>
+      </svg>
     </>
   ));
 };
