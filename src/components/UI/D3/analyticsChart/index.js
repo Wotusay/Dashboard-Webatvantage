@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 import styles from './analyticsChart.module.css';
 
-const AnalyticsChart = ({ items }) => {
+const AnalyticsChart = ({ items, oldItems }) => {
   const ref = useRef();
   const chartSetttings = CHARTS.analyticsChart;
+  const [loaded, setLoaded] = useState(false);
 
   // Berekent het het percentage van een getal
   const precentageOf = (num, total) => {
@@ -121,9 +122,10 @@ const AnalyticsChart = ({ items }) => {
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(items)
+      .data(oldItems)
       .enter()
       .append('g')
+      .attr('class', 'groupsessions')
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -140,38 +142,58 @@ const AnalyticsChart = ({ items }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return sessions(0);
+        return loaded ? sessions(d.value) : sessions(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - sessions(0);
+        return loaded ? height - sessions(d.value) : height - sessions(0);
       })
       .attr('fill', RADIALCOLORS.red)
       .style('opacity', chartSetttings.opacity)
       .attr('rx', 3)
       .attr('ry', 3);
 
-    svgCanvas
-      .selectAll('.totalsessions')
-      .transition()
-      .duration(800)
-      .attr('y', function (d) {
-        return sessions(d.value);
-      })
-      .attr('height', function (d) {
-        return height - sessions(d.value);
-      })
-      .delay(function (d, i) {
-        return i * 50;
-      });
-
+    if (!loaded) {
+      svgCanvas
+        .selectAll('.totalsessions')
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return sessions(d.value);
+        })
+        .attr('height', function (d) {
+          return height - sessions(d.value);
+        })
+        .delay(function (d, i) {
+          return i * 50;
+        });
+    } else {
+      svgCanvas
+        .selectAll('.groupsessions')
+        .data(items)
+        .selectAll('.totalsessions')
+        .data((d) => {
+          return keys.map(() => {
+            return { key: 'sessions', value: d.analyticsData.totalSessions };
+          });
+        })
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return sessions(d.value);
+        })
+        .attr('height', function (d) {
+          return height - sessions(d.value);
+        });
+    }
     // Deze bars is voor de percentage van de avg pages per sessies
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(items)
+      .data(oldItems)
       .enter()
       .append('g')
+      .attr('class', 'avgpagesgroup')
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -194,41 +216,68 @@ const AnalyticsChart = ({ items }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return sessions(0);
+        return loaded ? sessions(d.value) : sessions(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - sessions(0);
+        return loaded ? height - sessions(d.value) : height - sessions(0);
       })
       .style('opacity', 1)
       .attr('fill', 'url(#red)')
       .attr('rx', 3)
       .attr('ry', 3);
 
-    svgCanvas
-      .selectAll('.avgpages')
-      .transition()
-      .duration(800)
-      .attr('y', function (d) {
-        return sessions(d.value);
-      })
-      .attr('height', function (d) {
-        return height - sessions(d.value);
-      })
-      .delay(function (d, i) {
-        return i * 50;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('.avgpages')
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return sessions(d.value);
+        })
+        .attr('height', function (d) {
+          return height - sessions(d.value);
+        })
+        .delay(function (d, i) {
+          return i * 50;
+        });
+    } else {
+      svgCanvas
+        .selectAll('.avgpagesgroup')
+        .data(items)
+        .selectAll('.avgpages')
+        .data((d) => {
+          return keys.map(() => {
+            return {
+              key: 'sessions',
+              value: precentageOf(
+                d.analyticsData.averagePagesPerSessions,
+                d.analyticsData.totalSessions
+              ),
+            };
+          });
+        })
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return sessions(d.value);
+        })
+        .attr('height', function (d) {
+          return height - sessions(d.value);
+        });
+    }
 
     // Dit is voor het totale pageviews te tonen
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(items)
+      .data(oldItems)
       .enter()
       .append('g')
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
+      .attr('class', 'pageviewsgroup')
       .selectAll('rect')
       .data((d) => {
         return keys.map(() => {
@@ -242,38 +291,59 @@ const AnalyticsChart = ({ items }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return pageviews(0);
+        return loaded ? pageviews(d.value) : pageviews(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - pageviews(0);
+        return loaded ? height - pageviews(d.value) : height - pageviews(0);
       })
       .attr('fill', RADIALCOLORS.purple)
       .style('opacity', chartSetttings.opacity)
       .attr('rx', 3)
       .attr('ry', 3);
 
-    svgCanvas
-      .selectAll('.pageviews')
-      .transition()
-      .duration(800)
-      .attr('y', function (d) {
-        return pageviews(d.value);
-      })
-      .attr('height', function (d) {
-        return height - pageviews(d.value);
-      })
-      .delay(function (d, i) {
-        return i * 50;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('.pageviews')
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return pageviews(d.value);
+        })
+        .attr('height', function (d) {
+          return height - pageviews(d.value);
+        })
+        .delay(function (d, i) {
+          return i * 50;
+        });
+    } else {
+      svgCanvas
+        .selectAll('.pageviewsgroup')
+        .data(items)
+        .selectAll('.pageviews')
+        .data((d) => {
+          return keys.map(() => {
+            return { key: 'views', value: d.analyticsData.pageviews };
+          });
+        })
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return pageviews(d.value);
+        })
+        .attr('height', function (d) {
+          return height - pageviews(d.value);
+        });
+    }
 
     // Dit is voor het bounce te tonen die een op de pageviews staat
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(items)
+      .data(oldItems)
       .enter()
       .append('g')
+      .attr('class', 'bouncegroup')
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -296,31 +366,56 @@ const AnalyticsChart = ({ items }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return pageviews(0);
+        return loaded ? pageviews(d.value) : pageviews(0);
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - pageviews(0);
+        return loaded ? height - pageviews(d.value) : height - pageviews(0);
       })
       .attr('fill', 'url(#purple)')
       .style('opacity', 1)
       .attr('rx', 3)
       .attr('ry', 3);
 
-    svgCanvas
-      .selectAll('.bounce')
-      .transition()
-      .duration(800)
-      .attr('y', function (d) {
-        return pageviews(d.value);
-      })
-      .attr('height', function (d) {
-        return height - pageviews(d.value);
-      })
-      .delay(function (d, i) {
-        return i * 50;
-      });
-
+    if (!loaded) {
+      svgCanvas
+        .selectAll('.bounce')
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return pageviews(d.value);
+        })
+        .attr('height', function (d) {
+          return height - pageviews(d.value);
+        })
+        .delay(function (d, i) {
+          return i * 50;
+        });
+    } else {
+      svgCanvas
+        .selectAll('.bouncegroup')
+        .data(items)
+        .selectAll('.bounce')
+        .data((d) => {
+          return keys.map(() => {
+            return {
+              key: 'views',
+              value: precentageOf(
+                d.analyticsData.bouncerate,
+                d.analyticsData.pageviews
+              ),
+            };
+          });
+        })
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return pageviews(d.value);
+        })
+        .attr('height', function (d) {
+          return height - pageviews(d.value);
+        });
+    }
     svgCanvas.selectAll('g').select('rect').remove();
 
     // oproepen van de y-as links
@@ -328,7 +423,7 @@ const AnalyticsChart = ({ items }) => {
       .append('g')
       .attr('class', 'y axis')
       .attr('transform', `translate(${margin.left} )`)
-      .call(d3.axisLeft().scale(pageviews).ticks(4));
+      .call(d3.axisLeft().scale(pageviews).ticks(2));
 
     // oproepen van de x-as
     svgCanvas
@@ -342,7 +437,7 @@ const AnalyticsChart = ({ items }) => {
       .append('g')
       .attr('class', 'axis--y axis')
       .attr('transform', `translate( ${width - margin.right} )`)
-      .call(d3.axisRight().scale(sessions).ticks(4));
+      .call(d3.axisRight().scale(sessions).ticks(3));
 
     // Styling van de elementenxss
     svgCanvas
@@ -391,8 +486,8 @@ const AnalyticsChart = ({ items }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => graph(), [clientStore.lengthOfArray]);
-  
+  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalViews]);
+
   return (
     <>
       <div className={styles.legendWrapper}>

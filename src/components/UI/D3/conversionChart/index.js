@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import styles from './conversionChart.module.css';
 import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 
-const ConversionChart = ({ items }) => {
+const ConversionChart = ({ items, oldItems }) => {
   const { clientStore } = useStores();
   // Ref is needed to draw in the graph
   const ref = useRef();
+  const [loaded, setLoaded] = useState(false);
+
+
   const widthCalc = 61.5 * clientStore.lengthOfArray; // Calculates the width for the graphh
   const chartSetttings = CHARTS.conversionChart;
   const graph = async () => {
@@ -70,26 +73,7 @@ const ConversionChart = ({ items }) => {
       .call(d3.axisLeft().scale(yRate).ticks(3, '%'));
 
     // sets the rect views & places it
-    svgCanvas
-      .selectAll('rect')
-      .data(items)
-      .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('fill', chartSetttings.color.rect)
-      .attr('x', (d, i) => {
-        return x(clientStore.truncateString(d.name));
-      })
-      .attr('width', x.bandwidth())
-      .attr('y', height - margin.bottom)
-      .attr('y', function (d, i) {
-        return y(0);
-      })
-      .attr('height', function (d, i) {
-        return height - y(0) - margin.bottom;
-      })
-      .attr('rx', 3)
-      .attr('ry', 3);
+
 
     // Makes the line
     const line = d3
@@ -102,20 +86,57 @@ const ConversionChart = ({ items }) => {
       })
       .curve(d3.curveBasis);
 
-    svgCanvas
+      svgCanvas
       .selectAll('rect')
-      .transition()
-      .duration(800)
-      .attr('y', function (d) {
-        return y(d.eCommerceData.conversions);
+      .data(oldItems)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('fill', chartSetttings.color.rect)
+      .attr('x', (d, i) => {
+        console.log(d)
+        return x(clientStore.truncateString(d.name));
       })
-      .attr('height', function (d) {
-        return height - y(d.eCommerceData.conversions) - margin.bottom;
+      .attr('width', x.bandwidth())
+      .attr('y', height - margin.bottom)
+      .attr('y', function (d, i) {
+        return loaded ?( y(d.eCommerceData.conversions)) :(y(0));
       })
-      .delay(function (d, i) {
-        return i * 100;
-      });
+      .attr('height', function (d, i) {
+        return loaded ? (height - y(d.eCommerceData.conversions) - margin.bottom) :(height - y(0) - margin.bottom);
+      })
+      .attr('rx', 3)
+      .attr('ry', 3);
 
+    if (!loaded) {
+      svgCanvas
+        .selectAll('rect')
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return y(d.eCommerceData.conversions);
+        })
+        .attr('height', function (d) {
+          return height - y(d.eCommerceData.conversions) - margin.bottom;
+        })
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    }
+    else {
+      svgCanvas
+        .selectAll('rect')
+        .data(items)
+        .transition()
+        .duration(800)
+        .attr('y', function (d) {
+          return y(d.eCommerceData.conversions);
+        })
+        .attr('height', function (d) {
+          return height - y(d.eCommerceData.conversions) - margin.bottom;
+        })
+
+    }
     // Gradient
     const colorRange = chartSetttings.color.lineChart;
     const color = d3.scaleLinear().range(colorRange).domain([1, 2, 3]);
@@ -150,8 +171,8 @@ const ConversionChart = ({ items }) => {
       .attr('d', line(items))
       .attr('fill', 'none');
 
+    if (!loaded) {
     let totalLength = lineDraw.node().getTotalLength();
-
     lineDraw
       .attr('stroke-dasharray', totalLength)
       .attr('stroke-dashoffset', totalLength)
@@ -159,6 +180,17 @@ const ConversionChart = ({ items }) => {
       .duration(2500)
       .ease(d3.easeCubicIn)
       .attr('stroke-dashoffset', 0);
+    }
+    else {
+      let totalLength = lineDraw.node().getTotalLength();
+      lineDraw
+        .attr('stroke-dasharray', totalLength)
+        .attr('stroke-dashoffset', totalLength)
+        .transition()
+        .duration(1000)
+        .ease(d3.easeCubicIn)
+        .attr('stroke-dashoffset', 0);
+    }
 
     svgCanvas
       .select('.axis--x')
@@ -211,7 +243,7 @@ const ConversionChart = ({ items }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => graph(), [clientStore.lengthOfArray]);
+  useEffect(() => { graph();  setLoaded(true);}, [clientStore.totalEarining]);
 
   return (
     <>

@@ -1,17 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 
 const AquistionChart = ({ items }) => {
   const ref = useRef();
-
   const { clientStore } = useStores();
   const chartSetttings = CHARTS.aquistionChart;
+  const [loaded, setLoaded] = useState(false);
 
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     svgCanvas.selectAll('g').remove();
+    const _items = items.map((a) => ({ ...a }));
 
     svgCanvas.selectAll('rect').remove();
     svgCanvas.selectAll('path').remove();
@@ -41,16 +42,18 @@ const AquistionChart = ({ items }) => {
     const z = d3.scaleOrdinal().range(chartSetttings.color.zAxis);
 
     // sorts items high to low
-    let itemsSorted = items
+    const itemsSorted = _items
       .slice()
       .sort((a, b) => b.analyticsData.totalUsers - a.analyticsData.totalUsers);
-    itemsSorted.forEach((d, i) => {
+
+    const _itemsSorted = itemsSorted.slice();
+
+    _itemsSorted.forEach((d, i) => {
       // Here we create a new obj for the stacked data
       // This can we use for the full data
       let tempObj = {};
-      d.rank = i;
       tempObj.name = d.name;
-      tempObj.rank = d.rank;
+      tempObj.rank = i;
       tempObj.totalUsers = d.analyticsData.totalUsers;
       tempObj.organic = d.analyticsData.aquisition.organic;
       tempObj.direct = d.analyticsData.aquisition.direct;
@@ -63,27 +66,26 @@ const AquistionChart = ({ items }) => {
     });
 
     x.domain(
-      itemsSorted.map((d) => {
+      _itemsSorted.map((d) => {
         return d.name;
       })
     );
     y.domain([
       0,
-      d3.max(itemsSorted, (d) => {
+      d3.max(_itemsSorted, (d) => {
         return d.analyticsData.totalUsers;
       }),
     ]);
-    z.domain(itemsSorted);
+    z.domain(_itemsSorted);
 
     // Here we use the new array item
     const stack = d3.stack().keys(arrayItems);
     // Here we stack the items
     const series = stack(
-      itemsSorted.map((i) => {
+      _itemsSorted.map((i) => {
         return i.analyticsData.aquisition;
       })
     );
-
 
     g.append('g')
       .selectAll('g')
@@ -120,10 +122,40 @@ const AquistionChart = ({ items }) => {
           .padRadius(innerRadius)
       );
 
-    svgCanvas
+    if (!loaded) {
+      svgCanvas
+        .selectAll('path')
+        .transition()
+        .duration(400)
+        .attr(
+          'd',
+          d3
+            .arc()
+            // Here we make a radial stackedbar
+            .innerRadius((d) => {
+              return y(d[0]);
+            })
+            .outerRadius((d) => {
+              return y(d[1]);
+            })
+            .startAngle((d) => {
+              return x(d.data.name);
+            })
+            .endAngle((d) => {
+              return x(d.data.name) + x.bandwidth();
+            })
+            .padAngle(0.01)
+            .padRadius(innerRadius)
+        )
+        .ease(d3.easeCubicIn)
+        .delay(function (d, i) {
+          return i * 12;
+        });
+    }
+
+    if (loaded) {
+      svgCanvas
       .selectAll('path')
-      .transition()
-      .duration(400)
       .attr(
         'd',
         d3
@@ -144,15 +176,12 @@ const AquistionChart = ({ items }) => {
           .padAngle(0.01)
           .padRadius(innerRadius)
       )
-      .ease(d3.easeCubicIn)
-      .delay(function (d, i) {
-        return i * 12;
-      });
+    }
 
     const label = g
       .append('g')
       .selectAll('g')
-      .data(itemsSorted)
+      .data(_itemsSorted)
       .enter()
       .append('g')
       .attr('text-anchor', 'middle')
@@ -187,12 +216,11 @@ const AquistionChart = ({ items }) => {
         return i * 5;
       });
 
-
     const yAxis = g.append('g').attr('text-anchor', 'end');
 
     const yTick = yAxis
       .selectAll('g')
-      .data(y.ticks(5).slice(1))
+      .data(y.ticks(3).slice(1))
       .enter()
       .append('g');
 
@@ -259,7 +287,7 @@ const AquistionChart = ({ items }) => {
       });
   };
   // eslint-disable-next-line
-  useEffect(() => graph(), [clientStore.lengthOfArray]);
+  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalUsers]);
 
   return (
     <>

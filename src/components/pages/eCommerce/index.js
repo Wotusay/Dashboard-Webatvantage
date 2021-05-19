@@ -30,6 +30,9 @@ const ECommerce = () => {
     100
   ).toFixed(0);
 
+  const oldItems = clientStore.latestData;
+
+
   useEffect(() => {
     let timeout = null;
     const updateMousePosition = (e) => {
@@ -46,7 +49,7 @@ const ECommerce = () => {
     };
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('click', updateMousePosition);
-  });
+  },[]);
 
   return useObserver(() => (
     <>
@@ -95,7 +98,7 @@ const ECommerce = () => {
           exit={'exit'}
           animate={'start'}
           className="bg-white rounded-2xl pt-8 shadow-xl p-8">
-          <ConversionChart items={item} />
+          <ConversionChart oldItems={oldItems} items={item} />
         </motion.div>
         <motion.div
           initial={'exit'}

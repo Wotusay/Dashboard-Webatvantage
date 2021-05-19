@@ -10,7 +10,6 @@ import { ROUTES } from './consts';
 const App = () => {
   const [mouseMove, setMouseMove] = useState(false);
   const history = useHistory();
-
   useEffect(() => {
     let timeout = null;
     let timeoutCycle = null;
@@ -30,22 +29,21 @@ const App = () => {
     };
 
     const cycleViews = () => {
-
       const location = history.location.pathname;
 
       switch (location) {
         case ROUTES.home:
-          history.push(ROUTES.analytics)
+          history.push(ROUTES.analytics);
           break;
         case ROUTES.analytics:
-          history.push(ROUTES.servers)
+          history.push(ROUTES.servers);
           break;
         case ROUTES.servers:
-          history.push(ROUTES.home)
+          history.push(ROUTES.home);
           break;
 
         default:
-          return;  
+          return;
       }
     };
 
@@ -53,7 +51,6 @@ const App = () => {
     timeoutCycle = setInterval(() => {
       cycleViews();
     }, 50000);
-
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('click', updateMousePosition);
   });

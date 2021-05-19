@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { motion } from 'framer-motion';
 import { useObserver } from 'mobx-react-lite';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { earningAnimaton } from '../../../../animation';
 import { CATEGORIES, CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
@@ -12,13 +12,14 @@ const EarningChart = ({ items }) => {
   const ref = useRef();
   const chartElements = CHARTS.earningChart;
   const { clientStore } = useStores();
+  const _items = items.map((a) => ({ ...a }));
+  const [loaded, setLoaded] = useState(false);
 
   const heightCalc = 41.5 * clientStore.lengthOfArray; // Calculates the height for the graphh
 
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     const top_n = clientStore.lengthOfArray; // How many items there needs to be in it
-
     // Removes all prev items
     svgCanvas.selectAll('text').remove();
     svgCanvas.selectAll('g').remove();
@@ -86,17 +87,19 @@ const EarningChart = ({ items }) => {
 
     let barPadding = (height - (margin.bottom + margin.top)) / (top_n * 5);
     // Sorts the items form big to small
-    let itemsSorted = items
+    const itemsSorted = _items
       .slice()
       .sort(
         (a, b) => b.eCommerceData.totalRevenue - a.eCommerceData.totalRevenue
       )
       .slice(0, top_n);
 
-    itemsSorted.forEach((d, i) => {
+    const _itemsSorted = [...itemsSorted];
+
+    _itemsSorted.forEach((d, i) => {
       d.rank = i; // Adds a rank to the obj
       // Makes sets th colour for the right category
-      d.colour =
+      d.color =
         d.category === CATEGORIES.medic
           ? 'url(#medic)'
           : d.category === CATEGORIES.fashion
@@ -105,11 +108,10 @@ const EarningChart = ({ items }) => {
           ? 'url(#shoes)'
           : '#ACC39F';
     });
-
     // X - Axis
     let x = d3
       .scaleLinear()
-      .domain([0, d3.max(itemsSorted, (d) => d.eCommerceData.totalRevenue)])
+      .domain([0, d3.max(_itemsSorted, (d) => d.eCommerceData.totalRevenue)])
       .range([margin.left, width - margin.right - 65]);
 
     // Y - Axis
@@ -138,65 +140,56 @@ const EarningChart = ({ items }) => {
     // Set the view for prev bar
     svgCanvas
       .selectAll('rect.barPrev')
-      .data(itemsSorted, (d) => d.name)
+      .data(_itemsSorted, (d) => d.name)
       .enter()
       .append('rect')
       .attr('class', 'barPrev')
       .attr('x', x(0) + 1)
-      .attr('width', (d) => x(0) - x(0) - 1)
+      .attr('width', (d) =>
+        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1
+      )
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
       .style('fill', '#DCDFF2')
       .style('opacity', '0.5')
-      .attr('rx', '0.8rem')
-      .attr('ry', '0.8rem');
-
-    svgCanvas
-      .selectAll('rect.barPrev')
-      .transition()
-      .duration(800)
-      .attr('x', x(0) + 1)
-      .attr(
-        'width',
-        (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
-      )
-      .attr('y', (d) => y(d.rank) + 5)
-      .attr('height', y(1) - y(0) - barPadding)
-      .delay(function (d, i) {
-        return i * 100;
-      });
+      .attr('rx', '8px')
+      .attr('ry', '8px');
 
     // Set the view for the bar
     svgCanvas
       .selectAll('rect.bar')
-      .data(itemsSorted, (d) => d.name)
+      .data(_itemsSorted, (d) => d.name)
       .enter()
       .append('rect')
       .attr('class', 'bar')
       .attr('x', x(0) + 1)
-      .attr('width', (d) => x(0) - x(0) - 1)
+      .attr('width', (d) =>
+        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1
+      )
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
-      .style('fill', (d) => d.colour)
-      .attr('rx', '0.8rem')
-      .attr('ry', '0.8rem');
+      .style('fill', (d) => d.color)
+      .attr('rx', '8px')
+      .attr('ry', '8px');
 
-    svgCanvas
-      .selectAll('rect.bar')
-      .transition()
-      .duration(800)
-      .attr('x', x(0) + 1)
-      .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
-      .attr('y', (d) => y(d.rank) + 5)
-      .attr('height', y(1) - y(0) - barPadding)
-      .delay(function (d, i) {
-        return i * 100;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('rect.bar')
+        .transition()
+        .duration(800)
+        .attr('x', x(0) + 1)
+        .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+        .attr('y', (d) => y(d.rank) + 5)
+        .attr('height', y(1) - y(0) - barPadding)
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    }
 
     // Labels for the bar
     svgCanvas
       .selectAll('text.label')
-      .data(itemsSorted, (d) => d.name)
+      .data(_itemsSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'label')
@@ -210,22 +203,24 @@ const EarningChart = ({ items }) => {
       .style('font-weight', '600')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
       .style('text-anchor', 'start')
-      .style('opacity', '0')
+      .style('opacity', loaded ? 1 : '0')
       .html((d) => clientStore.truncateString(d.name));
 
-    svgCanvas
-      .selectAll('text.label')
-      .transition()
-      .duration(800)
-      .style('opacity', '1')
-      .delay(function (d, i) {
-        return i * 100;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('text.label')
+        .transition()
+        .duration(800)
+        .style('opacity', '1')
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    }
 
     // Value for the bar
     svgCanvas
       .selectAll('text.valueLabel')
-      .data(itemsSorted, (d) => d.name)
+      .data(_itemsSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'valueLabel')
@@ -237,7 +232,7 @@ const EarningChart = ({ items }) => {
       .style('font-family', 'Poppins')
       .style('fill', RADIALCOLORS.textColor)
       .style('font-weight', '400')
-      .style('opacity', '0')
+      .style('opacity', loaded ? 1 : '0')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
       .text(
         (d) =>
@@ -247,18 +242,21 @@ const EarningChart = ({ items }) => {
           }).format(d.eCommerceData.totalRevenue)}`
       );
 
-    svgCanvas
-      .selectAll('text.valueLabel')
-      .transition()
-      .duration(800)
-      .style('opacity', '1')
-      .delay(function (d, i) {
-        return i * 100;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('text.valueLabel')
+        .transition()
+        .duration(800)
+        .style('opacity', '1')
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    }
+
     // avg for the bar
     svgCanvas
       .selectAll('text.avgLabel')
-      .data(itemsSorted, (d) => d.name)
+      .data(_itemsSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'avgLabel')
@@ -268,25 +266,29 @@ const EarningChart = ({ items }) => {
           : 260
       )
       .style('font-family', 'Poppins')
-      .style('opacity', '0')
+      .style('opacity', loaded ? 1 : '0')
       .style('fill', RADIALCOLORS.textColor)
       .style('font-weight', '400')
       .style('font-size', '1.1rem')
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
       .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
-    svgCanvas
-      .selectAll('text.avgLabel')
-      .transition()
-      .duration(800)
-      .style('opacity', '1')
-      .delay(function (d, i) {
-        return i * 100;
-      });
+    if (!loaded) {
+      svgCanvas
+        .selectAll('text.avgLabel')
+        .transition()
+        .duration(800)
+        .style('opacity', '1')
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    }
+
     // Stylings
     svgCanvas
       .selectAll('.valueLabel')
       .style('font-size', chartElements.font.fontSize);
+
     svgCanvas
       .selectAll('.tick')
       .select('text')
@@ -294,6 +296,7 @@ const EarningChart = ({ items }) => {
       .style('font-weight', '500')
       .style('font-size', '1.4rem')
       .style('fill', RADIALCOLORS.textColor);
+
     svgCanvas
       .selectAll('.tick')
       .select('line')
@@ -301,13 +304,14 @@ const EarningChart = ({ items }) => {
       .style('shape-rendering', 'CrispEdges')
       .style('display', 'none');
     svgCanvas.select('.domain').style('display', 'none');
+
     svgCanvas
       .selectAll('.label')
       .style('font-weight', chartElements.font.fontWeight);
   };
-  
+
   // eslint-disable-next-line
-  useEffect(() => graph(), [clientStore.lengthOfArray]);
+  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalEarining]);
   return useObserver(() => (
     <>
       <motion.div

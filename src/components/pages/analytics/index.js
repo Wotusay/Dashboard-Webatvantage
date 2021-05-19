@@ -19,6 +19,8 @@ const Analytics = () => {
   const { clientStore } = useStores();
   const [mouseMove, setMouseMove] = useState(false);
 
+  const oldItems = clientStore.latestData;
+
   const item = clientStore.eCommerceItems;
   let decreaseValueViews =
     clientStore.totalEarining - clientStore.totalEariningMonth;
@@ -106,7 +108,7 @@ const Analytics = () => {
             exit={'exit'}
             animate={'start'}
             className={styles.chartAnalyics}>
-            <AnalyticsChart items={item} />
+            <AnalyticsChart oldItems={oldItems} items={item} />
           </motion.div>
           <div className={styles.aquistionChart}>
             <motion.div

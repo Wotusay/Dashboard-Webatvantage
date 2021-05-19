@@ -8,13 +8,81 @@ class ClientStore {
     this.eCommerceItems = []; // Array where all items will be in
     this.clientsService = new ClientsService(); // Service for loading all the data
     this.categoryTotal = [];
+    this.firstData = [];
+    this.newData = [];
+    this.newDataTwo = [];
+    this.newDataThree = [];
+    this.latestData = [];
   }
 
   loadAllItems = async () => {
     const items = await this.clientsService.getAll(); // Calls the getAll function from the class ClientService
     items.forEach((item) => {
       this.setItems(item);
+      this.latestData.push(item);
     });
+
+
+
+    const newData = await this.clientsService.getAllNewData();
+    const newDataTwo = await this.clientsService.getAllAllNewDataTwo();
+    const newDataThree = await this.clientsService.getAllAllNewDataThree();
+
+    items.forEach((item) => {
+      this.setFirstData(item);
+    });
+
+    newData.forEach((item) => {
+      this.setNewData(item);
+    });
+
+    newDataTwo.forEach((item) => {
+      this.setNewDataTwo(item);
+    });
+
+    newDataThree.forEach((item) => {
+      this.setNewDataThree(item);
+    });
+
+    this.setDifferentData();
+
+  };
+
+  updateDataSet = () => {
+    const equals = (a, b) => {
+      if (JSON.stringify(a) === JSON.stringify(b)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    switch (true) {
+      case equals(this.eCommerceItems, this.firstData):
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.newData;
+        break;
+      case equals(this.eCommerceItems, this.newData):
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.newDataTwo;
+        break;
+      case equals(this.eCommerceItems, this.newDataTwo):
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.newDataThree;
+        break;
+      case equals(this.eCommerceItems, this.newDataThree):
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.firstData;
+        break;
+      default:
+    }
+
+    this.bestEaringCategory();
+  };
+
+  setDifferentData = () => {
+  
+    setInterval(() => {this.updateDataSet()}, 7000);
   };
 
   setItems = async (item) => {
@@ -28,11 +96,47 @@ class ClientStore {
     this.bestEaringCategory();
   };
 
+  setFirstData = async (item) => {
+    let itemExists = this.firstData.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.firstData.push(item);
+    } else {
+      return;
+    }
+  };
+
+  setNewData = async (item) => {
+    let itemExists = this.newData.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newData.push(item); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
+  setNewDataTwo = async (item) => {
+    let itemExists = this.newDataTwo.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newDataTwo.push(item); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
+  setNewDataThree = async (item) => {
+    let itemExists = this.newDataThree.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newDataThree.push(item); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
   bestEaringCategory = async () => {
     const fashion = []; // Hier komen alle waarde in terecht
-    const shoes = []; 
+    const shoes = [];
     const medic = [];
-    // Dit object sturen we dan terug naar de globale 
+    // Dit object sturen we dan terug naar de globale
     let biggestOne = { category: '', total: 0 };
 
     // Hier zitten dan alle totale nummers in
@@ -60,7 +164,7 @@ class ClientStore {
       // inde console te maken
     });
 
-    // Hier bereken we de waardes samen met de volledige array die we juist 
+    // Hier bereken we de waardes samen met de volledige array die we juist
     // Hebbben gevuld
     fashionTotal = await this.sum(fashion);
     shoesTotal = await this.sum(shoes);
@@ -83,7 +187,7 @@ class ClientStore {
         break;
       default:
     }
-    // Hier zorgen we err voor dat er altijd maar 1 item in de globale zit. 
+    // Hier zorgen we err voor dat er altijd maar 1 item in de globale zit.
     if (this.categoryTotal.length >= 1) {
       this.categoryTotal = [];
       console.log(biggestOne);
@@ -251,6 +355,9 @@ class ClientStore {
     return sum.toFixed(0); // Gives the sum with 0.00
   }
 
+
+
+  
   truncateString(str) {
     let num = 13;
     // If the length of str is less than or equal to num
@@ -264,7 +371,12 @@ class ClientStore {
 }
 
 decorate(ClientStore, {
+  latestData: observable,
   eCommerceItems: observable,
+  firstData: observable,
+  newData: observable,
+  newDataTwo: observable,
+  newDataThree: observable,
   totalEarining: computed,
   avgSold: computed,
   totalEariningMonth: computed,
