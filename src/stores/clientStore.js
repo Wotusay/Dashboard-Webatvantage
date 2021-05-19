@@ -57,6 +57,8 @@ class ClientStore {
       }
     };
 
+    console.log(equals(this.eCommerceItems, this.firstData))
+    console.log(this.eCommerceItems);
     switch (true) {
       case equals(this.eCommerceItems, this.firstData):
         this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
@@ -81,7 +83,8 @@ class ClientStore {
   };
 
   setDifferentData = () => {
-  
+    console.log(true);
+
     setInterval(() => {this.updateDataSet()}, 7000);
   };
 

@@ -106,7 +106,7 @@ const ECommerce = () => {
           exit="exit"
           animate="start"
           className={styles.earningChart}>
-          <EarningChart items={item} />
+          <EarningChart oldItems={oldItems} items={item} />
         </motion.div>
       </div>
     </>

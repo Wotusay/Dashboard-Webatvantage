@@ -7,12 +7,13 @@ import { CATEGORIES, CHARTS, RADIALCOLORS } from '../../../../consts';
 import { useStores } from '../../../../hooks';
 import styles from './earningChart.module.css';
 
-const EarningChart = ({ items }) => {
+const EarningChart = ({ items, oldItems }) => {
   // Ref is needed to draw in the graph
   const ref = useRef();
   const chartElements = CHARTS.earningChart;
   const { clientStore } = useStores();
   const _items = items.map((a) => ({ ...a }));
+  const _oldItems = oldItems.map((a) => ({ ...a }));
   const [loaded, setLoaded] = useState(false);
 
   const heightCalc = 41.5 * clientStore.lengthOfArray; // Calculates the height for the graphh
@@ -94,7 +95,15 @@ const EarningChart = ({ items }) => {
       )
       .slice(0, top_n);
 
+    const itemsOldSorted = _oldItems
+      .slice()
+      .sort(
+        (a, b) => b.eCommerceData.totalRevenue - a.eCommerceData.totalRevenue
+      )
+      .slice(0, top_n);
+
     const _itemsSorted = [...itemsSorted];
+    const _itemsOldSorted = [...itemsOldSorted];
 
     _itemsSorted.forEach((d, i) => {
       d.rank = i; // Adds a rank to the obj
@@ -108,6 +117,20 @@ const EarningChart = ({ items }) => {
           ? 'url(#shoes)'
           : '#ACC39F';
     });
+
+    _itemsOldSorted.forEach((d, i) => {
+      d.rank = i; // Adds a rank to the obj
+      // Makes sets th colour for the right category
+      d.color =
+        d.category === CATEGORIES.medic
+          ? 'url(#medic)'
+          : d.category === CATEGORIES.fashion
+          ? 'url(#fashion)'
+          : d.category === CATEGORIES.shoes
+          ? 'url(#shoes)'
+          : '#ACC39F';
+    });
+
     // X - Axis
     let x = d3
       .scaleLinear()
@@ -140,13 +163,15 @@ const EarningChart = ({ items }) => {
     // Set the view for prev bar
     svgCanvas
       .selectAll('rect.barPrev')
-      .data(_itemsSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name)
       .enter()
       .append('rect')
       .attr('class', 'barPrev')
       .attr('x', x(0) + 1)
       .attr('width', (d) =>
-        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1
+        loaded
+          ? x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
+          : x(0) - x(0) - 1
       )
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
@@ -158,7 +183,7 @@ const EarningChart = ({ items }) => {
     // Set the view for the bar
     svgCanvas
       .selectAll('rect.bar')
-      .data(_itemsSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name)
       .enter()
       .append('rect')
       .attr('class', 'bar')
@@ -184,19 +209,56 @@ const EarningChart = ({ items }) => {
         .delay(function (d, i) {
           return i * 100;
         });
+
+      svgCanvas
+        .selectAll('rect.barPrev')
+        .transition()
+        .duration(800)
+        .attr('x', x(0) + 1)
+        .attr(
+          'width',
+          (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
+        )
+        .attr('y', (d) => y(d.rank) + 5)
+        .attr('height', y(1) - y(0) - barPadding)
+        .delay(function (d, i) {
+          return i * 100;
+        });
+    } else {
+      svgCanvas
+        .selectAll('rect.bar')
+        .data(_itemsSorted, (d) => d.name)
+        .transition()
+        .duration(1200)
+        .attr('x', x(0) + 1)
+        .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+        .attr('y', (d) => y(d.rank) + 5)
+        .attr('height', y(1) - y(0) - barPadding);
+      svgCanvas
+        .selectAll('rect.barPrev')
+        .data(_itemsSorted, (d) => d.name)
+        .transition()
+        .duration(1200)
+        .attr('x', x(0) + 1)
+        .attr(
+          'width',
+          (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
+        )
+        .attr('y', (d) => y(d.rank) + 5)
+        .attr('height', y(1) - y(0) - barPadding);
     }
 
     // Labels for the bar
     svgCanvas
       .selectAll('text.label')
-      .data(_itemsSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'label')
-      .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 9 ? 12 : 120))
+      .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 12 ? 12 : 120))
       .style('font-family', 'Poppins')
       .style('fill', (d) =>
-        d.rank < clientStore.lengthOfArray - 9
+        d.rank < clientStore.lengthOfArray - 12
           ? RADIALCOLORS.white
           : RADIALCOLORS.textColor
       )
@@ -215,17 +277,32 @@ const EarningChart = ({ items }) => {
         .delay(function (d, i) {
           return i * 100;
         });
+    } else {
+      svgCanvas
+        .selectAll('text.label')
+        .data(_itemsSorted, (d) => d.name)
+        .html((d) => clientStore.truncateString(d.name))
+        .transition()
+        .duration(1200)
+        .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
+        .style('fill', (d) =>
+          d.rank < clientStore.lengthOfArray - 12
+            ? RADIALCOLORS.white
+            : RADIALCOLORS.textColor
+        )
+        .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 12 ? 12 : 120))
+        ;
     }
 
     // Value for the bar
     svgCanvas
       .selectAll('text.valueLabel')
-      .data(_itemsSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'valueLabel')
       .attr('x', (d) =>
-        d.rank < clientStore.lengthOfArray - 9
+        d.rank < clientStore.lengthOfArray - 12
           ? x(d.eCommerceData.totalRevenue) + 5
           : 250
       )
@@ -251,17 +328,35 @@ const EarningChart = ({ items }) => {
         .delay(function (d, i) {
           return i * 100;
         });
+    } else {
+      svgCanvas
+        .selectAll('text.valueLabel')
+        .data(_itemsSorted, (d) => d.name)
+        .text(
+          (d) =>
+            `${new Intl.NumberFormat('de-DE', {
+              style: 'currency',
+              currency: 'EUR',
+            }).format(d.eCommerceData.totalRevenue)}`)
+        .transition()
+        .duration(1200)
+        .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
+        .attr('x', (d) =>
+          d.rank < clientStore.lengthOfArray - 12
+            ? x(d.eCommerceData.totalRevenue) + 5
+            : 250
+        );
     }
 
     // avg for the bar
     svgCanvas
       .selectAll('text.avgLabel')
-      .data(_itemsSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name)
       .enter()
       .append('text')
       .attr('class', 'avgLabel')
       .attr('x', (d) =>
-        d.rank < clientStore.lengthOfArray - 9
+        d.rank < clientStore.lengthOfArray - 12
           ? x(d.eCommerceData.totalRevenue) + 20
           : 260
       )
@@ -282,6 +377,19 @@ const EarningChart = ({ items }) => {
         .delay(function (d, i) {
           return i * 100;
         });
+    } else {
+      svgCanvas
+        .selectAll('text.avgLabel')
+        .data(_itemsSorted, (d) => d.name)
+        .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`)
+        .transition()
+        .duration(1200)
+        .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
+        .attr('x', (d) =>
+          d.rank < clientStore.lengthOfArray - 12
+            ? x(d.eCommerceData.totalRevenue) + 20
+            : 260
+        );
     }
 
     // Stylings
@@ -311,7 +419,8 @@ const EarningChart = ({ items }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalEarining]);
+  useEffect(() => {graph(); setLoaded(true); setLoaded(true);},[clientStore.totalEarining]);
+  
   return useObserver(() => (
     <>
       <motion.div

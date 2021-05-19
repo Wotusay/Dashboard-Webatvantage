@@ -20,8 +20,8 @@ const Analytics = () => {
   const [mouseMove, setMouseMove] = useState(false);
 
   const oldItems = clientStore.latestData;
-
   const item = clientStore.eCommerceItems;
+  
   let decreaseValueViews =
     clientStore.totalEarining - clientStore.totalEariningMonth;
   let decreaseValueSessions =

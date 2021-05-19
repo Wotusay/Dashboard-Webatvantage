@@ -13,7 +13,7 @@ const ConversionChart = ({ items, oldItems }) => {
 
   const widthCalc = 61.5 * clientStore.lengthOfArray; // Calculates the width for the graphh
   const chartSetttings = CHARTS.conversionChart;
-  const graph = async () => {
+  const graph = () => {
     const svgCanvas = d3.select(ref.current);
     // Removes all prev items
     svgCanvas.selectAll('g').remove();
@@ -94,7 +94,6 @@ const ConversionChart = ({ items, oldItems }) => {
       .attr('class', 'bar')
       .attr('fill', chartSetttings.color.rect)
       .attr('x', (d, i) => {
-        console.log(d)
         return x(clientStore.truncateString(d.name));
       })
       .attr('width', x.bandwidth())

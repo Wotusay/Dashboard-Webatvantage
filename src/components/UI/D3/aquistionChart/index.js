@@ -8,11 +8,12 @@ const AquistionChart = ({ items }) => {
   const { clientStore } = useStores();
   const chartSetttings = CHARTS.aquistionChart;
   const [loaded, setLoaded] = useState(false);
+  const _items = items.map((a) => ({ ...a }));
 
+  
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     svgCanvas.selectAll('g').remove();
-    const _items = items.map((a) => ({ ...a }));
 
     svgCanvas.selectAll('rect').remove();
     svgCanvas.selectAll('path').remove();
@@ -44,9 +45,11 @@ const AquistionChart = ({ items }) => {
     // sorts items high to low
     const itemsSorted = _items
       .slice()
-      .sort((a, b) => b.analyticsData.totalUsers - a.analyticsData.totalUsers);
+      .sort((a, b) => b.analyticsData.totalUsers - a.analyticsData.totalUsers).slice();
 
-    const _itemsSorted = itemsSorted.slice();
+    const _itemsSorted = [...itemsSorted];
+
+    console.log(_items, items)
 
     _itemsSorted.forEach((d, i) => {
       // Here we create a new obj for the stacked data
@@ -62,7 +65,7 @@ const AquistionChart = ({ items }) => {
       tempObj.paid = !d.analyticsData.aquisition.paid
         ? 10
         : d.analyticsData.aquisition.paid;
-      d.analyticsData.aquisition = tempObj;
+      d.aquisition = tempObj;
     });
 
     x.domain(
@@ -83,7 +86,7 @@ const AquistionChart = ({ items }) => {
     // Here we stack the items
     const series = stack(
       _itemsSorted.map((i) => {
-        return i.analyticsData.aquisition;
+        return i.aquisition;
       })
     );
 
