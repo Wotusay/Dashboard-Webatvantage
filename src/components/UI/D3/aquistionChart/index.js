@@ -7,10 +7,9 @@ const AquistionChart = ({ items }) => {
   const ref = useRef();
   const { clientStore } = useStores();
   const chartSetttings = CHARTS.aquistionChart;
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
   const _items = items.map((a) => ({ ...a }));
 
-  
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     svgCanvas.selectAll('g').remove();
@@ -48,8 +47,6 @@ const AquistionChart = ({ items }) => {
       .sort((a, b) => b.analyticsData.totalUsers - a.analyticsData.totalUsers).slice();
 
     const _itemsSorted = [...itemsSorted];
-
-    console.log(_items, items)
 
     _itemsSorted.forEach((d, i) => {
       // Here we create a new obj for the stacked data
@@ -90,6 +87,7 @@ const AquistionChart = ({ items }) => {
       })
     );
 
+
     g.append('g')
       .selectAll('g')
       .data(series)
@@ -110,10 +108,10 @@ const AquistionChart = ({ items }) => {
           .arc()
           // Here we make a radial stackedbar
           .innerRadius((d) => {
-            return y(-1);
+            return y(-1); // If its not loaded in we give a value of 0 
           })
           .outerRadius((d) => {
-            return y(0);
+            return y(0); // If its not loaded in we give a value of 0 
           })
           .startAngle((d) => {
             return x(d.data.name);
@@ -126,7 +124,8 @@ const AquistionChart = ({ items }) => {
       );
 
     if (!loaded) {
-      svgCanvas
+      // Animations for the start
+      g
         .selectAll('path')
         .transition()
         .duration(400)
@@ -154,11 +153,12 @@ const AquistionChart = ({ items }) => {
         .delay(function (d, i) {
           return i * 12;
         });
-    }
-
-    if (loaded) {
-      svgCanvas
+    } else {
+      // Animations for updates
+      g
       .selectAll('path')
+      .transition()
+      .duration(400)
       .attr(
         'd',
         d3

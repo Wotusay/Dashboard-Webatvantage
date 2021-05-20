@@ -21,7 +21,7 @@ const Analytics = () => {
 
   const oldItems = clientStore.latestData;
   const item = clientStore.eCommerceItems;
-  
+
   let decreaseValueViews =
     clientStore.totalEarining - clientStore.totalEariningMonth;
   let decreaseValueSessions =
@@ -117,7 +117,7 @@ const Analytics = () => {
               exit="exit"
               animate="start"
               className={styles.bg}>
-              <AquistionChart items={item} />
+              <AquistionChart  items={item} />
             </motion.div>
           </div>
         </div>

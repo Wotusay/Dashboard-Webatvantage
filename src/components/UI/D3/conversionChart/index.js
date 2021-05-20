@@ -8,7 +8,7 @@ const ConversionChart = ({ items, oldItems }) => {
   const { clientStore } = useStores();
   // Ref is needed to draw in the graph
   const ref = useRef();
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
 
 
   const widthCalc = 61.5 * clientStore.lengthOfArray; // Calculates the width for the graphh
@@ -99,15 +99,16 @@ const ConversionChart = ({ items, oldItems }) => {
       .attr('width', x.bandwidth())
       .attr('y', height - margin.bottom)
       .attr('y', function (d, i) {
-        return loaded ?( y(d.eCommerceData.conversions)) :(y(0));
+        return loaded ?( y(d.eCommerceData.conversions)) :(y(0));  // If its not loaded in we give a value of 0 
       })
       .attr('height', function (d, i) {
-        return loaded ? (height - y(d.eCommerceData.conversions) - margin.bottom) :(height - y(0) - margin.bottom);
+        return loaded ? (height - y(d.eCommerceData.conversions) - margin.bottom) :(height - y(0) - margin.bottom);  // If its not loaded in we give a value of 0 
       })
       .attr('rx', 3)
       .attr('ry', 3);
 
     if (!loaded) {
+      // Animations for the start
       svgCanvas
         .selectAll('rect')
         .transition()
@@ -123,6 +124,7 @@ const ConversionChart = ({ items, oldItems }) => {
         });
     }
     else {
+      // Animations for updates
       svgCanvas
         .selectAll('rect')
         .data(items)
@@ -171,6 +173,7 @@ const ConversionChart = ({ items, oldItems }) => {
       .attr('fill', 'none');
 
     if (!loaded) {
+    // Animations for the start
     let totalLength = lineDraw.node().getTotalLength();
     lineDraw
       .attr('stroke-dasharray', totalLength)
@@ -181,6 +184,7 @@ const ConversionChart = ({ items, oldItems }) => {
       .attr('stroke-dashoffset', 0);
     }
     else {
+      // Animations for updates
       let totalLength = lineDraw.node().getTotalLength();
       lineDraw
         .attr('stroke-dasharray', totalLength)

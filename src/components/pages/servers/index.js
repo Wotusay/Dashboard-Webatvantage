@@ -41,9 +41,9 @@ const Servers = () => {
                 cx="500"
                 cy="500"
                 stroke="#9898bb"
-                stroke-width="7"
-                stroke-dasharray="0,25"
-                stroke-linecap="round"
+                strokeWidth="7"
+                strokeDasharray="0,25"
+                strokeLinecap="round"
               />
             </svg>
           </div>
@@ -79,6 +79,7 @@ const Servers = () => {
             {serverStore.servers.map((server) => (
               <div className={styles.item}>
                 <RadialChart
+                  key={server.name}
                   name={serverStore.truncateString(server.name)}
                   diskSpace={server.diskSpace}
                   status={server.status}

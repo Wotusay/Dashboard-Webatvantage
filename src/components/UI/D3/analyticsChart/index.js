@@ -7,7 +7,7 @@ import styles from './analyticsChart.module.css';
 const AnalyticsChart = ({ items, oldItems }) => {
   const ref = useRef();
   const chartSetttings = CHARTS.analyticsChart;
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
 
   // Berekent het het percentage van een getal
   const precentageOf = (num, total) => {
@@ -34,7 +34,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       width = ref.current.width.baseVal.value - margin.left - margin.right,
       height = ref.current.height.baseVal.value - margin.top - margin.bottom;
 
-    // Y-axis for views Links
+    // Y-axis for views left
     const pageviews = d3
       .scaleLinear()
       .domain([
@@ -48,7 +48,21 @@ const AnalyticsChart = ({ items, oldItems }) => {
       ])
       .range([height, 0]);
 
-    // Y-axis for sessions Rechts
+      // old values for the Y-axis for views left
+      const oldPageviews = d3
+      .scaleLinear()
+      .domain([
+        0,
+        d3.max(
+          oldItems.map((i) => i.analyticsData),
+          (d) => {
+            return d.pageviews;
+          }
+        ),
+      ])
+      .range([height, 0]);
+
+    // Y-axis for sessions right
     const sessions = d3
       .scaleLinear()
       .domain([
@@ -56,6 +70,21 @@ const AnalyticsChart = ({ items, oldItems }) => {
         d3.max(
           // haalt de maximum waardes
           items.map((i) => i.analyticsData),
+          (d) => {
+            return d.totalSessions;
+          }
+        ),
+      ])
+      .range([height, 0]);
+      
+      // old values for the Y-axis for sessions right
+      const sessionsOld = d3
+      .scaleLinear()
+      .domain([
+        0,
+        d3.max(
+          // haalt de maximum waardes
+          oldItems.map((i) => i.analyticsData),
           (d) => {
             return d.totalSessions;
           }
@@ -122,7 +151,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(oldItems)
+      .data(oldItems) // Here we start with the old items and later end with the newitems 
       .enter()
       .append('g')
       .attr('class', 'groupsessions')
@@ -142,11 +171,11 @@ const AnalyticsChart = ({ items, oldItems }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return loaded ? sessions(d.value) : sessions(0);
+        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0 
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return loaded ? height - sessions(d.value) : height - sessions(0);
+        return loaded ? height - sessions(d.value) : height - sessions(0); // If its not loaded in we give a value of 0
       })
       .attr('fill', RADIALCOLORS.red)
       .style('opacity', chartSetttings.opacity)
@@ -154,6 +183,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('ry', 3);
 
     if (!loaded) {
+      // Animations for the start
       svgCanvas
         .selectAll('.totalsessions')
         .transition()
@@ -168,6 +198,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return i * 50;
         });
     } else {
+      // Animations for updates
       svgCanvas
         .selectAll('.groupsessions')
         .data(items)
@@ -178,7 +209,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           });
         })
         .transition()
-        .duration(800)
+        .duration(2000)
         .attr('y', function (d) {
           return sessions(d.value);
         })
@@ -193,10 +224,10 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .data(oldItems)
       .enter()
       .append('g')
-      .attr('class', 'avgpagesgroup')
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
+      .attr('class', 'avgpagesgroup')
       .selectAll('rect')
       .data((d) => {
         return keys.map(() => {
@@ -216,11 +247,11 @@ const AnalyticsChart = ({ items, oldItems }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return loaded ? sessions(d.value) : sessions(0);
+        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0 
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return loaded ? height - sessions(d.value) : height - sessions(0);
+        return loaded ? height - sessions(d.value) : height - sessions(0); // If its not loaded in we give a value of 0 
       })
       .style('opacity', 1)
       .attr('fill', 'url(#red)')
@@ -228,10 +259,11 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('ry', 3);
 
     if (!loaded) {
+      // Animations for the start
       svgCanvas
         .selectAll('.avgpages')
         .transition()
-        .duration(800)
+        .duration(1000)
         .attr('y', function (d) {
           return sessions(d.value);
         })
@@ -242,6 +274,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return i * 50;
         });
     } else {
+      // Animations for updates
       svgCanvas
         .selectAll('.avgpagesgroup')
         .data(items)
@@ -303,6 +336,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('ry', 3);
 
     if (!loaded) {
+      // Animations for the start
       svgCanvas
         .selectAll('.pageviews')
         .transition()
@@ -317,6 +351,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return i * 50;
         });
     } else {
+      // Animations for updates
       svgCanvas
         .selectAll('.pageviewsgroup')
         .data(items)
@@ -378,6 +413,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('ry', 3);
 
     if (!loaded) {
+      // Animations for the start
       svgCanvas
         .selectAll('.bounce')
         .transition()
@@ -392,6 +428,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return i * 50;
         });
     } else {
+      // Animations for updates
       svgCanvas
         .selectAll('.bouncegroup')
         .data(items)
@@ -416,13 +453,16 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return height - pageviews(d.value);
         });
     }
+    
     svgCanvas.selectAll('g').select('rect').remove();
 
     // oproepen van de y-as links
     svgCanvas
       .append('g')
       .attr('class', 'y axis')
-      .attr('transform', `translate(${margin.left} )`)
+      .attr('transform', `translate(${margin.left},${margin.top} )`)
+      .call(d3.axisLeft().scale(oldPageviews).ticks(3))
+      .transition().duration(800)
       .call(d3.axisLeft().scale(pageviews).ticks(2));
 
     // oproepen van de x-as
@@ -437,6 +477,8 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .append('g')
       .attr('class', 'axis--y axis')
       .attr('transform', `translate( ${width - margin.right} )`)
+      .call(d3.axisRight().scale(sessionsOld).ticks(3))
+      .transition().duration(800)
       .call(d3.axisRight().scale(sessions).ticks(3));
 
     // Styling van de elementenxss

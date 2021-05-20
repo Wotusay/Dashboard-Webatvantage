@@ -12,10 +12,9 @@ const EarningChart = ({ items, oldItems }) => {
   const ref = useRef();
   const chartElements = CHARTS.earningChart;
   const { clientStore } = useStores();
-  const _items = items.map((a) => ({ ...a }));
-  const _oldItems = oldItems.map((a) => ({ ...a }));
-  const [loaded, setLoaded] = useState(false);
-
+  const _items = items.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
+  const _oldItems = oldItems.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
+  const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
   const heightCalc = 41.5 * clientStore.lengthOfArray; // Calculates the height for the graphh
 
   const graph = () => {
@@ -83,10 +82,12 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('stop-color', colorMedic(1));
 
     const margin = chartElements.margin,
-      width = ref.current.width.baseVal.value,
+      width = ref.current.width.baseVal.value - margin.right,
       height = heightCalc;
 
     let barPadding = (height - (margin.bottom + margin.top)) / (top_n * 5);
+    // For the desired animation we have to start form a starting point when its loaded in
+    // This is why we make 2 arrays, One for the old one and one for the new one
     // Sorts the items form big to small
     const itemsSorted = _items
       .slice()
@@ -102,6 +103,7 @@ const EarningChart = ({ items, oldItems }) => {
       )
       .slice(0, top_n);
 
+    // Making copies to prevent overides
     const _itemsSorted = [...itemsSorted];
     const _itemsOldSorted = [...itemsOldSorted];
 
@@ -137,6 +139,12 @@ const EarningChart = ({ items, oldItems }) => {
       .domain([0, d3.max(_itemsSorted, (d) => d.eCommerceData.totalRevenue)])
       .range([margin.left, width - margin.right - 65]);
 
+      // For an moving x-asis we have to create one where the old data is in it
+      let oldX = d3
+      .scaleLinear()
+      .domain([0, d3.max(_itemsOldSorted, (d) => d.eCommerceData.totalRevenue)])
+      .range([margin.left, width - margin.right - 65]);
+
     // Y - Axis
     let y = d3
       .scaleLinear()
@@ -151,12 +159,25 @@ const EarningChart = ({ items, oldItems }) => {
       .tickSize(-(height - margin.top - margin.bottom))
       .tickFormat((d) => d3.format(',')(d));
 
+      // For an moving x-asis we have to create one where the old data is in it
+      let oldXAxis = d3
+      .axisTop()
+      .scale(oldX)
+      .ticks(width > 500 ? 5 : 2)
+      .tickSize(-(height - margin.top - margin.bottom))
+      .tickFormat((d) => d3.format(',')(d));
+
     // Set the view for the xAxis
     svgCanvas
       .append('g')
       .attr('class', 'axis xAxis')
       .attr('transform', `translate(20, ${margin.top})`)
-      .call(xAxis)
+      // Start of the animation
+      .call(oldXAxis)
+      .transition().duration(700)
+      .call(xAxis);
+
+      svgCanvas
       .selectAll('.tick line')
       .classed('origin', (d) => d === 0);
 
@@ -183,13 +204,14 @@ const EarningChart = ({ items, oldItems }) => {
     // Set the view for the bar
     svgCanvas
       .selectAll('rect.bar')
-      .data(_itemsOldSorted, (d) => d.name)
+      .data(_itemsOldSorted, (d) => d.name) // We sort the old items
       .enter()
       .append('rect')
       .attr('class', 'bar')
       .attr('x', x(0) + 1)
       .attr('width', (d) =>
-        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1
+        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1 // We check  if the items are loaded in.
+        // Else we pick a value of 0 to get the begining animation
       )
       .attr('y', (d) => y(d.rank) + 5)
       .attr('height', y(1) - y(0) - barPadding)
@@ -197,13 +219,14 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('rx', '8px')
       .attr('ry', '8px');
 
+    // Here we give start initiaze the starting animation
     if (!loaded) {
       svgCanvas
         .selectAll('rect.bar')
         .transition()
         .duration(800)
         .attr('x', x(0) + 1)
-        .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
+        .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 0)
         .attr('y', (d) => y(d.rank) + 5)
         .attr('height', y(1) - y(0) - barPadding)
         .delay(function (d, i) {
@@ -225,11 +248,12 @@ const EarningChart = ({ items, oldItems }) => {
           return i * 100;
         });
     } else {
+      // Here we give start initiaze the updating animation
       svgCanvas
         .selectAll('rect.bar')
         .data(_itemsSorted, (d) => d.name)
         .transition()
-        .duration(1200)
+        .duration(700)
         .attr('x', x(0) + 1)
         .attr('width', (d) => x(d.eCommerceData.totalRevenue) - x(0) - 1)
         .attr('y', (d) => y(d.rank) + 5)
@@ -238,11 +262,11 @@ const EarningChart = ({ items, oldItems }) => {
         .selectAll('rect.barPrev')
         .data(_itemsSorted, (d) => d.name)
         .transition()
-        .duration(1200)
+        .duration(700)
         .attr('x', x(0) + 1)
         .attr(
           'width',
-          (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 1
+          (d) => x(d.eCommerceData.lastMonthData.totalRevenue) - x(0) - 5
         )
         .attr('y', (d) => y(d.rank) + 5)
         .attr('height', y(1) - y(0) - barPadding);
@@ -268,6 +292,7 @@ const EarningChart = ({ items, oldItems }) => {
       .style('opacity', loaded ? 1 : '0')
       .html((d) => clientStore.truncateString(d.name));
 
+    // Animations for the labels
     if (!loaded) {
       svgCanvas
         .selectAll('text.label')
@@ -283,7 +308,7 @@ const EarningChart = ({ items, oldItems }) => {
         .data(_itemsSorted, (d) => d.name)
         .html((d) => clientStore.truncateString(d.name))
         .transition()
-        .duration(1200)
+        .duration(700)
         .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 1)
         .style('fill', (d) =>
           d.rank < clientStore.lengthOfArray - 12
@@ -319,6 +344,7 @@ const EarningChart = ({ items, oldItems }) => {
           }).format(d.eCommerceData.totalRevenue)}`
       );
 
+    // Animations for the value labels
     if (!loaded) {
       svgCanvas
         .selectAll('text.valueLabel')
@@ -339,7 +365,7 @@ const EarningChart = ({ items, oldItems }) => {
               currency: 'EUR',
             }).format(d.eCommerceData.totalRevenue)}`)
         .transition()
-        .duration(1200)
+        .duration(700)
         .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
         .attr('x', (d) =>
           d.rank < clientStore.lengthOfArray - 12
@@ -368,6 +394,7 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
       .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`);
 
+    // Animations for the avg labels
     if (!loaded) {
       svgCanvas
         .selectAll('text.avgLabel')
@@ -383,7 +410,7 @@ const EarningChart = ({ items, oldItems }) => {
         .data(_itemsSorted, (d) => d.name)
         .text((d) => `${d3.format(',.0f')(d.eCommerceData.averageSell)} AVG`)
         .transition()
-        .duration(1200)
+        .duration(700)
         .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 + 9)
         .attr('x', (d) =>
           d.rank < clientStore.lengthOfArray - 12
@@ -420,7 +447,7 @@ const EarningChart = ({ items, oldItems }) => {
 
   // eslint-disable-next-line
   useEffect(() => {graph(); setLoaded(true); setLoaded(true);},[clientStore.totalEarining]);
-  
+
   return useObserver(() => (
     <>
       <motion.div

@@ -24,7 +24,7 @@ const RadialChart = ({ name, diskSpace, load, status, rotate, number }) => {
   useEffect(() => statusChekker());
   return useObserver(() => (
     <>
-      <div
+      <div key={name}
         style={{ transform: `rotate(-${rotate}deg)`, width: 180, height: 180 }}>
         <VisibilitySensor>
           {({ isVisible }) => {

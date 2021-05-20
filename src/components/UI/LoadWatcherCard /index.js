@@ -21,10 +21,11 @@ const LoadWatcherCard = () => {
           Load watcher
         </span>
         <div className={styles.sectorCard}>
-          <div className={styles.sectorLayout}>
+          <div  className={styles.sectorLayout}>
             {serverStore.servers.map((s) => (
               <>
                 <p
+      
                   style={{
                     color:
                       s.status === 'green'
@@ -38,9 +39,11 @@ const LoadWatcherCard = () => {
                   className=" font-sans uppercase font-medium ">
                   {s.name}
                 </p>
-                <p className="font-sans text-gray-400 ">{s.load.current}</p>
+                <p  className="font-sans text-gray-400 ">
+                  {s.load.current}
+                </p>
                 <div className={styles.total}>
-                    <LineChart item={s} />
+                  <LineChart item={s} />
                 </div>
               </>
             ))}
