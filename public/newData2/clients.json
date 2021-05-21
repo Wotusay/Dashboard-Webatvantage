@@ -808,7 +808,7 @@
     },
     {
       "name": "Buffalini",
-      "category": "Medisch",
+      "category": "Category 1",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,
@@ -843,7 +843,7 @@
     },
     {
       "name": "Eglantier Hifi",
-      "category": "Medisch",
+      "category": "Category 2",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,
@@ -878,7 +878,7 @@
     },
     {
       "name": "Leirovins",
-      "category": "Medisch",
+      "category": "Category 3",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,
@@ -913,7 +913,7 @@
     },
     {
       "name": "For Stars",
-      "category": "Medisch",
+      "category": "Category 4",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,
@@ -948,7 +948,7 @@
     },
     {
       "name": "Thermae",
-      "category": "Medisch",
+      "category": "Category 5",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,
@@ -983,7 +983,7 @@
     },
     {
       "name": "Arcade fashion",
-      "category": "Medisch",
+      "category": "Category 6",
       "server": "dedicated",
       "eCommerceData": {
         "conversions": 290,

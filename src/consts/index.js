@@ -111,6 +111,12 @@ const CATEGORIES = {
     medic: '#FF37BB',
     fashion: '#AE2AFF',
     shoes: '#967BE1',
+    category1: '#FBB228',
+    category2: '#FF2D2E',
+    category3: '#E682CA',
+    category4: '#023AFF',
+    category5: '#00B929',
+    category6: '#00F0E2'
   },
 };
 

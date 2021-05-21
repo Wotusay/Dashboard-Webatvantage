@@ -81,16 +81,6 @@ const RadialTotalBarchart = () => {
                         </p>
                         <p className="font-sans text-normal text-nightBlue">{`${serverStore.totalStorageUsed} - ${serverStore.totalStorage}GB`}</p>
                       </div>
-                      <div className={styles.loadWrapper}>
-                        <p
-                          className="font-sans font-medium"
-                          style={{ color: color }}>
-                          Load
-                        </p>
-                        <p className="font-sans text-normal text-nightBlue">
-                          {serverStore.totalAvg5Load}
-                        </p>
-                      </div>
                     </div>
                   </CircularProgressbarWithChildren>
                 </div>

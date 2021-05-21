@@ -4,7 +4,7 @@
       "name": "de",
       "status": "green",
       "load": {
-        "current": 0.3,
+        "current": 2.3,
         "avg5": 2.5,
         "avg15": 1.4
       },
@@ -156,6 +156,51 @@
     },
     {
       "name": "Thermae",
+      "status": "green",
+      "load": {
+        "current": 0.9,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+
+    {
+      "name": "US",
+      "status": "green",
+      "load": {
+        "current": 0.9,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+
+    {
+      "name": "BR",
+      "status": "green",
+      "load": {
+        "current": 0.9,
+        "avg5": 0.5,
+        "avg15": 0.4
+      },
+      "diskSpace": {
+        "used": 145,
+        "available": 250,
+        "freePercentage": 42.0
+      }
+    },
+
+    {
+      "name": "NL",
       "status": "green",
       "load": {
         "current": 0.9,

@@ -1,7 +1,6 @@
 import { useObserver } from 'mobx-react-lite';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStores } from '../../../hooks';
-import Card from '../../UI/card';
 import RadialChart from '../../UI/D3/ServerChart/radialBarchart';
 import RadialTotalBarchart from '../../UI/D3/ServerChart/radialTotalBarchart';
 import LoadWatcherCard from '../../UI/LoadWatcherCard ';
@@ -13,12 +12,22 @@ import { RADIALCOLORS } from '../../../consts';
 
 const Servers = () => {
   const { serverStore } = useStores();
+  const [loaded,setLoaded] = useState(false);
   let rotate = 0;
+  let multiplier = 360 / serverStore.totalLength;
+  const multiplierForAttribute = serverStore.totalLength - 12;
+  const valueForAttribute = 6 * multiplierForAttribute;
   let number = 0;
 
+  const circleAttributes = 180;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+    },2000);
+  },[])
   return useObserver(() => (
     <>
-
       <motion.div
         initial={'exit'}
         variants={cardAnimaton}
@@ -62,7 +71,6 @@ const Servers = () => {
             className=" font-sans font-medium text-nightBlue text-6xl ">
             Servers view
           </motion.h2>
-          <Card title={'Total Storage'} number={'2TB'} rate={''} tagline={''} />
           <SectorCard />
           <LoadWatcherCard />
         </div>
@@ -77,19 +85,31 @@ const Servers = () => {
           </div>
           <div className={styles.container}>
             {serverStore.servers.map((server) => (
-              <div className={styles.item}>
+              <motion.div
+                initial={{ transform: `rotate(${rotate}deg)`, opacity: 0 }}
+                exit={{ transform: `rotate(${rotate}deg)`, opacity: 0 }}
+                transition={{ duration: 0.2, ease: [0.43, 0.13, 0.23, 0.96] }}
+                animate={{ transform: `rotate(${rotate}deg)`, opacity: 1 }}
+                style={{ transform: `rotate(${rotate}deg)` }}
+                className={styles.item}>
                 <RadialChart
                   key={server.name}
+                  circleAttribute={
+                    serverStore.totalLength === 12
+                      ? circleAttributes
+                      : circleAttributes - valueForAttribute
+                  }
                   name={serverStore.truncateString(server.name)}
                   diskSpace={server.diskSpace}
                   status={server.status}
                   load={server.load}
                   rotate={rotate}
-                  number={number}
+                  number={loaded ? 0 : number}
                 />
-                <p className="hidden"> {(rotate = rotate + 30)}</p>
+                <p className="hidden"> {(rotate = rotate + multiplier)}</p>
                 <p className="hidden"> {(number = number + 1)}</p>
-              </div>
+                <p className="hidden"> {(number = number + 1)}</p>
+              </motion.div>
             ))}
           </div>
         </motion.div>

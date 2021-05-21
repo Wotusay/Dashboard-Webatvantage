@@ -18,7 +18,7 @@ const LoadWatcherCard = () => {
         animate={'start'}
         className={styles.sectorWrapper}>
         <span className=" font-sans font-semibold text-nightBlue text-4xl">
-          Load watcher
+          Realtime load watcher
         </span>
         <div className={styles.sectorCard}>
           <div  className={styles.sectorLayout}>

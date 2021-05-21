@@ -31,7 +31,10 @@ const LineChart = ({ item }) => {
       },
     ];
 
-    const x = d3.scaleBand().range([-30, width +30]).padding(0.5);
+    const x = d3
+      .scaleBand()
+      .range([-30, width + 30])
+      .padding(0.5);
     x.domain(
       loadObject.map((d) => {
         return d.name;
@@ -43,7 +46,7 @@ const LineChart = ({ item }) => {
       .domain([
         0,
         d3.max(loadObject, function (d) {
-          return parseFloat(d.value) + 1.5 ;
+          return parseFloat(d.value) + 1.5;
         }),
       ])
       .range([height, 0]);
@@ -89,11 +92,11 @@ const LineChart = ({ item }) => {
           .curve(d3.curveBasis)
       );
 
-      svgCanvas.selectAll('.axis').style('opacity', 0);
+    svgCanvas.selectAll('.axis').style('opacity', 0);
   };
 
   // eslint-disable-next-line
-  useEffect(() => graph(), []);
+  useEffect(() => graph(), [item]);
   return (
     <>
       <svg

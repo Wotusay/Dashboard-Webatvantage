@@ -64,7 +64,7 @@ const Nav = ({ mouseMove }) => {
   };
   return (
     <>
-      <div className="absolute bottom-0 z-50">
+      <div className="absolute bottom-2/4 z-50">
         <div className="overflow-hidden relative">
           <motion.div
             variants={navAnimation}
@@ -72,9 +72,9 @@ const Nav = ({ mouseMove }) => {
             animate={mouseMove ? 'start' : 'disapear'}
             className="overflow-hidden">
             <div className="relative w-screen p-10 z-10">
-              <div className="flex flex-row justify-evenly">
+              <div className="flex flex-row justify-between">
                 <button
-                  className="bg-white p-4 pl-2 pr-3 shadow-md items-center rounded-full"
+                  className="bg-white pl-2 pr-3 shadow-md items-center rounded-full"
                   onClick={(e) => prevView(e)}>
                   <svg
                     width="40"
@@ -91,55 +91,6 @@ const Nav = ({ mouseMove }) => {
                   </svg>
                 </button>
 
-                <div className="flex bg-white pl-4 pr-4 shadow-md items-center rounded-full flex-row gap-x-7">
-                  <NavLink
-                    isActive={(match, location) => {
-                      if (!match) {
-                        return false;
-                      }
-                      setActivePath(location.pathname);
-                    }}
-                    to={ROUTES.home}>
-                    <div
-                      className={
-                        activePath === ROUTES.home
-                          ? styles.bulletPointActive
-                          : styles.bulletPoint
-                      }></div>
-                  </NavLink>
-
-                  <NavLink
-                    isActive={(match, location) => {
-                      if (!match) {
-                        return false;
-                      }
-                      setActivePath(location.pathname);
-                    }}
-                    to={ROUTES.analytics}>
-                    <div
-                      className={
-                        activePath === ROUTES.analytics
-                          ? styles.bulletPointActive
-                          : styles.bulletPoint
-                      }></div>
-                  </NavLink>
-
-                  <NavLink
-                    isActive={(match, location) => {
-                      if (!match) {
-                        return false;
-                      }
-                      setActivePath(location.pathname);
-                    }}
-                    to={ROUTES.servers}>
-                    <div
-                      className={
-                        activePath === ROUTES.servers
-                          ? styles.bulletPointActive
-                          : styles.bulletPoint
-                      }></div>
-                  </NavLink>
-                </div>
                 <button
                   className="bg-white p-4 pl-3 pr-2 shadow-md items-center rounded-full"
                   onClick={(e) => nextView(e)}>
@@ -158,6 +109,65 @@ const Nav = ({ mouseMove }) => {
                   </svg>
                 </button>
               </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+      <div className={styles.bulletPointsWrapper} >
+        <div className=" relative h-12 overflow-hidden ">
+          <motion.div
+            variants={navAnimation}
+            initial={'disapear'}
+            animate={mouseMove ? 'start' : 'disapear'}
+          >
+            <div className="flex w-40 h-12 align-center  z-40 bg-white pl-5 pr-4 shadow-md items-center rounded-full flex-row gap-x-7">
+              <NavLink
+                isActive={(match, location) => {
+                  if (!match) {
+                    return false;
+                  }
+                  setActivePath(location.pathname);
+                }}
+                to={ROUTES.home}>
+                <div
+                  className={
+                    activePath === ROUTES.home
+                      ? styles.bulletPointActive
+                      : styles.bulletPoint
+                  }></div>
+              </NavLink>
+
+              <NavLink
+                isActive={(match, location) => {
+                  if (!match) {
+                    return false;
+                  }
+                  setActivePath(location.pathname);
+                }}
+                to={ROUTES.analytics}>
+                <div
+                  className={
+                    activePath === ROUTES.analytics
+                      ? styles.bulletPointActive
+                      : styles.bulletPoint
+                  }></div>
+              </NavLink>
+
+              <NavLink
+                isActive={(match, location) => {
+                  if (!match) {
+                    return false;
+                  }
+                  setActivePath(location.pathname);
+                }}
+                to={ROUTES.servers}>
+                <div
+                  className={
+                    activePath === ROUTES.servers
+                      ? styles.bulletPointActive
+                      : styles.bulletPoint
+                  }></div>
+              </NavLink>
             </div>
           </motion.div>
         </div>

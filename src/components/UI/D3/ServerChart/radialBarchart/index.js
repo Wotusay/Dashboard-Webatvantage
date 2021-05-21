@@ -8,7 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { RADIALCOLORS } from '../../../../../consts';
 import VisibilitySensor from 'react-visibility-sensor';
 
-const RadialChart = ({ name, diskSpace, load, status, rotate, number }) => {
+const RadialChart = ({ name, diskSpace, load, status, rotate, number,circleAttribute }) => {
   const chartSetttings = RADIALCOLORS;
   const [color, setColor] = useState(chartSetttings.green);
   const statusChekker = () => {
@@ -25,7 +25,7 @@ const RadialChart = ({ name, diskSpace, load, status, rotate, number }) => {
   return useObserver(() => (
     <>
       <div key={name}
-        style={{ transform: `rotate(-${rotate}deg)`, width: 180, height: 180 }}>
+        style={{ transform: `rotate(-${rotate}deg)`, width: circleAttribute, height: circleAttribute }}>
         <VisibilitySensor>
           {({ isVisible }) => {
             const value = isVisible ? diskSpace.freePercentage : 0;

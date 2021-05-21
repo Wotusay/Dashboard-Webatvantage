@@ -37,3 +37,11 @@
 .bulletPoint:hover {
     background-color: #023AFF;
 }
+
+.bulletPointsWrapper {
+    position: absolute;
+    bottom: 1.5rem;
+    z-index: 50;
+    left: 47%;
+    
+}

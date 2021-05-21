@@ -1,11 +1,16 @@
 import React from 'react';
-import { CATEGORIES } from '../../../consts';
 import styles from './sectorcard.module.css';
 import { motion } from 'framer-motion';
 import { cardAnimaton } from '../../../animation';
+import { useObserver } from 'mobx-react-lite';
+import { useStores } from '../../../hooks';
 
 const SectorCard = () => {
-  return (
+  const {serverStore} = useStores();
+
+  console.log(serverStore.sectorData);
+
+  return useObserver( () => (
     <>
       <motion.div
         initial={'exit'}
@@ -18,39 +23,25 @@ const SectorCard = () => {
         </span>
         <div className={styles.sectorCard}>
           <div className={styles.sectorLayout}>
+            {serverStore.sectorData.map(item => (
+            <>
             <div className={styles.label}>
-              <div
-                style={{
-                  background: CATEGORIES.colors.medic,
-                }}
-                className={styles.circle}></div>
-              <p className="font-sans  text-nightBlue">{CATEGORIES.medic}</p>
-            </div>
-            <p className="font-sans text-gray-400 font-normal">500GB</p>
-            <p className="font-sans text-nightBlue">1000GB</p>
-
-            <div className={styles.label}>
-              <div
-                style={{ background: CATEGORIES.colors.fashion }}
-                className={styles.circle}></div>
-              <p className="font-sans text-nightBlue">{CATEGORIES.fashion}</p>
-            </div>
-            <p className="font-sans text-gray-400 font-normal">500GB</p>
-            <p className="font-sans text-nightBlue">1000GB</p>
-
-            <div className={styles.label}>
-              <div
-                style={{ background: CATEGORIES.colors.shoes }}
-                className={styles.circle}></div>
-              <p className="font-sans text-nightBlue">{CATEGORIES.shoes}</p>
-            </div>
-            <p className="font-sans text-gray-400 font-normal">500GB</p>
-            <p className="font-sans text-nightBlue">1000GB</p>
+            <div
+              style={{
+                background: item.color,
+              }}
+              className={styles.circle}></div>
+            <p className="font-sans  text-nightBlue">{item.name}</p>
+          </div>
+          <p className="font-sans text-gray-400 font-normal">{item.used}</p>
+          <p className="font-sans text-nightBlue">{item.amount}</p>
+          </>
+            )) }
           </div>
         </div>
       </motion.div>
     </>
-  );
+  ));
 };
 
 export default SectorCard;

@@ -13,14 +13,16 @@ class ClientStore {
     this.newDataTwo = [];
     this.newDataThree = [];
     this.latestData = [];
+    this.categories = [];
   }
 
   loadAllItems = async () => {
-    // This iss our start datt
+    // This is our start datt
     const items = await this.clientsService.getAll(); // Calls the getAll function from the class ClientService
     
     items.forEach((item) => {
       this.setItems(item); 
+      this.setCategories(item);
       this.latestData.push(item); // We keep this data for a reference point to compare later
     });
 
@@ -84,6 +86,15 @@ class ClientStore {
     // After each iteration we need to call the best category to update it
     this.bestEaringCategory();
   };
+
+  setCategories = async (item) => {
+    let itemExists = this.categories.findIndex((i) => i === item.category); // To prevent double items in the aray
+    if(itemExists === -1) {
+      await this.categories.push(item.category);
+    } else {
+      return;
+    }
+  }
 
   setDifferentData = () => {
     // Here we call the function every x-sec to give it like a realtime effect
@@ -359,9 +370,6 @@ class ClientStore {
 
     return sum.toFixed(0); // Gives the sum with 0.00
   }
-
-
-
   
   truncateString(str) {
     let num = 13;
@@ -377,6 +385,7 @@ class ClientStore {
 
 decorate(ClientStore, {
   latestData: observable,
+  categories:observable,
   eCommerceItems: observable,
   firstData: observable,
   newData: observable,

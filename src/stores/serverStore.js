@@ -1,18 +1,137 @@
 import ServerService from '../services/ServerService';
 import { action, computed, decorate, observable } from 'mobx';
+import { CATEGORIES } from '../consts';
 
 class ServerStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     this.servers = [];
     this.serverService = new ServerService();
+    this.firstData = [];
+    this.newData = [];
+    this.newDataTwo = [];
+    this.newDataThree = [];
+    this.latestData = [];
+    this.categories = rootStore.clientStore.categories;
+    this.sectorData = [];
   }
 
   loadAllServers = async () => {
     const servers = await this.serverService.getAll(); // Calls the getAll function from the class ClientService
     servers.forEach((server) => {
       this.setServer(server);
+      this.latestData.push(server); // We keep this data for a reference point to compare later
     });
+
+    // Here we call the other files that we need to update
+    const newData = await this.serverService.getAllNewData(); // Calls the getAllNewData function from the class ClientService
+    const newDataTwo = await this.serverService.getAllAllNewDataTwo(); // Calls the getAllAllNewDataTwo function from the class ClientService
+    const newDataThree = await this.serverService.getAllAllNewDataThree(); // Calls the getAllAllNewDataThree function from the class ClientService
+
+    servers.forEach((server) => {
+      this.setFirstData(server);
+    });
+
+    newData.forEach((server) => {
+      this.setNewData(server);
+    });
+
+    newDataTwo.forEach((server) => {
+      this.setNewDataTwo(server);
+    });
+
+    newDataThree.forEach((server) => {
+      this.setNewDataThree(server);
+    });
+
+    this.sectorMapData();
+    this.setDifferentData();
+  };
+
+  updateDataSet = () => {
+    // Here we compare the arrays to check wich one is active
+    const equals = (a, b) => {
+      if (JSON.stringify(a) === JSON.stringify(b)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    // Here we set all the new data items in the ECommerce list
+    switch (true) {
+      case equals(this.servers, this.firstData):
+        // We copy the old list into the latestdata so we can reference it later
+        this.latestData = this.servers.map((a) => ({ ...a }));
+        // Here we set all the new data items in the ECommerce list
+        this.servers = this.newData;
+        console.log(true);
+
+        break;
+      case equals(this.servers, this.newData):
+        this.latestData = this.servers.map((a) => ({ ...a }));
+        this.servers = this.newDataTwo;
+        console.log(true);
+
+        break;
+      case equals(this.servers, this.newDataTwo):
+        this.latestData = this.servers.map((a) => ({ ...a }));
+        this.servers = this.newDataThree;
+        console.log(true);
+
+        break;
+      case equals(this.servers, this.newDataThree):
+        this.latestData = this.servers.map((a) => ({ ...a }));
+        this.servers = this.firstData;
+        console.log(true);
+
+        break;
+      default:
+    }
+
+    // After each iteration we need to call the best category to update it
+  };
+
+  setDifferentData = () => {
+    // Here we call the function every x-sec to give it like a realtime effect
+    setInterval(() => {
+      this.updateDataSet();
+    }, 8000);
+  };
+
+  sectorMapData = async () => {
+    await this.categories.map((i) => {
+      return this.setSectorData(i);
+    });
+  };
+
+  setSectorData = (item) => {
+    let tempObj = {};
+    tempObj.name = item;
+    tempObj.used = '500GB';
+    tempObj.amount = '1000GB';
+    tempObj.color =
+      item === 'Medisch'
+        ? CATEGORIES.colors.medic
+        : item === 'Schoenen'
+        ? CATEGORIES.colors.shoes
+        : item === 'Fashion'
+        ? CATEGORIES.colors.fashion
+        : item === 'Category 1'
+        ? CATEGORIES.colors.category1
+        : item === 'Category 2'
+        ? CATEGORIES.colors.category2
+        : item === 'Category 3'
+        ? CATEGORIES.colors.category3
+        : item === 'Category 4'
+        ? CATEGORIES.colors.category4
+        : item === 'Category 5'
+        ? CATEGORIES.colors.category5
+        : item === 'Category 6'
+        ? CATEGORIES.colors.category6
+        : CATEGORIES.colors.category6;
+
+    this.sectorData.push(tempObj);
   };
 
   setServer = async (server) => {
@@ -20,6 +139,42 @@ class ServerStore {
     // To prevent double items in the aray
     if (itemExists === -1) {
       await this.servers.push(server); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
+  setFirstData = async (item) => {
+    let itemExists = this.firstData.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.firstData.push(item);
+    } else {
+      return;
+    }
+  };
+
+  setNewData = async (item) => {
+    let itemExists = this.newData.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newData.push(item); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
+  setNewDataTwo = async (item) => {
+    let itemExists = this.newDataTwo.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newDataTwo.push(item); // Push the item if it isn't in it
+    } else {
+      return;
+    }
+  };
+
+  setNewDataThree = async (item) => {
+    let itemExists = this.newDataThree.findIndex((i) => i.name === item.name); // To prevent double items in the aray
+    if (itemExists === -1) {
+      await this.newDataThree.push(item); // Push the item if it isn't in it
     } else {
       return;
     }
@@ -76,14 +231,25 @@ class ServerStore {
     // Return str truncated with '...' concatenated to the end of str.
     return str.slice(0, num) + '...';
   }
+
+  get totalLength() {
+    return this.servers.length;
+  }
 }
 
 decorate(ServerStore, {
   servers: observable,
+  sectorData: observable,
+  firstData: observable,
+  categories: observable,
+  newData: observable,
+  newDataTwo: observable,
+  newDataThree: observable,
+  latestData: observable,
   loadAllServers: action,
   totalStorage: computed,
   totalStorageUsed: computed,
-  totalAvg5Load: computed
+  totalAvg5Load: computed,
 });
 
 export default ServerStore;

@@ -8,7 +8,6 @@
   position: relative;
   overflow: hidden;
   height: 100vh;
-  
 }
 
 .cirkleTwo {
@@ -19,22 +18,18 @@
   background: white;
   border-radius: 50%;
   z-index: -4;
-
   left: 43.3%;
   top: 7%;
 }
 
 .cirkleStripes{
   position: absolute;
-
   grid-area: 1;
   height: 60rem;
   width: 60rem;
   background: transparent;
   border-radius: 50%;
   z-index: -3;
-
-
   left: 47%;
   top: 14.5%;
 }
@@ -157,39 +152,4 @@
   }
 
 
-.item:nth-child(1) {
-    transform: rotate(0deg);
-  }
-.item:nth-child(2) {
-    transform: rotate(30deg);
-  }
-.item:nth-child(3) {
-    transform: rotate(60deg);
-  }
-.item:nth-child(4) {
-    transform: rotate(90deg);
-  }
-.item:nth-child(5) {
-    transform: rotate(120deg);
-  }
-.item:nth-child(6) {
-    transform: rotate(150deg);
-  }
-.item:nth-child(7) {
-    transform: rotate(180deg);
-  }
-.item:nth-child(8) {
-    transform: rotate(210deg);
-  }
-.item:nth-child(9) {
-    transform: rotate(240deg);
-  }
-  .item:nth-child(10) {
-    transform: rotate(270deg);
-  }
-  .item:nth-child(11) {
-    transform: rotate(300deg);
-  }
-  .item:nth-child(12) {
-    transform: rotate(330deg);
-  }
+
