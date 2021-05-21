@@ -1,19 +1,18 @@
 .chartsWrapper {
     display: grid;
     grid-gap: 5rem;
-    grid-template-columns: 90rem 70rem;
+    grid-template-columns: 98rem 70rem;
     justify-content: center;
 }
 
 .cardsWrapper {
     display: grid;
     grid-template-columns:32rem 32rem 32rem;
-    justify-content: space-evenly;
 
-    grid-gap: 21.2rem;
+    grid-gap: 2rem;
     z-index: 1;
     margin-top: ;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
 .ConversionChart {

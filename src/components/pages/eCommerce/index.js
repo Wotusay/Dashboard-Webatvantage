@@ -59,10 +59,13 @@ const ECommerce = () => {
         variants={titleAnimaton}
         exit={'exit'}
         animate={'start'}
-        className=" ml-52 mt-16 mb-16 font-sans font-medium text-nightBlue text-6xl ">
+        className=" ml-36 mt-16 mb-16 font-sans font-medium text-nightBlue text-6xl ">
         E-Commerce Data
       </motion.h2>
-      <div className={styles.cardsWrapper}>
+      <div className={styles.chartsWrapper}>
+
+        <div>
+        <div className={styles.cardsWrapper}>
         <Card
           title={`Total earning`}
           number={new Intl.NumberFormat('de-DE', {
@@ -91,15 +94,16 @@ const ECommerce = () => {
           }).format(clientStore.categoryTotal.total)} in total`}
         />
       </div>
-      <div className={styles.chartsWrapper}>
         <motion.div
           initial={'exit'}
           variants={graphAnimaton}
           exit={'exit'}
           animate={'start'}
-          className="bg-white rounded-2xl pt-8 shadow-xl p-8">
+          className="bg-white rounded-2xl pt-8 shadow-xl p-8 pr-0 w-max">
           <ConversionChart oldItems={oldItems} items={item} />
         </motion.div>
+
+        </div>
         <motion.div
           initial={'exit'}
           variants={earningAnimaton}
