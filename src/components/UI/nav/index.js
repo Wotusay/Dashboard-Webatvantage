@@ -64,14 +64,14 @@ const Nav = ({ mouseMove }) => {
   };
   return (
     <>
-      <div className="absolute bottom-2/4 z-50">
+      <div className="absolute bottom-2/4">
         <div className="overflow-hidden relative">
           <motion.div
             variants={navAnimation}
             initial={'disapear'}
             animate={mouseMove ? 'start' : 'disapear'}
             className="overflow-hidden">
-            <div className="relative w-screen p-10 z-10">
+            <div className="relative w-screen p-10">
               <div className="flex flex-row justify-between">
                 <button
                   className="bg-white pl-2 pr-3 shadow-md items-center rounded-full"
