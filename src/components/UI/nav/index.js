@@ -74,7 +74,7 @@ const Nav = ({ mouseMove }) => {
             <div className="relative w-screen p-10">
               <div className="flex flex-row justify-between">
                 <button
-                  className="bg-white pl-2 pr-3 shadow-md items-center rounded-full"
+                  className="bg-white pl-2 pr-3 shadow-md items-center rounded-full  z-40"
                   onClick={(e) => prevView(e)}>
                   <svg
                     width="40"
@@ -92,7 +92,7 @@ const Nav = ({ mouseMove }) => {
                 </button>
 
                 <button
-                  className="bg-white p-4 pl-3 pr-2 shadow-md items-center rounded-full"
+                  className="bg-white p-4 pl-3 pr-2 shadow-md items-center rounded-full z-40"
                   onClick={(e) => nextView(e)}>
                   <svg
                     width="40"
@@ -114,7 +114,7 @@ const Nav = ({ mouseMove }) => {
         </div>
       </div>
       <div className={styles.bulletPointsWrapper} >
-        <div className=" relative h-12 overflow-hidden ">
+        <div className=" relative h-16 overflow-hidden ">
           <motion.div
             variants={navAnimation}
             initial={'disapear'}
