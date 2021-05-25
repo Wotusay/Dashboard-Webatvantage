@@ -107,6 +107,13 @@ const CATEGORIES = {
   medic: 'Medisch',
   fashion: 'Fashion',
   shoes: 'Schoenen',
+  category1:'Category 1',
+  category2:'Category 2',
+  category3:'Category 3',
+  category4:'Category 4',
+  category5:'Category 5',
+  category6:'Category 6',
+
   colors: {
     medic: '#FF37BB',
     fashion: '#AE2AFF',

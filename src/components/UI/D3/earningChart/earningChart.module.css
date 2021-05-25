@@ -16,6 +16,14 @@
 
 .outer {
     width: 64rem;
-    height: 53.8rem;
+    height: 58.8rem;
     overflow: auto;
+}
+
+.categories {
+    display: grid;
+    justify-content: space-evenly;
+    align-items: center;
+    grid-template-columns:repeat(3, minmax(0, 15rem));
+    grid-gap: 1rem;
 }

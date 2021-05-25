@@ -11,7 +11,7 @@ const EarningChart = ({ items, oldItems }) => {
   // Ref is needed to draw in the graph
   const ref = useRef();
   const chartElements = CHARTS.earningChart;
-  const { clientStore } = useStores();
+  const { clientStore, serverStore } = useStores();
   const _items = items.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
   const _oldItems = oldItems.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
   const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
@@ -32,7 +32,40 @@ const EarningChart = ({ items, oldItems }) => {
     const colorPurple = d3.scaleLinear().range(colorRangePurple).domain([1, 2]);
 
     const colorRangeMedic = [CATEGORIES.colors.shoes, '#B500D2'];
+    const colorRangeCategory1 = [CATEGORIES.colors.category1, '#FFCA66'];
+    const colorRangeCategory2 = [CATEGORIES.colors.category2, '#D90001'];
+    const colorRangeCategory3 = [CATEGORIES.colors.category3, '#FFB5EA'];
+    const colorRangeCategory4 = [CATEGORIES.colors.category4, '#4E75FF'];
+    const colorRangeCategory5 = [CATEGORIES.colors.category5, '#12EA41'];
+    const colorRangeCategory6 = [CATEGORIES.colors.category6, '#07BCB2'];
+
     const colorMedic = d3.scaleLinear().range(colorRangeMedic).domain([1, 2]);
+
+    const colorCategory1 = d3
+      .scaleLinear()
+      .range(colorRangeCategory1)
+      .domain([1, 2]);
+    const colorCategory2 = d3
+      .scaleLinear()
+      .range(colorRangeCategory2)
+      .domain([1, 2]);
+    const colorCategory3 = d3
+      .scaleLinear()
+      .range(colorRangeCategory3)
+      .domain([1, 2]);
+    const colorCategory4 = d3
+      .scaleLinear()
+      .range(colorRangeCategory4)
+      .domain([1, 2]);
+    const colorCategory5 = d3
+      .scaleLinear()
+      .range(colorRangeCategory5)
+      .domain([1, 2]);
+    const colorCategory6 = d3
+      .scaleLinear()
+      .range(colorRangeCategory6)
+      .domain([1, 2]);
+
     const linearGradientRed = svgCanvas
       .append('defs')
       .append('linearGradient')
@@ -81,6 +114,102 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('offset', '100%')
       .attr('stop-color', colorMedic(1));
 
+    const linearGradientCategory1 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category1')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory1
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory1(1));
+
+    linearGradientCategory1
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory1(2));
+
+    const linearGradientCategory2 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category2')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory2
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory2(2));
+
+    linearGradientCategory2
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory2(1));
+
+    const linearGradientCategory3 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category3')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory3
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory3(1));
+
+    linearGradientCategory3
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory3(2));
+
+    const linearGradientCategory4 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category4')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory4
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory4(1));
+
+    linearGradientCategory4
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory4(2));
+
+    const linearGradientCategory5 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category5')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory5
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory5(1));
+
+    linearGradientCategory5
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory5(2));
+
+    const linearGradientCategory6 = svgCanvas
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'category6')
+      .attr('gradientTransform', 'rotate(0)');
+
+    linearGradientCategory6
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorCategory6(2));
+
+    linearGradientCategory6
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorCategory6(1));
+
     const margin = chartElements.margin,
       width = ref.current.width.baseVal.value - margin.right,
       height = heightCalc;
@@ -117,6 +246,18 @@ const EarningChart = ({ items, oldItems }) => {
           ? 'url(#fashion)'
           : d.category === CATEGORIES.shoes
           ? 'url(#shoes)'
+          : d.category === CATEGORIES.category1
+          ? 'url(#category1)'
+          : d.category === CATEGORIES.category2
+          ? 'url(#category2)'
+          : d.category === CATEGORIES.category3
+          ? 'url(#category3)'
+          : d.category === CATEGORIES.category4
+          ? 'url(#category4)'
+          : d.category === CATEGORIES.category5
+          ? 'url(#category5)'
+          : d.category === CATEGORIES.category6
+          ? 'url(#category6)'
           : '#ACC39F';
     });
 
@@ -130,6 +271,18 @@ const EarningChart = ({ items, oldItems }) => {
           ? 'url(#fashion)'
           : d.category === CATEGORIES.shoes
           ? 'url(#shoes)'
+          : d.category === CATEGORIES.category1
+          ? 'url(#category1)'
+          : d.category === CATEGORIES.category2
+          ? 'url(#category2)'
+          : d.category === CATEGORIES.category3
+          ? 'url(#category3)'
+          : d.category === CATEGORIES.category4
+          ? 'url(#category4)'
+          : d.category === CATEGORIES.category5
+          ? 'url(#category5)'
+          : d.category === CATEGORIES.category6
+          ? 'url(#category6)'
           : '#ACC39F';
     });
 
@@ -139,8 +292,8 @@ const EarningChart = ({ items, oldItems }) => {
       .domain([0, d3.max(_itemsSorted, (d) => d.eCommerceData.totalRevenue)])
       .range([margin.left, width - margin.right - 65]);
 
-      // For an moving x-asis we have to create one where the old data is in it
-      let oldX = d3
+    // For an moving x-asis we have to create one where the old data is in it
+    let oldX = d3
       .scaleLinear()
       .domain([0, d3.max(_itemsOldSorted, (d) => d.eCommerceData.totalRevenue)])
       .range([margin.left, width - margin.right - 65]);
@@ -159,8 +312,8 @@ const EarningChart = ({ items, oldItems }) => {
       .tickSize(-(height - margin.top - margin.bottom))
       .tickFormat((d) => d3.format(',')(d));
 
-      // For an moving x-asis we have to create one where the old data is in it
-      let oldXAxis = d3
+    // For an moving x-asis we have to create one where the old data is in it
+    let oldXAxis = d3
       .axisTop()
       .scale(oldX)
       .ticks(width > 500 ? 5 : 2)
@@ -174,12 +327,11 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('transform', `translate(20, ${margin.top})`)
       // Start of the animation
       .call(oldXAxis)
-      .transition().duration(700)
+      .transition()
+      .duration(700)
       .call(xAxis);
 
-      svgCanvas
-      .selectAll('.tick line')
-      .classed('origin', (d) => d === 0);
+    svgCanvas.selectAll('.tick line').classed('origin', (d) => d === 0);
 
     // Set the view for prev bar
     svgCanvas
@@ -209,8 +361,10 @@ const EarningChart = ({ items, oldItems }) => {
       .append('rect')
       .attr('class', 'bar')
       .attr('x', x(0) + 1)
-      .attr('width', (d) =>
-        loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1 // We check  if the items are loaded in.
+      .attr(
+        'width',
+        (d) =>
+          loaded ? x(d.eCommerceData.totalRevenue) - x(0) - 1 : x(0) - x(0) - 1 // We check  if the items are loaded in.
         // Else we pick a value of 0 to get the begining animation
       )
       .attr('y', (d) => y(d.rank) + 5)
@@ -315,8 +469,7 @@ const EarningChart = ({ items, oldItems }) => {
             ? RADIALCOLORS.white
             : RADIALCOLORS.textColor
         )
-        .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 12 ? 12 : 120))
-        ;
+        .attr('x', (d) => (d.rank < clientStore.lengthOfArray - 12 ? 12 : 120));
     }
 
     // Value for the bar
@@ -363,7 +516,8 @@ const EarningChart = ({ items, oldItems }) => {
             `${new Intl.NumberFormat('de-DE', {
               style: 'currency',
               currency: 'EUR',
-            }).format(d.eCommerceData.totalRevenue)}`)
+            }).format(d.eCommerceData.totalRevenue)}`
+        )
         .transition()
         .duration(700)
         .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
@@ -446,7 +600,7 @@ const EarningChart = ({ items, oldItems }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => {graph(); setLoaded(true); setLoaded(true);},[clientStore.totalEarining]);
+  useEffect(() => { graph(); setLoaded(true); setLoaded(true);},[clientStore.totalEarining]);
 
   return useObserver(() => (
     <>
@@ -459,39 +613,19 @@ const EarningChart = ({ items, oldItems }) => {
           <svg ref={ref} width="640" height={heightCalc}></svg>
         </div>
 
-        <div className="flex justify-evenly">
-          <div className={styles.item}>
-            <div
-              className={styles.colour}
-              style={{
-                backgroundColor: CATEGORIES.colors.medic,
-              }}></div>
-            <span className="font-sans  ml-2 text-nightBlue">
-              {CATEGORIES.medic}
-            </span>
-          </div>
-
-          <div className={styles.item}>
-            <div
-              className={styles.colour}
-              style={{
-                backgroundColor: CATEGORIES.colors.fashion,
-              }}></div>
-            <span className="font-sans ml-2 text-nightBlue">
-              {CATEGORIES.fashion}
-            </span>
-          </div>
-
-          <div className={styles.item}>
-            <div
-              className={styles.colour}
-              style={{
-                backgroundColor: CATEGORIES.colors.shoes,
-              }}></div>
-            <span className="font-sans ml-2 text-nightBlue">
-              {CATEGORIES.shoes}
-            </span>
-          </div>
+        <div className={styles.categories}>
+          {serverStore.sectorData.map((item) => (
+            <div className={styles.item}>
+              <div
+                className={styles.colour}
+                style={{
+                  backgroundColor: item.color,
+                }}></div>
+              <span className="font-sans  ml-2 text-nightBlue">
+                {item.name}
+              </span>
+            </div>
+          ))}
         </div>
       </motion.div>
     </>
