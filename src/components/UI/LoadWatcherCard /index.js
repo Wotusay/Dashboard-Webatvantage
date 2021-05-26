@@ -20,7 +20,7 @@ const LoadWatcherCard = () => {
         <span className=" font-sans font-semibold text-nightBlue text-4xl">
           Realtime load watcher
         </span>
-        <div className={styles.sectorCard}>
+        <div id='outer' className={styles.sectorCard}>
           <div  className={styles.sectorLayout}>
             {serverStore.servers.map((s) => (
               <>

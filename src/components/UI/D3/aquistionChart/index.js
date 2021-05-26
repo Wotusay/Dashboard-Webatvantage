@@ -10,6 +10,7 @@ const AquistionChart = ({ items }) => {
   const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
   const _items = items.map((a) => ({ ...a }));
 
+  clientStore.loaded = false;
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     svgCanvas.selectAll('g').remove();
@@ -187,7 +188,7 @@ const AquistionChart = ({ items }) => {
       .data(_itemsSorted)
       .enter()
       .append('g')
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'center')
       .attr('transform', (d) => {
         return `rotate(  ${
           ((x(d.name) + x.bandwidth() / 2) * 180) / Math.PI - 90
@@ -197,7 +198,7 @@ const AquistionChart = ({ items }) => {
     label
       .append('text')
       .attr('transform', (d) => {
-        return (x(d.name) + x.bandwidth() / 2 + Math.PI / 2) % (2 * Math.PI) <
+        return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) <
           Math.PI
           ? chartSetttings.transforms.textUnder
           : chartSetttings.transforms.textUp;
@@ -236,7 +237,7 @@ const AquistionChart = ({ items }) => {
         return -y(d);
       })
       .attr('dy', chartSetttings.yTickStyles.text.dy)
-      .attr('stroke', '#fff')
+      .attr('stroke', '#EDEFF9')
       .attr('stroke-width', chartSetttings.yTickStyles.text.strokeWidth)
       .style('font-weight', '600')
       .style('font-size', '1.5rem')
@@ -288,18 +289,23 @@ const AquistionChart = ({ items }) => {
       .text((d) => {
         return d;
       });
+
   };
+
+
   // eslint-disable-next-line
-  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalUsers]);
+  useEffect(() => {  graph();  setLoaded(true);}, [clientStore.totalUsers]);
+  // eslint-disable-next-line
+  useEffect(() => {setTimeout(() => { clientStore.loaded = true}, 800); },[]);
+
 
   return (
     <>
       <svg
         style={{ borderRadius: '50%' }}
-        className="shadow-xl bg-white"
         ref={ref}
-        width="600"
-        height="600"></svg>
+        width="720"
+        height="720"></svg>
     </>
   );
 };

@@ -12,11 +12,11 @@ const EarningChart = ({ items, oldItems }) => {
   const ref = useRef();
   const chartElements = CHARTS.earningChart;
   const { clientStore, serverStore } = useStores();
+  clientStore.loaded = false; 
   const _items = items.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
   const _oldItems = oldItems.map((a) => ({ ...a })); // We have to make a copy of the array to prevent it being rewriten
   const [loaded, setLoaded] = useState(false); // Here we check if the the item has been loaded in already
   const heightCalc = 41.5 * clientStore.lengthOfArray; // Calculates the height for the graphh
-
   const graph = () => {
     const svgCanvas = d3.select(ref.current);
     const top_n = clientStore.lengthOfArray; // How many items there needs to be in it
@@ -599,8 +599,12 @@ const EarningChart = ({ items, oldItems }) => {
       .style('font-weight', chartElements.font.fontWeight);
   };
 
+
+
   // eslint-disable-next-line
-  useEffect(() => { graph(); setLoaded(true); setLoaded(true);},[clientStore.totalEarining]);
+  useEffect(() => { graph();  setLoaded(true);},[clientStore.totalEarining]);
+  // eslint-disable-next-line
+  useEffect(() => {setTimeout(() => { clientStore.loaded = true}, 800); });
 
   return useObserver(() => (
     <>
@@ -609,7 +613,7 @@ const EarningChart = ({ items, oldItems }) => {
         variants={earningAnimaton}
         exit="exit"
         animate="start">
-        <div className={styles.outer}>
+        <div id='outer' className={styles.outer}>
           <svg ref={ref} width="640" height={heightCalc}></svg>
         </div>
 

@@ -14,6 +14,7 @@ import {
   graphAnimaton,
   earningAnimaton,
 } from '../../../animation';
+import OverlayScrollbars from 'overlayscrollbars';
 
 const Analytics = () => {
   const { clientStore } = useStores();
@@ -45,6 +46,17 @@ const Analytics = () => {
     };
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('click', updateMousePosition);
+
+    OverlayScrollbars(document.querySelectorAll('#outer'), {
+      className: 'os-theme-dark',
+      scrollbars: {
+        autoHide: 'l',
+        autoHideDelay: 800,
+      },
+      nativeScrollbarsOverlaid: {
+        initialize: false,
+      },
+    });
   });
 
   return useObserver(() => (
@@ -56,60 +68,62 @@ const Analytics = () => {
           variants={titleAnimaton}
           exit={'exit'}
           animate={'start'}
-          className=" ml-52 mt-10 mb-3 font-sans font-medium text-nightBlue text-6xl ">
+          className=" ml-40 mt-16 mb-7  font-sans font-medium text-nightBlue text-6xl ">
           Analytics Data
         </motion.h2>
-        <div className={styles.cardsWrapper}>
-          <Card
-            title={`Total pageviews`}
-            number={new Intl.NumberFormat('de-DE').format(
-              clientStore.totalViews
-            )}
-            rate={(
-              (decreaseValueViews / clientStore.totalLastMonthViews) *
-              100
-            ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
-              clientStore.totalLastMonthViews
-            )} last month`}
-          />
-          <Card
-            title={`Total sessions`}
-            number={new Intl.NumberFormat('de-DE').format(
-              clientStore.totalSessions
-            )}
-            rate={(
-              (decreaseValueSessions / clientStore.totalLastMonthSessions) *
-              100
-            ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
-              clientStore.totalLastMonthSessions
-            )} last month`}
-          />
-          <Card
-            title={`Total users`}
-            number={new Intl.NumberFormat('de-DE').format(
-              clientStore.totalUsers
-            )}
-            rate={(
-              (decreaseValueUsers / clientStore.totalLastMonthUsers) *
-              100
-            ).toFixed(0)}
-            tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
-              clientStore.totalLastMonthUsers
-            )} last month`}
-          />
-        </div>
 
         <div className={styles.chartsWrapper}>
-          <motion.div
-            initial={'exit'}
-            variants={graphAnimaton}
-            exit={'exit'}
-            animate={'start'}
-            className={styles.chartAnalyics}>
-            <AnalyticsChart oldItems={oldItems} items={item} />
-          </motion.div>
+          <div className={styles.analyticsChart}>
+            <div className={styles.cardsWrapper}>
+              <Card
+                title={`Total pageviews`}
+                number={new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalViews
+                )}
+                rate={(
+                  (decreaseValueViews / clientStore.totalLastMonthViews) *
+                  100
+                ).toFixed(0)}
+                tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalLastMonthViews
+                )} last month`}
+              />
+              <Card
+                title={`Total sessions`}
+                number={new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalSessions
+                )}
+                rate={(
+                  (decreaseValueSessions / clientStore.totalLastMonthSessions) *
+                  100
+                ).toFixed(0)}
+                tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalLastMonthSessions
+                )} last month`}
+              />
+              <Card
+                title={`Total users`}
+                number={new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalUsers
+                )}
+                rate={(
+                  (decreaseValueUsers / clientStore.totalLastMonthUsers) *
+                  100
+                ).toFixed(0)}
+                tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
+                  clientStore.totalLastMonthUsers
+                )} last month`}
+              />
+            </div>
+            <motion.div
+              initial={'exit'}
+              variants={graphAnimaton}
+              exit={'exit'}
+              animate={'start'}
+              className={styles.chartAnalyics}>
+              <AnalyticsChart oldItems={oldItems} items={item} />
+            </motion.div>
+          </div>
           <div className={styles.aquistionChart}>
             <motion.div
               initial={'exit'}
@@ -117,7 +131,7 @@ const Analytics = () => {
               exit="exit"
               animate="start"
               className={styles.bg}>
-              <AquistionChart  items={item} />
+              <AquistionChart items={item} />
             </motion.div>
           </div>
         </div>

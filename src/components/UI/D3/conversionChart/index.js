@@ -256,7 +256,7 @@ const ConversionChart = ({ items, oldItems }) => {
         </p>
         <p className="font-sans text-lightBlue-rect">Conversions</p>
       </div>
-      <div className={styles.outer}>
+      <div id='outer' className={styles.outer}>
         <svg ref={ref} width={widthCalc} height="500"></svg>
       </div>
     </>

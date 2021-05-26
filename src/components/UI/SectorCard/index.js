@@ -21,7 +21,7 @@ const SectorCard = () => {
         <span className="font-sans font-semibold text-nightBlue text-4xl">
           Total Sector Storage
         </span>
-        <div className={styles.sectorCard}>
+        <div id='outer' className={styles.sectorCard}>
           <div className={styles.sectorLayout}>
             {serverStore.sectorData.map(item => (
             <>

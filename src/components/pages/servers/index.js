@@ -9,6 +9,7 @@ import styles from './servers.module.css';
 import { motion } from 'framer-motion';
 import { titleAnimaton, cardAnimaton } from '../../../animation';
 import { RADIALCOLORS } from '../../../consts';
+import OverlayScrollbars from 'overlayscrollbars';
 
 const Servers = () => {
   const { serverStore } = useStores();
@@ -25,6 +26,17 @@ const Servers = () => {
     setTimeout(() => {
       setLoaded(true);
     },2000);
+
+    OverlayScrollbars(document.querySelectorAll('#outer'), {
+      className : "os-theme-dark",
+      scrollbars:{
+        autoHide: 'l',
+        autoHideDelay: 800,
+      },
+      nativeScrollbarsOverlaid :{
+        initialize:false
+      }
+    });
   },[])
   return useObserver(() => (
     <>

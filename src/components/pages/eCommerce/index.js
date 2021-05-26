@@ -12,6 +12,7 @@ import {
   graphAnimaton,
   earningAnimaton,
 } from '../../../animation';
+import OverlayScrollbars from 'overlayscrollbars';
 
 const ECommerce = () => {
   const { clientStore } = useStores();
@@ -49,6 +50,17 @@ const ECommerce = () => {
     };
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('click', updateMousePosition);
+
+    OverlayScrollbars(document.querySelectorAll('#outer'), {
+      className : "os-theme-dark",
+      scrollbars:{
+        autoHide: 'l',
+        autoHideDelay: 800,
+      },
+      nativeScrollbarsOverlaid :{
+        initialize:false
+      }
+    });
   },[]);
 
   return useObserver(() => (

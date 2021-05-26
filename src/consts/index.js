@@ -7,7 +7,7 @@ const ROUTES = {
 
 const CHARTS = {
   analyticsChart: {
-    margin: { top: 20, right: 20, bottom: 120, left: 90 },
+    margin: { top: 1, right: 20, bottom: 120, left: 90 },
     color: { rectSessions: '#ED605B', rectViews: '#000000' },
     font: {
       axisX: {
@@ -43,7 +43,7 @@ const CHARTS = {
     },
   },
   aquistionChart: {
-    innerRadius: 182,
+    innerRadius: 220,
     color: {
       zAxis: ['#F87390', '#F87390', '#FCBB67', '#8675FF', '#8018F7', '#A547D3'],
       line: '#000',
@@ -51,8 +51,8 @@ const CHARTS = {
       strokeLegend: '#fff',
     },
     transforms: {
-      textUnder: 'rotate(-180)translate(55,3)',
-      textUp: 'rotate(180)translate(55,3)',
+      textUnder: 'rotate(180)translate(20,3)',
+      textUp: 'rotate(0)translate(-82,3)',
     },
     font: {
       label: '0.9rem',

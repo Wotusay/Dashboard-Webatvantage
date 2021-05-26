@@ -46,10 +46,10 @@ const AnalyticsChart = ({ items, oldItems }) => {
           }
         ),
       ])
-      .range([height, 0]);
+      .range([height - 10, 0]);
 
-      // old values for the Y-axis for views left
-      const oldPageviews = d3
+    // old values for the Y-axis for views left
+    const oldPageviews = d3
       .scaleLinear()
       .domain([
         0,
@@ -60,7 +60,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           }
         ),
       ])
-      .range([height, 0]);
+      .range([height - 10, 0]);
 
     // Y-axis for sessions right
     const sessions = d3
@@ -75,10 +75,10 @@ const AnalyticsChart = ({ items, oldItems }) => {
           }
         ),
       ])
-      .range([height, 0]);
-      
-      // old values for the Y-axis for sessions right
-      const sessionsOld = d3
+      .range([height - 10, 0]);
+
+    // old values for the Y-axis for sessions right
+    const sessionsOld = d3
       .scaleLinear()
       .domain([
         0,
@@ -90,7 +90,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           }
         ),
       ])
-      .range([height, 0]);
+      .range([height - 10, 0]);
 
     // Dit zijn de namen vande waardes
     const x0 = d3
@@ -147,14 +147,53 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('offset', '100%')
       .attr('stop-color', colorPurple(1));
 
+    svgCanvas
+      .append('g')
+      .attr('class', 'y axis')
+      .attr('transform', `translate(${margin.left},8 )`)
+      .call(
+        d3
+          .axisLeft(oldPageviews)
+          .ticks(4)
+          .tickSize(-(width - 100))
+      )
+      .transition()
+      .duration(800)
+      .call(
+        d3
+          .axisLeft(pageviews)
+          .ticks(4)
+          .tickSize(-(width - 100))
+      );
+
+    // oproepen van de x-as
+
+    svgCanvas
+      .append('g')
+      .attr('class', 'axis axis--x')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(d3.axisBottom(x0));
+
+    // oproepen van de y-as rechts
+    svgCanvas
+      .append('g')
+      .style('position', 'absolute')
+      .attr('class', 'axis--y axis')
+      .attr('transform', `translate( ${width - margin.right} )`)
+      .call(d3.axisRight(sessionsOld).ticks(4))
+      .transition()
+      .duration(800)
+      .call(d3.axisRight(sessions).ticks(4));
+
     // Deze bars is voor de totale sessies
     svgCanvas
       .append('g')
       .selectAll('g')
-      .data(oldItems) // Here we start with the old items and later end with the newitems 
+      .data(oldItems) // Here we start with the old items and later end with the newitems
       .enter()
       .append('g')
       .attr('class', 'groupsessions')
+      .attr('z-index', 1)
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -171,7 +210,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0 
+        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
@@ -224,6 +263,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .data(oldItems)
       .enter()
       .append('g')
+      .attr('z-index', 1)
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -247,11 +287,11 @@ const AnalyticsChart = ({ items, oldItems }) => {
         return x1(d.key);
       })
       .attr('y', (d) => {
-        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0 
+        return loaded ? sessions(d.value) : sessions(0); // If its not loaded in we give a value of 0
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return loaded ? height - sessions(d.value) : height - sessions(0); // If its not loaded in we give a value of 0 
+        return loaded ? height - sessions(d.value) : height - sessions(0); // If its not loaded in we give a value of 0
       })
       .style('opacity', 1)
       .attr('fill', 'url(#red)')
@@ -307,6 +347,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .data(oldItems)
       .enter()
       .append('g')
+      .attr('z-index', 1)
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -379,6 +420,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .enter()
       .append('g')
       .attr('class', 'bouncegroup')
+      .attr('z-index', 1)
       .attr('transform', (d) => {
         return 'translate(' + x0(clientStore.truncateString(d.name)) + ',0)';
       })
@@ -453,33 +495,10 @@ const AnalyticsChart = ({ items, oldItems }) => {
           return height - pageviews(d.value);
         });
     }
-    
+
     svgCanvas.selectAll('g').select('rect').remove();
 
     // oproepen van de y-as links
-    svgCanvas
-      .append('g')
-      .attr('class', 'y axis')
-      .attr('transform', `translate(${margin.left},${margin.top} )`)
-      .call(d3.axisLeft().scale(oldPageviews).ticks(3))
-      .transition().duration(800)
-      .call(d3.axisLeft().scale(pageviews).ticks(2));
-
-    // oproepen van de x-as
-    svgCanvas
-      .append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x0));
-
-    // oproepen van de y-as rechts
-    svgCanvas
-      .append('g')
-      .attr('class', 'axis--y axis')
-      .attr('transform', `translate( ${width - margin.right} )`)
-      .call(d3.axisRight().scale(sessionsOld).ticks(3))
-      .transition().duration(800)
-      .call(d3.axisRight().scale(sessions).ticks(3));
 
     // Styling van de elementenxss
     svgCanvas
@@ -494,19 +513,27 @@ const AnalyticsChart = ({ items, oldItems }) => {
 
     svgCanvas.select('.axis--x').selectAll('line').style('display', 'none');
 
-    svgCanvas.select('.axis--x').selectAll('.domain').style('display', 'none');
+    svgCanvas.select('.axis--x').selectAll('.domain').remove();
 
-    svgCanvas.selectAll('.domain').style('display', 'none');
+    svgCanvas.selectAll('.domain').remove();
     svgCanvas
       .select('.axis--y')
       .selectAll('.tick')
       .select('line')
       .style('display', 'none');
+
     svgCanvas
       .select('.y')
-      .selectAll('.tick')
-      .select('line')
+      .select('.tick:first-of-type line')
       .style('display', 'none');
+
+
+    svgCanvas
+      .select('.y')
+      .selectAll('.tick line')
+      .attr('z-index', -1)
+      .attr('opacity', '0.2')
+      .attr('stroke', RADIALCOLORS.textColor);
 
     svgCanvas
       .select('.axis--y')
@@ -528,7 +555,10 @@ const AnalyticsChart = ({ items, oldItems }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalViews]);
+  useEffect(() => {graph();setLoaded(true);setLoaded(true);}, [clientStore.totalViews]);
+  
+  useEffect(() => {setTimeout(() => { clientStore.loaded = true;}, 800);
+  });
 
   return (
     <>
@@ -558,7 +588,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
           </p>
         </div>
       </div>
-      <div className={styles.outer}>
+      <div id="outer" className={styles.outer}>
         <svg width={widthCalculator} height="500" ref={ref}></svg>
       </div>
     </>

@@ -17,7 +17,8 @@
 .outer {
     width: 64rem;
     height: 58.8rem;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .categories {

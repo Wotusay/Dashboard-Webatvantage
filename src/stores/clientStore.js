@@ -14,22 +14,23 @@ class ClientStore {
     this.newDataThree = [];
     this.latestData = [];
     this.categories = [];
+    this.loaded = false;
   }
 
   loadAllItems = async () => {
     // This is our start datt
     const items = await this.clientsService.getAll(); // Calls the getAll function from the class ClientService
-    
+
     items.forEach((item) => {
-      this.setItems(item); 
+      this.setItems(item);
       this.setCategories(item);
       this.latestData.push(item); // We keep this data for a reference point to compare later
     });
 
     // Here we call the other files that we need to update
     const newData = await this.clientsService.getAllNewData(); // Calls the getAllNewData function from the class ClientService
-    const newDataTwo = await this.clientsService.getAllAllNewDataTwo();// Calls the getAllAllNewDataTwo function from the class ClientService
-    const newDataThree = await this.clientsService.getAllAllNewDataThree();// Calls the getAllAllNewDataThree function from the class ClientService
+    const newDataTwo = await this.clientsService.getAllAllNewDataTwo(); // Calls the getAllAllNewDataTwo function from the class ClientService
+    const newDataThree = await this.clientsService.getAllAllNewDataThree(); // Calls the getAllAllNewDataThree function from the class ClientService
 
     items.forEach((item) => {
       this.setFirstData(item);
@@ -47,7 +48,7 @@ class ClientStore {
       this.setNewDataThree(item);
     });
 
-    this.setDifferentData(); 
+    this.setDifferentData();
   };
 
   updateDataSet = () => {
@@ -59,28 +60,33 @@ class ClientStore {
         return false;
       }
     };
-
-    // Here we set all the new data items in the ECommerce list
-    switch (true) {
-      case equals(this.eCommerceItems, this.firstData):
-            // We copy the old list into the latestdata so we can reference it later 
-        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
-            // Here we set all the new data items in the ECommerce list
-        this.eCommerceItems = this.newData;
-        break;
-      case equals(this.eCommerceItems, this.newData):
-        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
-        this.eCommerceItems = this.newDataTwo;
-        break;
-      case equals(this.eCommerceItems, this.newDataTwo):
-        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
-        this.eCommerceItems = this.newDataThree;
-        break;
-      case equals(this.eCommerceItems, this.newDataThree):
-        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
-        this.eCommerceItems = this.firstData;
-        break;
-      default:
+    console.log(this.loaded)
+    if (this.loaded) {
+      console.log(this.loaded)
+      // Here we set all the new data items in the ECommerce list
+      switch (true) {
+        case equals(this.eCommerceItems, this.firstData):
+          // We copy the old list into the latestdata so we can reference it later
+          this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+          // Here we set all the new data items in the ECommerce list
+          this.eCommerceItems = this.newData;
+          break;
+        case equals(this.eCommerceItems, this.newData):
+          this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+          this.eCommerceItems = this.newDataTwo;
+          break;
+        case equals(this.eCommerceItems, this.newDataTwo):
+          this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+          this.eCommerceItems = this.newDataThree;
+          break;
+        case equals(this.eCommerceItems, this.newDataThree):
+          this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+          this.eCommerceItems = this.firstData;
+          break;
+        default:
+      }
+    } else {
+      return;
     }
 
     // After each iteration we need to call the best category to update it
@@ -89,16 +95,18 @@ class ClientStore {
 
   setCategories = async (item) => {
     let itemExists = this.categories.findIndex((i) => i === item.category); // To prevent double items in the aray
-    if(itemExists === -1) {
+    if (itemExists === -1) {
       await this.categories.push(item.category);
     } else {
       return;
     }
-  }
+  };
 
   setDifferentData = () => {
     // Here we call the function every x-sec to give it like a realtime effect
-    setInterval(() => {this.updateDataSet()}, 5000);
+    setInterval(() => {
+      this.updateDataSet();
+    }, 7000);
   };
 
   setItems = async (item) => {
@@ -370,7 +378,7 @@ class ClientStore {
 
     return sum.toFixed(0); // Gives the sum with 0.00
   }
-  
+
   truncateString(str) {
     let num = 13;
     // If the length of str is less than or equal to num
@@ -385,7 +393,8 @@ class ClientStore {
 
 decorate(ClientStore, {
   latestData: observable,
-  categories:observable,
+  loaded: observable,
+  categories: observable,
   eCommerceItems: observable,
   firstData: observable,
   newData: observable,

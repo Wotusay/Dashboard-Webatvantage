@@ -9,6 +9,9 @@ import './fonts/Poppins/Poppins-Bold.ttf';
 import './fonts/Poppins/Poppins-Medium.ttf';
 import './fonts/Poppins/Poppins-SemiBold.ttf';
 import './fonts/Poppins/Poppins-ExtraBold.ttf';
+import 'overlayscrollbars/css/OverlayScrollbars.css';
+
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -21,3 +24,6 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+

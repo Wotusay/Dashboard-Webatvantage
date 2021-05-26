@@ -10,5 +10,6 @@
 .outer {
     width: 98rem;
     height: 50.8rem;
-    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
