@@ -237,7 +237,7 @@ const AquistionChart = ({ items }) => {
         return -y(d);
       })
       .attr('dy', chartSetttings.yTickStyles.text.dy)
-      .attr('stroke', '#EDEFF9')
+      .attr('stroke', '#fff')
       .attr('stroke-width', chartSetttings.yTickStyles.text.strokeWidth)
       .style('font-weight', '600')
       .style('font-size', '1.5rem')
@@ -302,7 +302,7 @@ const AquistionChart = ({ items }) => {
   return (
     <>
       <svg
-        style={{ borderRadius: '50%' }}
+        className=' bg-white rounded-full shadow-xl'
         ref={ref}
         width="720"
         height="720"></svg>

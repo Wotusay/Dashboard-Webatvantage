@@ -89,12 +89,20 @@ const ECommerce = () => {
             style: 'currency',
             currency: 'EUR',
           }).format(clientStore.totalEariningMonth)} last month`}
+          isANumber={true}
+          isCurrency={true}
+          from={clientStore.latestNumbers.totalLatestEarnings}
+          raw={clientStore.totalEarining}
         />
         <Card
           title={`Total sold`}
           number={clientStore.avgSold}
           rate={calulationRateEarnings}
           tagline={`Compared to ${clientStore.avgSoldMonth} last month`}
+          isANumber={true}
+          isCurrency={false}
+          from={clientStore.latestNumbers.totalLatestConversions}
+          raw={clientStore.avgSold}
         />
         <Card
           title={`Best category`}
@@ -104,6 +112,9 @@ const ECommerce = () => {
             style: 'currency',
             currency: 'EUR',
           }).format(clientStore.categoryTotal.total)} in total`}
+          isANumber={false}
+          raw={''}
+          isCurrency={false}
         />
       </div>
         <motion.div

@@ -15,6 +15,7 @@ class ClientStore {
     this.latestData = [];
     this.categories = [];
     this.loaded = false;
+    this.latestNumbers = [];
   }
 
   loadAllItems = async () => {
@@ -49,6 +50,7 @@ class ClientStore {
     });
 
     this.setDifferentData();
+    this.getAllLatestNumbers();
   };
 
   updateDataSet = () => {
@@ -60,9 +62,9 @@ class ClientStore {
         return false;
       }
     };
-    console.log(this.loaded)
+    console.log(this.loaded);
     if (this.loaded) {
-      console.log(this.loaded)
+      console.log(this.loaded);
       // Here we set all the new data items in the ECommerce list
       switch (true) {
         case equals(this.eCommerceItems, this.firstData):
@@ -91,6 +93,7 @@ class ClientStore {
 
     // After each iteration we need to call the best category to update it
     this.bestEaringCategory();
+    this.getAllLatestNumbers();
   };
 
   setCategories = async (item) => {
@@ -219,6 +222,75 @@ class ClientStore {
     } else {
       this.categoryTotal = biggestOne;
     }
+  };
+
+  getAllLatestNumbers = () => {
+    let totalConversionsNumbers = [];
+    let totalEarningNumbers = [];
+    let totalPageViewsNumbers = [];
+    let totalSessionsNumbers = [];
+    let totalUsersNumbers = [];
+
+    this.latestData.map((item) => {
+      return totalEarningNumbers.push(item.eCommerceData.totalRevenue);
+    });
+
+    this.latestData.map((item) => {
+      return totalPageViewsNumbers.push(item.analyticsData.pageviews);
+    });
+
+    this.latestData.map((item) => {
+      return totalSessionsNumbers.push(item.analyticsData.totalSessions);
+    });
+
+    this.latestData.map((item) => {
+      return totalUsersNumbers.push(item.analyticsData.totalUsers);
+    });
+
+    this.latestData.map((item) => {
+      return totalConversionsNumbers.push(item.eCommerceData.conversions);
+    });
+
+    const sum = (array) => {
+      let s = array.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+      return s.toFixed(2);
+    };
+
+    const sumForAnalytics = (array) => {
+      let s = array.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+      return s.toFixed(0);
+    };
+
+    const avg = (array) => {
+      let s = array.reduce((a, b) => {
+        return (a + b) / array.length;
+      }, 0);
+
+      return s.toFixed(0);
+    };
+
+    const totalLatestEarnings = sum(totalEarningNumbers);
+    const totalLatestConversions = avg(totalConversionsNumbers);
+    const totalLatestUsers = sumForAnalytics(totalUsersNumbers);
+    const totalLatestSessions = sumForAnalytics(totalSessionsNumbers);
+    const totalLatestViews = sumForAnalytics(totalPageViewsNumbers);
+
+    let tempObj = {
+      totalLatestEarnings: parseInt(totalLatestEarnings),
+      totalLatestConversions: parseInt(totalLatestConversions),
+      totalLatestUsers: parseInt(totalLatestUsers),
+      totalLatestSessions: parseInt(totalLatestSessions),
+      totalLatestViews: parseInt(totalLatestViews),
+    };
+
+    console.log(tempObj);
+    this.latestNumbers = tempObj;
   };
 
   sum = async (array) => {
@@ -393,6 +465,7 @@ class ClientStore {
 
 decorate(ClientStore, {
   latestData: observable,
+  latestNumbers: observable,
   loaded: observable,
   categories: observable,
   eCommerceItems: observable,

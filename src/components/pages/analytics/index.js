@@ -24,11 +24,11 @@ const Analytics = () => {
   const item = clientStore.eCommerceItems;
 
   let decreaseValueViews =
-    clientStore.totalEarining - clientStore.totalEariningMonth;
+    clientStore.totalViews - clientStore.totalLastMonthViews;
   let decreaseValueSessions =
-    clientStore.totalEarining - clientStore.totalEariningMonth;
+    clientStore.totalSessions - clientStore.totalLastMonthSessions;
   let decreaseValueUsers =
-    clientStore.totalEarining - clientStore.totalEariningMonth;
+    clientStore.totalUsers - clientStore.totalLastMonthUsers;
 
   useEffect(() => {
     let timeout = null;
@@ -87,6 +87,10 @@ const Analytics = () => {
                 tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
                   clientStore.totalLastMonthViews
                 )} last month`}
+                raw={clientStore.totalViews}
+                isANumber={true}
+                from={clientStore.latestNumbers.totalLatestViews}
+                isCurrency={false}
               />
               <Card
                 title={`Total sessions`}
@@ -100,6 +104,10 @@ const Analytics = () => {
                 tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
                   clientStore.totalLastMonthSessions
                 )} last month`}
+                from={clientStore.latestNumbers.totalLatestSessions}
+                raw={clientStore.totalSessions}
+                isANumber={true}
+                isCurrency={false}
               />
               <Card
                 title={`Total users`}
@@ -113,6 +121,10 @@ const Analytics = () => {
                 tagline={`Compared to ${new Intl.NumberFormat('de-DE').format(
                   clientStore.totalLastMonthUsers
                 )} last month`}
+                from={clientStore.latestNumbers.totalLatestUsers}
+                raw={clientStore.totalUsers}
+                isANumber={true}
+                isCurrency={false}
               />
             </div>
             <motion.div
