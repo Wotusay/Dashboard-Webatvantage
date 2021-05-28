@@ -57,7 +57,7 @@ const Analytics = () => {
         initialize: false,
       },
     });
-  });
+  },[]);
 
   return useObserver(() => (
     <>

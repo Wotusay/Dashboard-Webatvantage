@@ -80,12 +80,12 @@ const ECommerce = () => {
         <div className={styles.cardsWrapper}>
         <Card
           title={`Total earning`}
-          number={new Intl.NumberFormat('de-DE', {
+          number={new Intl.NumberFormat('nl-NL', {
             style: 'currency',
             currency: 'EUR',
           }).format(clientStore.totalEarining)}
           rate={calulationRateAvg}
-          tagline={`Compared to ${new Intl.NumberFormat('de-DE', {
+          tagline={`Compared to ${new Intl.NumberFormat('nl-NL', {
             style: 'currency',
             currency: 'EUR',
           }).format(clientStore.totalEariningMonth)} last month`}
@@ -108,7 +108,7 @@ const ECommerce = () => {
           title={`Best category`}
           number={clientStore.categoryTotal.category}
           rate={''}
-          tagline={`Earned ${new Intl.NumberFormat('de-DE', {
+          tagline={`Earned ${new Intl.NumberFormat('nl-NL', {
             style: 'currency',
             currency: 'EUR',
           }).format(clientStore.categoryTotal.total)} in total`}

@@ -26,5 +26,31 @@
     justify-content: space-evenly;
     align-items: center;
     grid-template-columns:repeat(3, minmax(0, 15rem));
-    grid-gap: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+@media only screen and (min-width: 1200px) {
+    .outer {
+        width: 55rem;
+        height: 58.8rem;
+    }
+
+    .chart {
+        width: 55rem;
+
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .outer {
+        width: 64rem;
+        height: 58.8rem;
+    }
+
+
+    .chart {
+        width: 64rem;
+
+    }
 }

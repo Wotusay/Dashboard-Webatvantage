@@ -20,14 +20,13 @@
 
 .label {
     display: flex;
-    justify-content: right;
     align-items:center;
 }
 
 .sectorLayout {
     display: grid;
     grid-template-columns: 11rem 6rem 6rem;
-    grid-gap: 3.5rem;
+    grid-gap: 2.8rem;
     justify-content: center;
     align-items: center;
 }

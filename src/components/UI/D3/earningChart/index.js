@@ -491,7 +491,7 @@ const EarningChart = ({ items, oldItems }) => {
       .attr('y', (d) => y(d.rank) + 5 + (y(1) - y(0)) / 2 - 5)
       .text(
         (d) =>
-          `${new Intl.NumberFormat('de-DE', {
+          `${new Intl.NumberFormat('nl-NL', {
             style: 'currency',
             currency: 'EUR',
           }).format(d.eCommerceData.totalRevenue)}`
@@ -513,7 +513,7 @@ const EarningChart = ({ items, oldItems }) => {
         .data(_itemsSorted, (d) => d.name)
         .text(
           (d) =>
-            `${new Intl.NumberFormat('de-DE', {
+            `${new Intl.NumberFormat('nl-NL', {
               style: 'currency',
               currency: 'EUR',
             }).format(d.eCommerceData.totalRevenue)}`
@@ -614,7 +614,7 @@ const EarningChart = ({ items, oldItems }) => {
         exit="exit"
         animate="start">
         <div id='outer' className={styles.outer}>
-          <svg ref={ref} width="640" height={heightCalc}></svg>
+          <svg className={styles.chart} ref={ref} width="640" height={heightCalc}></svg>
         </div>
 
         <div className={styles.categories}>

@@ -53,3 +53,47 @@
     overflow: hidden;
     height: 80rem;
 } 
+
+@media only screen and (min-width: 1200px) {
+    .bg { 
+        width: 77rem;
+        height: 77rem;
+        margin-left: 0rem;
+   }
+
+   .chartsWrapper { 
+    grid-template-columns: 80rem 80rem;
+    padding-left: 10rem;
+
+   }
+
+   .cardsWrapper {
+    display: grid;
+    grid-template-columns: 26.5rem 26.5rem 26.5rem ;
+    grid-gap: 1rem;
+
+}
+
+}
+
+@media only screen and (min-width: 1900px) {
+    .bg { 
+        width: 77rem;
+        height: 77rem;
+        margin-left: 6rem;
+   }
+
+   .chartsWrapper {
+    grid-template-columns: 88rem 90rem;
+    padding-left: 5rem;
+
+    }
+
+    .cardsWrapper {
+        display: grid;
+        grid-template-columns: 28rem 28rem 28rem ;
+
+    
+    }
+
+}

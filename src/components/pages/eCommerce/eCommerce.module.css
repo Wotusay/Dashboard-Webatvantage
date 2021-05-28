@@ -11,7 +11,6 @@
 
     grid-gap: 2rem;
     z-index: 1;
-    margin-top: ;
     margin-bottom: 2rem;
 }
 
@@ -28,4 +27,28 @@
     height: max-content;
     display: grid;
     justify-content: center;
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardsWrapper {
+        grid-template-columns:32rem 25rem 25rem;
+        grid-gap: 1rem;
+    }
+
+    .chartsWrapper {
+        grid-gap: 4rem;
+        grid-template-columns: 82rem 65rem;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .cardsWrapper {
+        grid-template-columns:32rem 32rem 32rem;
+        grid-gap: 2rem;
+    }
+
+    .chartsWrapper {
+        grid-gap: 5rem;
+        grid-template-columns: 98rem 70rem;
+    }
 }

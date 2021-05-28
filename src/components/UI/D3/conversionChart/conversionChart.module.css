@@ -11,5 +11,20 @@
     width: 98rem;
     height: 50.8rem;
     overflow-y: hidden;
-    overflow-x: auto;
+    overflow-x: scroll;
+}
+
+@media only screen and (min-width: 1200px) {
+    .outer {
+    width: 82rem;
+    height: 50.8rem;
+}
+}
+
+
+@media only screen and (min-width: 1900px) {
+    .outer {
+    width: 98rem;
+    height: 50.8rem;
+}
 }

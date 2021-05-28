@@ -22,7 +22,7 @@ const LoadWatcherCard = () => {
         </span>
         <div id='outer' className={styles.sectorCard}>
           <div  className={styles.sectorLayout}>
-            {serverStore.servers.map((s) => (
+            {serverStore.sortedData.map((s) => (
               <>
                 <p
       

@@ -15,7 +15,6 @@ const AnalyticsChart = ({ items, oldItems }) => {
   };
 
   const { clientStore } = useStores();
-
   const widthCalculator = 71.5 * clientStore.lengthOfArray;
 
   const graph = () => {
@@ -216,8 +215,8 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('height', (d) => {
         return loaded ? height - sessions(d.value) : height - sessions(0); // If its not loaded in we give a value of 0
       })
-      .attr('fill', RADIALCOLORS.red)
-      .style('opacity', chartSetttings.opacity)
+      .attr('fill', '#F6B4B0')
+      .style('opacity', 1)
       .attr('rx', 3)
       .attr('ry', 3);
 
@@ -371,8 +370,8 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .attr('height', (d) => {
         return loaded ? height - pageviews(d.value) : height - pageviews(0);
       })
-      .attr('fill', RADIALCOLORS.purple)
-      .style('opacity', chartSetttings.opacity)
+      .attr('fill', '#CCCAFC')
+      .style('opacity', 1)
       .attr('rx', 3)
       .attr('ry', 3);
 
@@ -527,7 +526,6 @@ const AnalyticsChart = ({ items, oldItems }) => {
       .select('.tick:first-of-type line')
       .style('display', 'none');
 
-
     svgCanvas
       .select('.y')
       .selectAll('.tick line')
@@ -555,10 +553,15 @@ const AnalyticsChart = ({ items, oldItems }) => {
   };
 
   // eslint-disable-next-line
-  useEffect(() => {graph();setLoaded(true);setLoaded(true);}, [clientStore.totalViews]);
-  
-  useEffect(() => {setTimeout(() => { clientStore.loaded = true;}, 800);
+  useEffect(() => {  graph();  setLoaded(true);  setLoaded(true);}, [clientStore.totalViews]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      clientStore.loaded = true;
+    }, 800);
   });
+
+
 
   return (
     <>
@@ -589,7 +592,7 @@ const AnalyticsChart = ({ items, oldItems }) => {
         </div>
       </div>
       <div id="outer" className={styles.outer}>
-        <svg width={widthCalculator} height="500" ref={ref}></svg>
+        <svg className={styles.test} width={widthCalculator} height="500" ref={ref}></svg>
       </div>
     </>
   );

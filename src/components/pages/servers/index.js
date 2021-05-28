@@ -13,7 +13,7 @@ import OverlayScrollbars from 'overlayscrollbars';
 
 const Servers = () => {
   const { serverStore } = useStores();
-  const [loaded,setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   let rotate = 0;
   let multiplier = 360 / serverStore.totalLength;
   const multiplierForAttribute = serverStore.totalLength - 12;
@@ -25,19 +25,21 @@ const Servers = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
-    },2000);
+    }, 2000);
+  }, []);
 
+  useEffect(() => {
     OverlayScrollbars(document.querySelectorAll('#outer'), {
-      className : "os-theme-dark",
-      scrollbars:{
+      className: 'os-theme-dark',
+      scrollbars: {
         autoHide: 'l',
         autoHideDelay: 800,
       },
-      nativeScrollbarsOverlaid :{
-        initialize:false
-      }
+      nativeScrollbarsOverlaid: {
+        initialize: false,
+      },
     });
-  },[])
+  },);
   return useObserver(() => (
     <>
       <motion.div

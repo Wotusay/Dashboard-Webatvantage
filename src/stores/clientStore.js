@@ -62,9 +62,7 @@ class ClientStore {
         return false;
       }
     };
-    console.log(this.loaded);
     if (this.loaded) {
-      console.log(this.loaded);
       // Here we set all the new data items in the ECommerce list
       switch (true) {
         case equals(this.eCommerceItems, this.firstData):
@@ -107,9 +105,37 @@ class ClientStore {
 
   setDifferentData = () => {
     // Here we call the function every x-sec to give it like a realtime effect
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.updateDataSet();
     }, 7000);
+  };
+
+
+  setTimeRangeData = (value) => {
+    clearInterval(this.interval);
+
+    switch (true) {
+      case value === 'day':
+        // We copy the old list into the latestdata so we can reference it later
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        // Here we set all the new data items in the ECommerce list
+        this.eCommerceItems = this.firstData;
+        break;
+      case value === 'week':
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.newDataTwo;
+        break;
+      case value === 'month':
+        this.latestData = this.eCommerceItems.map((a) => ({ ...a }));
+        this.eCommerceItems = this.newDataThree;
+        break;
+      default:
+    }
+
+    this.bestEaringCategory();
+    this.getAllLatestNumbers();
+    this.setDifferentData()
+    
   };
 
   setItems = async (item) => {
@@ -217,7 +243,6 @@ class ClientStore {
     // Hier zorgen we err voor dat er altijd maar 1 item in de globale zit.
     if (this.categoryTotal.length >= 1) {
       this.categoryTotal = [];
-      console.log(biggestOne);
       this.categoryTotal = biggestOne;
     } else {
       this.categoryTotal = biggestOne;
@@ -289,7 +314,6 @@ class ClientStore {
       totalLatestViews: parseInt(totalLatestViews),
     };
 
-    console.log(tempObj);
     this.latestNumbers = tempObj;
   };
 

@@ -85,7 +85,6 @@
   position: relative;
   margin-left: 0rem;
   margin-top: 8rem;
-
 }
 
 .chartTotalWrapper {
@@ -151,5 +150,26 @@
     }
   }
 
+  @media only screen and (min-width: 1200px) {
+    .layout {
+      grid-template-columns: 36.5rem 100rem;
+      grid-gap: 10rem;
+  } 
+
+  .chartsWrapper {
+    margin-left: 9rem;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .layout {
+    grid-template-columns: 36.5rem 100rem;
+    grid-gap: 30rem;
+  }
+
+  .chartsWrapper {
+    margin-left: 0rem;
+  }
+}
 
 

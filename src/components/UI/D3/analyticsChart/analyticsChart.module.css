@@ -20,7 +20,29 @@
     width: 88rem;
     height: 52rem;
     overflow-y: hidden;
-    overflow-x: auto;
+    overflow-x: auto;    
     padding-left: 3rem;
     padding-top: 2rem;
+}
+
+
+@media only screen and (min-width: 1200px) {
+    .outer {
+        width: 80rem;
+        height: 52rem;
+    }
+    .legendWrapper {
+        grid-gap: 44rem;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .outer {
+        width: 88rem;
+        height: 52rem;
+    }
+
+    .legendWrapper {
+        grid-gap: 52rem;
+    }
 }

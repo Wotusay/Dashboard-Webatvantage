@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 
 const Counter = ({ from, to, isCurrency }) => {
   const nodeRef = useRef();
-  console.log(to);
 
   useEffect(() => {
     const node = nodeRef.current;
@@ -12,7 +11,7 @@ const Counter = ({ from, to, isCurrency }) => {
       duration: 1,
       onUpdate(value) {
         node.textContent = isCurrency
-          ? new Intl.NumberFormat('de-DE', {
+          ? new Intl.NumberFormat('nl-NL', {
               style: 'currency',
               currency: 'EUR',
             }).format(value)

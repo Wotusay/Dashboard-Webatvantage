@@ -14,6 +14,7 @@ class ServerStore {
     this.latestData = [];
     this.categories = rootStore.clientStore.categories;
     this.sectorData = [];
+    this.sortedData = [];
   }
 
   loadAllServers = async () => {
@@ -46,6 +47,21 @@ class ServerStore {
 
     this.sectorMapData();
     this.setDifferentData();
+    this.sortData();
+  };
+
+  sortData = () => {
+    this.sortedData = this.servers.slice().sort((a, b) => {
+      const colorOrder = ['red', 'orange', 'green'];
+      const getIndexColorOrder = (x) => {
+        return colorOrder.indexOf(x.status);
+      };
+
+      return (
+        getIndexColorOrder(a) - getIndexColorOrder(b) ||
+        b.load.current - a.load.current
+      );
+    });
   };
 
   updateDataSet = () => {
@@ -65,30 +81,27 @@ class ServerStore {
         this.latestData = this.servers.map((a) => ({ ...a }));
         // Here we set all the new data items in the ECommerce list
         this.servers = this.newData;
-        console.log(true);
 
         break;
       case equals(this.servers, this.newData):
         this.latestData = this.servers.map((a) => ({ ...a }));
         this.servers = this.newDataTwo;
-        console.log(true);
 
         break;
       case equals(this.servers, this.newDataTwo):
         this.latestData = this.servers.map((a) => ({ ...a }));
         this.servers = this.newDataThree;
-        console.log(true);
 
         break;
       case equals(this.servers, this.newDataThree):
         this.latestData = this.servers.map((a) => ({ ...a }));
         this.servers = this.firstData;
-        console.log(true);
 
         break;
       default:
     }
 
+    this.sortData();
     // After each iteration we need to call the best category to update it
   };
 
@@ -239,6 +252,7 @@ class ServerStore {
 
 decorate(ServerStore, {
   servers: observable,
+  sortedData: observable,
   sectorData: observable,
   firstData: observable,
   categories: observable,
